@@ -1,0 +1,62 @@
+<!--이 태그의 내용은 주석입니다-->
+<!DOCTYPE html><!--이 문서(파일)가 html 문서임을 명시합니다-->
+<html lang="ko"><!--이 태그 안의 내용은 html 형식입니다 lang="ko" 부분은 속성이라고 하며 옵션이라고 생각하시면 편합니다-->
+
+<head><!--head body foot으로 이뤄지는 html 구조의 첫부분입니다.-->
+    <meta charset="UTF-8"><!--유니코드 인코딩 설정입니다(한글깨짐방지)-->
+    <title>테스트</title><!--이 문서의 제목을 설정합니다(탭에 보이는 텍스트)-->
+    <script src="fabric.min.js"></script><!--외부 javascript 라이브러리를 추가합니다-->
+    <script src="textbox.js" type="text/javascript"></script><!--외부 javascript 파일을 추가합니다-->
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+    </style>
+</head><!--대부분의 태그는 <태그>내용</태그>의 구조로 감싸줍니다.-->
+
+<body><!--html 구조의 본문입니다.-->
+    <div style = "display: none">
+        <img src = "images/Start.png" id="start-image">
+        <img src = "images/End.png" id="end-image">
+    </div>
+    <table><!--이 태그 안의 내용은 표의 구조로 만들것을 나타냅니다.-->
+        <tbody><!--표의 본문을 뜻합니다. 위의 table 태그와 하상 같이 쓴다고 보시면 됩니다.-->
+            <tr><!--표의 한 행을 뜻합니다. 이 태그 안의 내용은 한 행에서 만들어집니다.-->
+                <td><!--표의 열을 뜻합니다. td태그의 짝(pair) 수 만큼 한 행당 그 짝의 칸 수가 만들어진다고 보시면 편합니다.-->
+                    <!--크기와 색등의 정보를 가지고 구역을 나눠주는 태그입니다. width height의 크기만큼의 구역만큼 지정하고
+                    backgounrd-color의 배경색으로 채웁니다. float는 정렬하기 위한 속성인데 무시하셔도 됩니다.-->
+                    <div style="width: 1200px; height: 700px; float: left; background-color: lightcyan"></div>
+                    <!--캔버스(그림이 나오는 구역)의 영역을 지정합니다. id: 캔버스의 레퍼런스(참조이름), width: 너비 height 높이
+                    style="border: 테두리의 굵기, solid: 배경색-->
+                    <canvas id="c" width="1200" height="700" style="border: 0px solid #000000"></canvas>
+                  
+                    <!--javascript 코드에 해당하는 영역입니다.-->
+                    <script src="canvas.js"></script>
+                    </div>
+                </td>
+
+                <td>
+                    <!--500x700 사이즈의 영역을 지정합니다.-->
+                    <div style="width: 300px; height: 700px; float: left; background-color: skyblue; ">
+                        <!--form 태그안에는 서버같은 곳에 보낼 입력값들입니다.-->
+                        <form name="myform" action="" method="get">
+                            출발
+                            <input type="text" name="inputbox" value="" id="start"><br><!--텍스트박스를 생성합니다. type="text"로 텍스트박스를 만들고
+                                                                                               id값을 줍니다. id값으로 외부에서 텍스트값을 조정이 가능합니다.-->
+                            도착
+                            <input type="text" name="inputbox2" value="" id="end"><br>
+                            <input type="button" name="button" value="탐색" onclick=""><!--버튼을 생성합니다. type="button" onclick="함수"<-클릭시 해당함수를 실행합니다. this.form은 
+                                                                                           현재 태그의 레퍼런스 값입니다.(값변경을 위합니다.)-->
+                            <input type="button" name="button2" value="초기화" onclick="Init(this.form)"><!--textbox.js의 Init 함수 참고-->
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    
+
+</body>
+
+</html>
