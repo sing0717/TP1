@@ -38,6 +38,14 @@ function makeRail(LineColor){
         for(i = 0 ;i < nodes.length;i++)
             canvas.add(nodes[i], nodes[i].Text);
     };
+
+    nodes.init = function(){
+        var i;
+        for(i = 0;i<lines.length;i++)
+            lines[i].redraw('LineColor', 5);
+        for(i = 0 ;i <nodes.length;i++)
+            nodes[i].set('stroke', 'gray');
+    }
     
     return nodes;
 }
@@ -127,6 +135,7 @@ function Init(rails, canvas){
     document.getElementById('end').value = '';
     endImg.set('visible', false);
     startImg.set('visible', false);
+    console.log(rails.length);
     for(let i = 0; i < rails.length; i++)
         rails[i].init();
     canvas.requestRenderAll();
