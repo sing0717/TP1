@@ -1,0 +1,233 @@
+@mixin transition {
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) {
+      transition: transform 1s #{$i * .08}s cubic-bezier(.29,1.4,.44,.96);
+    }
+  }
+}
+
+@mixin alpha-attribute($attribute, $color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  #{$attribute}: $solid-color;
+  #{$attribute}: $color;
+}
+
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+form {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+$main: #E0FFFF;
+$text: #000000;
+$contrast: darken($main, 10%);
+.msg {
+  font-family: 'Pacifico', cursive;
+  font-size: 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  align-items: center;
+  color: $text;
+  background-color: $main;
+}
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  transform: translate(100vw, 0);
+  /* ie workaround */
+  -ms-transform: translatex(-100vw);
+  box-sizing: border-box;
+  pointer-events: none;
+  padding-top: 125px;
+  transition: width 475ms ease-out, transform 450ms ease, border-radius .8s .1s ease;
+  border-bottom-left-radius: 100vw;
+  @include alpha-attribute('background-color', rgba($contrast, 0.8), white);
+  @media (min-width: 768px) {
+    width: 20vw;
+  }
+  form {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    pointer-events: auto;
+  }
+  li {
+    list-style: none;
+    text-transform: uppercase;
+    pointer-events: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
+    transform: translatex(100vw);
+    /* ie workaround */
+    -ms-transform: translatex(-100vw);
+    &:last-child {
+      margin-bottom: 2em;
+    }
+    a {
+      text-decoration: none;
+      color: $text;
+      text-align: center;
+      display: block;
+      padding: 1rem;
+      font-size: calc(24px - .5vw);
+      @media (min-width: 768px) {
+        text-align: right;
+        padding: .5rem;
+      }
+      &:hover {
+        cursor: pointer;
+        @include alpha-attribute('background-color', rgba($main, 0.5), white);
+      }
+    }
+  }
+}
+
+input.menu {
+  display: none;
+  &:checked {
+    & ~ .sidebar {
+       transform: translatex(0);
+        border-bottom-left-radius: 0;
+        form {
+          transform: translatex(0);
+          @include transition;
+          a {
+            padding-right: 15px;
+          }
+        }
+    }
+    & ~ label {
+      > i {
+        background-color: transparent;
+        transform: rotate(90deg);
+        &:before {
+          transform: translate(-50%, -50%) rotate(315deg);
+        }
+        &:after {
+          transform: translate(-50%, -50%) rotate(-315deg);
+        }
+      }
+      close {
+        color: $text;
+        width: 100%;
+      }
+      open {
+        color: $text;
+        width: 0;
+      }
+    }
+  }
+}
+
+label.menu {
+  z-index: 9999;
+  position: relative;
+  display: block;
+  height: 50px;
+  width: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+  text {
+    close,
+    open {
+      text-transform: uppercase;
+      font-size: .8em;
+      position: absolute;
+      transform: translateY(50px);
+      text-align: center;
+      overflow: hidden;
+      transition: width .25s .35s, color .45s .35s;
+    }
+    close {
+      color: rgba(0, 0, 0, 0);
+      right: 0;
+      width: 0;
+    }
+    open {
+      color: $text;
+      width: 100%;
+    }
+  }
+  > i {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    background-color: $text;
+    pointer-events: auto;
+    transition-duration: .35s;
+    transition-delay: .35s;
+    &:before,
+    &:after {
+      position: absolute;
+      display: block;
+      width: 100%;
+      height: 2px;
+      left: 50%;
+      background-color: $text;
+      content: "";
+      transition: transform 0.35s;
+      transform-origin: 50% 50%;
+    }
+    &:before {
+      transform: translate(-50%, -14px);
+    }
+    &:after {
+      transform: translate(-50%, 14px);
+    }
+  }
+}
+
+label.menu {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+}
+
+/**
+    SCROLLBAR STYLE FOR IE
+*/
+
+body {
+  scrollbar-base-color: rgb(19, 138, 114);
+  scrollbar-3dlight-color: #fff;
+  scrollbar-highlight-color: #1abc9c;
+  scrollbar-track-color: #fff;
+  scrollbar-arrow-color: #1abc9c;
+  scrollbar-shadow-color: #1abc9c;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.icon {
+  display: inline-block;
+  width: 5vw;
+  height: 4vw;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

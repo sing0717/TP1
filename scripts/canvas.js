@@ -66,24 +66,29 @@ function makeCircle(x, y, name) {
             document.getElementById('start').value = c.name;
             canvas.startSelected = c;
             c.set('stroke', 'green');
+            startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
             canvas.startSelected.set('stroke', 'gray');
             canvas.startSelected = null;
             c.set('stroke', 'gray');
+            startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true);
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
             canvas.endSelected = null;
             c.set('stroke', 'gray');
+            endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
             canvas.endSelected = c;
             c.set('stroke', 'green');
+            endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }else{
             document.getElementById('end').value = c.name;
             canvas.endSelected.set('stroke', 'gray');
             canvas.endSelected = c;
             c.set('stroke', 'green');
+            endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }
         canvas.requestRenderAll();
     });
@@ -116,32 +121,14 @@ function makeLine(startCircle, endCircle, curve) {
     return Line;
 }
 
+function Init(rails, canvas){
+    canvas.startSelected = canvas.endSelected = null;
+    document.getElementById('start').value = '';
+    document.getElementById('end').value = '';
+    endImg.set('visible', false);
+    startImg.set('visible', false);
+    for(let i = 0; i < rails.length; i++)
+        rails[i].init();
+    canvas.requestRenderAll();
+}
 
-//MAIN
-var canvas = makeCanvas("c");
-
-redRail = makeRail('red');
-greenRail = makeRail('green');
-blueRail = makeRail('blue');
-
-redRail.add(makeCircle(400, 30, "R1"));
-redRail.add(makeCircle(400, 80, "R2"));
-redRail.add(makeCircle(400, 140, "R3"));
-redRail.add(makeCircle(400, 180, "R4"));
-redRail.add(makeCircle(400, 280, "R5"));
-redRail.add(makeCircle(400, 405, "R6"));
-redRail.add(makeCircle(500, 505, "R7"));
-redRail.add(makeCircle(675, 505, "R8"));
-redRail.add(makeCircle(835, 505, "R9"));
-redRail.curve('R6'); //R6에서 다음 정거장으로 갈때 굽어짐
-
-greenRail.add(makeCircle(200, 40, "G1"));
-greenRail.add(makeCircle(200, 140, "G2"));
-greenRail.add(makeCircle(200, 270, "G3"));
-greenRail.add(makeCircle(200, 405, "G4"));
-greenRail.add(makeCircle(200, 505, "G5"));
-
-greenRail.connect();
-redRail.connect();
-greenRail.draw();
-redRail.draw();
