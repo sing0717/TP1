@@ -1,17 +1,26 @@
 var graph = new Graph();
-graph.insertVertex('A');
-graph.insertVertex('B');
-graph.insertVertex('C');
-graph.insertVertex('D');
-graph.insertVertex('E');
-graph.insertVertex('F');
-insertTwoWayArc(graph, 6, 'A', 'B');
-insertTwoWayArc(graph, 3, 'A', 'C');
-insertTwoWayArc(graph, 2, 'B', 'C');
-insertTwoWayArc(graph, 5, 'B', 'D');
-insertTwoWayArc(graph, 3, 'C', 'D');
-insertTwoWayArc(graph, 4, 'C', 'E');
-insertTwoWayArc(graph, 2, 'D', 'E');
-insertTwoWayArc(graph, 3, 'D', 'F');
-insertTwoWayArc(graph, 5, 'E', 'F');
-graph.shortest('A', 'F');
+graph.insertVertex('R1');
+graph.insertVertex('R2');
+graph.insertVertex('R3');
+graph.insertVertex('R4');
+graph.insertVertex('R5');
+graph.insertVertex('R6');
+
+graph.insertVertex('B1');
+graph.insertVertex('B2');
+graph.insertVertex('B3');
+
+
+insertTwoWayArc(graph, 1, 'R1', 'R2');
+insertTwoWayArc(graph, 1.2, 'R2', 'R3');
+insertTwoWayArc(graph, 0.8, 'R3', 'R4');
+insertTwoWayArc(graph, 2, 'R4', 'R5');
+insertTwoWayArc(graph, 2.5, 'R5', 'R6');
+
+insertTwoWayArc(graph, 0.6, 'B1', 'B2');
+insertTwoWayArc(graph, 2.2, 'B2', 'R3');
+insertTwoWayArc(graph, 2, 'R3', 'B3');
+
+
+
+graph.shortest('R1', 'B3');
