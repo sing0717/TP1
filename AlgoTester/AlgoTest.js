@@ -14,4 +14,4 @@ insertTwoWayArc(graph, 4, 'C', 'E');
 insertTwoWayArc(graph, 2, 'D', 'E');
 insertTwoWayArc(graph, 3, 'D', 'F');
 insertTwoWayArc(graph, 5, 'E', 'F');
-graph.shortest('A');
+graph.shortest('A', 'F');

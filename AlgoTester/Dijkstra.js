@@ -5,6 +5,7 @@ var Graph = (function() {
       this.arc = null;
       this.key = key;
       this.inTree = null;
+      this.roots = " ";
     }
     function Arc(data, dest, capacity) {
       this.nextArc = null;
@@ -99,7 +100,7 @@ var Graph = (function() {
   //////////////////////////////////////////////////////////////////////////////
   //다익스트라 source: https://www.zerocho.com/category/Algorithm/post/584bd46f580277001862f1af
 
-  Graph.prototype.shortest = function(startKey) {
+  Graph.prototype.shortest = function(startKey, endKey) {
     var from = this.first;
     var nodePath = this.first.key;
     while (from) {
@@ -118,6 +119,7 @@ var Graph = (function() {
     }
     temp = this.first;
     temp.distance = 0;
+    temp.roots = temp.key + " ";
     while (temp) { // 반복문을 돌며 최단 거리를 찾음
       current = temp;
       temp = temp.next;
@@ -125,15 +127,19 @@ var Graph = (function() {
       while (arc) {
         if (arc.destination.distance > current.distance + arc.data) {
           arc.destination.distance = current.distance + arc.data;
-          nodePath = nodePath + " " + arc.destination.key;
-          console.log(nodePath);
+          arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+          console.log(arc.destination.roots);
         }
         arc = arc.nextArc;
       }
+      console.log("loop changed");
     }
     temp = this.first;
     while (temp) {
-      console.log('%s까지의 최단 거리는 %d입니다', temp.key, temp.distance);
+      if(temp.key === endKey){
+        console.log('%s까지의 최단 거리는 %d입니다', temp.key, temp.distance);
+        console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots)
+      }
       temp = temp.next;
     }
   };
