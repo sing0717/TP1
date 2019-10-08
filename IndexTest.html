@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Hachul2
+        </title>
+        <meta charset="UTF-8" lang="ko">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script type="text/javascript" src="scripts/fabric.min.js"></script>
+        <script type="text/javascript" src="scripts/format.js"></script>
+        <script type="text/javascript" src="scripts/canvas.js"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
+    </head>
+    <body>
+        
+        <content>
+            <div style = "display: none">
+                <img src = "images/Start.png" id="start-image">
+                <img src = "images/End.png" id="end-image">
+            </div>            
+            <section class="msg">
+                    <canvas id="c" width="1200" height="700"></canvas>
+                    <script src="scripts/canvasMain.js"></script>
+            </section>
+            
+            <input id="menu" class="menu" type="checkbox"/>
+            <label class="menu" for="menu">
+                <i></i>
+                <text>
+                <close>close</close>
+                <open>menu</open>
+                </text>
+            </label>
+            <section class="sidebar">
+                    <form id="asideForm" name="myform" action="" method="get" style="margin: 10px">
+                        <p>
+                            출발
+                            <input type="text" name="inputbox" value="" id="start"><br>
+                            도착
+                            <input type="text" name="inputbox2" value="" id="end"><br>
+                        </p>
+                        <input type="button" name="button" value="탐색" onclick="">
+                        <input type="button" name="button2" value="초기화" onclick="javascript:Init(Rails, canvas)">
+                    </form>
+            </section>
+        </content>
+    </body>
+</html>
