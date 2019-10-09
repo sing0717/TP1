@@ -10,6 +10,7 @@
         <script type="text/javascript" src="scripts/format.js"></script>
         <script type="text/javascript" src="scripts/canvas.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
+        <link rel="stylesheet" type="text/css" href="button/button.css">
     </head>
     <body>
         
@@ -39,8 +40,14 @@
                             도착
                             <input type="text" name="inputbox2" value="" id="end"><br>
                         </p>
-                        <input type="button" name="button" value="탐색" onclick="">
-                        <input type="button" name="button2" value="초기화" onclick="javascript:Init(Rails, canvas)">
+                        <div style='display:inline;min-width:180px;'>
+                            <div style='display:inline; float:left; width:90px'class="container">
+                                <button class="btn-1">탐색</button>
+                            </div> 
+                            <div style='display:inline; float:left; width:90px' class="container">
+                             <button class="btn-2" onclick="javascript:Init(Rails, canvas)">초기화</button>
+                            </div>
+                        </div>
                     </form>
             </section>
         </content>
