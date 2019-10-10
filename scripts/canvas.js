@@ -135,9 +135,23 @@ function Init(rails, canvas){
     document.getElementById('end').value = '';
     endImg.set('visible', false);
     startImg.set('visible', false);
-    console.log(rails.length);
     for(let i = 0; i < rails.length; i++)
         rails[i].init();
     canvas.requestRenderAll();
 }
 
+function getNodeElement(source, name){
+    for(var i = 0; i<source.node.length; i++){
+        if(source.node[i].name === name){
+            return source.node[i];
+        }
+        return undefined;
+    }
+}
+function showResultPath(source, paths){
+    var strArray= paths.split(' ');
+    for(var i = 0; i<strArray.length; i++){
+        console.log(strArray[i]);
+        getNodeElement(source, strArray[i]).set('color', 'black');        
+    }
+}
