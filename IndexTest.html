@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
         <link rel="stylesheet" type="text/css" href="button/button.css">
         <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
+        <link rel="stylesheet" type="text/css" href="textbox/textbox.css">
     </head>
     <body>
         
@@ -36,16 +37,16 @@
             <section class="sidebar">
                     <form id="asideForm" name="myform" action="" method="get" style="margin: 10px">
                         <p>
-                            출발
+                            <span class="font" >출발</span>
                             <input type="text" name="inputbox" value="" id="start"><br>
-                            도착
+                            <span class="font">도착</span>
                             <input type="text" name="inputbox2" value="" id="end"><br>
                         </p>
                         <div style='display:inline;min-width:180px;'>
-                            <div style='display:inline; float:left; width:90px'class="container">
+                            <div style='display:inline; float:left; width:100px 'class="container">
                                 <button class="btn-1">탐색</button>
                             </div> 
-                            <div style='display:inline; float:left; width:90px' class="container">
+                            <div style='display:inline; float:left; width:100px ' class="container">
                                 <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas)">초기화</button>
                             </div>
                         </div>
