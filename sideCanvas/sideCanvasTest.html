@@ -2,30 +2,24 @@
 <html>
     <head>
         <title>
-            Hachul2
+            Hachul22222
         </title>
         <meta charset="UTF-8" lang="ko">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <script type="text/javascript" src="scripts/fabric.min.js"></script>
-        <script type="text/javascript" src="scripts/format.js"></script>
-        <script type="text/javascript" src="scripts/canvas.js"></script>
-        <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
-        <link rel="stylesheet" type="text/css" href="button/button.css">
-        <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
+        <script type="text/javascript" src="../scripts/fabric.min.js"></script>
+        <script type="text/javascript" src="../scripts/format.js"></script>
+        <script type="text/javascript" src="../scripts/canvas.js"></script>
+        <link rel="stylesheet" type="text/css" href="../stylesheet/styles.css">
+        <link rel="stylesheet" type="text/css" href="../button/button.css">
+        <!---->
+        <link rel="stylesheet" type="text/css" href="sideCanvas.css">
+        <!---->
+
     </head>
     <body>
-        
-        <content>
-            <div style = "display: none">
-                <img src = "images/Start.png" id="start-image">
-                <img src = "images/End.png" id="end-image">
-            </div>            
-            <section class="msg">
-                    <canvas id="c" width="1200" height="700"></canvas>
-                    <script src="scripts/canvasMain.js"></script>
-            </section>
+        <content>          
             
-            <input id="menu" class="menu" type="checkbox" checked = "checked"/>
+            <input id="menu" class="menu" type="checkbox"/>
             <label class="menu" for="menu">
                 <i></i>
                 <text>
@@ -42,20 +36,25 @@
                             <input type="text" name="inputbox2" value="" id="end"><br>
                         </p>
                         <div style='display:inline;min-width:180px;'>
-                            <div style='display:inline; float:left; width:90px'class="container">
+                            <div style='display:inline' float:left; width:90px; class="container">
                                 <button class="btn-1">탐색</button>
                             </div> 
-                            <div style='display:inline; float:left; width:90px' class="container">
+                            <div style='display:inline' float:left; width-90; class="container">
                                 <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas)">초기화</button>
                             </div>
                         </div>
+
+                        
+                        <!---->
                         <p></p>
                         <div style="width: 90%; height: 200%; overflow: hidden">
                             <section class="side">
                                 <canvas id="s" width="1000%" height="300%" ></canvas>
-                                <script src="sideCanvas/sideCanvas.js"></script>
+                                <script src="sideCanvas.js"></script>
                             </section> 
                         </div>
+                        <!---->
+
                     </form>
             </section>
         </content>
