@@ -138,7 +138,8 @@ var Graph = (function() {
     while (temp) {
       if(temp.key === endKey){
         console.log('%s까지의 최단 거리는 %d입니다', temp.key, temp.distance);
-        console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots)
+        console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+        return temp.roots;
       }
       temp = temp.next;
     }

@@ -141,17 +141,32 @@ function Init(rails, canvas){
 }
 
 function getNodeElement(source, name){
-    for(var i = 0; i<source.node.length; i++){
-        if(source.node[i].name === name){
-            return source.node[i];
+    var Result;
+    console.log(name);
+    for(var i = 0; i<source.length; i++){
+        Result = source[i].getNode(name);
+        if(Result  != null){
+            console.log(Result);
+            return Result;
         }
-        return undefined;
     }
+    return null;
 }
 function showResultPath(source, paths){
     var strArray= paths.split(' ');
+    var Element;
     for(var i = 0; i<strArray.length; i++){
         console.log(strArray[i]);
-        getNodeElement(source, strArray[i]).set('color', 'black');        
+        Element = getNodeElement(source, strArray[i]);
+        console.log(Element);
+        if(Element != null){
+            Element.set('stroke', 'black');
+            canvas.renderAll();  
+        }
     }
+}
+
+function Submit(source){
+    var inputData = document.getElementById('start').value + ' ' +document.getElementById('end').value;
+    showResultPath(source,inputData);
 }
