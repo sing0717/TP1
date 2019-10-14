@@ -1,5 +1,5 @@
 function toggleUniform() {
-	var aObject = canvas.getActiveObject();
+	var aObject = sideCanvas.getActiveObject();
 	if (aObject.type === 'activeSelection') {
 		aObject.getObjects().forEach(function(obj) {
 			obj.set('strokeUniform', !obj.strokeUniform);
@@ -7,10 +7,10 @@ function toggleUniform() {
 	} else {
 		aObject.set('strokeUniform', !aObject.strokeUniform);
 	}
-	canvas.requestRenderAll();
+	sideCanvas.requestRenderAll();
 }
 
-var canvas = this.__canvas = new fabric.Canvas('s');
+var sideCanvas = this.__canvas = new fabric.Canvas('s');
 // create a rectangle object
 var rect = new fabric.Rect({
 	left: 100,
@@ -28,7 +28,7 @@ var rect = new fabric.Rect({
 	hasControls: true
 });
 
-canvas.add(rect);
+sideCanvas.add(rect);
 
 var circle1 = new fabric.Circle({
 	radius: 65,
@@ -48,5 +48,5 @@ var circle2 = new fabric.Circle({
 	strokeUniform: true
 });
 
-canvas.add(circle1);
-canvas.add(circle2);
+sideCanvas.add(circle1);
+sideCanvas.add(circle2);

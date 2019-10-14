@@ -1,6 +1,8 @@
 //canvas Constructor
 function makeCanvas(name){
     var canvas = new fabric.Canvas(name);
+    canvas.endSelected = null;
+    canvas.startSelected = null;
     fabric.Object.prototype.originX = fabric.Object.prototype.originY = 'center';
     return canvas;
 }
@@ -45,7 +47,7 @@ function makeRail(LineColor){
             lines[i].redraw('LineColor', 5);
         for(i = 0 ;i <nodes.length;i++)
             nodes[i].set('stroke', 'gray');
-    }
+    };
     
     return nodes;
 }
@@ -69,8 +71,11 @@ function makeCircle(x, y, name) {
     c.Text = new fabric.Text(name, {left: x+30, top: y, fontSize: 20, lockMovementX: true, lockMovementY: true, selectable: false});
     c.Text.hasControls = false;
 
+    c.on('modified', function(){
+        canvas.renderAll();
+    });
     c.on('mousedown', function(){
-        if (canvas.startSelected == null) {
+        if (canvas.startSelected == null && canvas.endSelected != c) {
             document.getElementById('start').value = c.name;
             canvas.startSelected = c;
             c.set('stroke', 'green');
@@ -80,12 +85,12 @@ function makeCircle(x, y, name) {
             canvas.startSelected.set('stroke', 'gray');
             canvas.startSelected = null;
             c.set('stroke', 'gray');
-            startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true);
+            startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',false);
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
             canvas.endSelected = null;
             c.set('stroke', 'gray');
-            endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
+            endImg.set('left', c.get('left')+ 25); endImg.set('visible', false);endImg.set('top', c.get('top')- 25);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
             canvas.endSelected = c;
@@ -98,7 +103,6 @@ function makeCircle(x, y, name) {
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }
-        canvas.requestRenderAll();
     });
     c.toString = function() {return x + ' ' + y;};
     return c;
@@ -130,7 +134,10 @@ function makeLine(startCircle, endCircle, curve) {
 }
 
 function Init(rails, canvas){
-    canvas.startSelected = canvas.endSelected = null;
+    canvas.startSelected.set('stroke', 'gray');
+    canvas.endSelected.set('stroke', 'gray');
+    canvas.startSelected = null;
+    canvas.endSelected = null;
     document.getElementById('start').value = '';
     document.getElementById('end').value = '';
     endImg.set('visible', false);
@@ -142,11 +149,9 @@ function Init(rails, canvas){
 
 function getNodeElement(source, name){
     var Result;
-    console.log(name);
     for(var i = 0; i<source.length; i++){
         Result = source[i].getNode(name);
         if(Result  != null){
-            console.log(Result);
             return Result;
         }
     }
@@ -156,17 +161,23 @@ function showResultPath(source, paths){
     var strArray= paths.split(' ');
     var Element;
     for(var i = 0; i<strArray.length; i++){
-        console.log(strArray[i]);
         Element = getNodeElement(source, strArray[i]);
-        console.log(Element);
         if(Element != null){
             Element.set('stroke', 'black');
-            canvas.renderAll();  
         }
     }
 }
 
 function Submit(source){
+    if(canvas.startSelected==null){
+        alert('출발역을 선택해 주세요.');
+        return;
+    }
+    if(canvas.endSelected==null){
+        alert('종착역을 선택해 주세요.');
+        return;
+    }
     var inputData = document.getElementById('start').value + ' ' +document.getElementById('end').value;
     showResultPath(source,inputData);
+    canvas.requestRenderAll();
 }
