@@ -1,4 +1,4 @@
-body {
+  body {
     background: #2ecc71;
     font-size: 62.5%;
   }
@@ -6,6 +6,7 @@ body {
   .container {
     margin: 0em;
     padding: 0em;
+    
   }
   
   /* GENERAL BUTTON STYLING */
@@ -24,12 +25,12 @@ body {
     font-weight: bold;
     border-radius: 5px;
     display: block;
-    font-size: 1.6em;
+    font-size: 1.4em;
     margin: 1em auto;
     padding: 0.3em 0.7em;
     position: relative;
     top:-20px;
-    left:20px;
+    left:5px;
     text-transform: uppercase;
   }
   
