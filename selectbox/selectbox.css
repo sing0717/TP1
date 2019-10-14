@@ -1,26 +1,15 @@
-input[type=text] {
+select{
     background: none;
     border: 3px solid rgb(255, 255, 255);
     color: #49beb7;
     font-weight: bold;
     border-radius: 5px;
     display: block;
-    font-size: 1.6em;
+    font-size: 1.4em;
     margin: 0.1em ;
     padding: 0.3em 0.7em;
     position: relative;
     text-transform: uppercase;
-    
+    top:-20px;
    
   }
-
-  span.font{
-    color:#49beb7;
-    font-size: 1.6em;
-    font-weight: bold;
-    
-  }
-  
-
-  
-  
