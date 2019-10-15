@@ -46,8 +46,10 @@ function makeRail(LineColor){
         for(i = 0;i<lines.length;i++)
             lines[i].redraw('LineColor', 5);
         for(i = 0 ;i <nodes.length;i++)
-            nodes[i].set('stroke', 'gray');
+            nodes[i].set('stroke', 'gray'), nodes[i].set('fill', 'white');
+
     };
+
     
     return nodes;
 }
@@ -77,28 +79,28 @@ function makeCircle(x, y, name) {
     c.on('mousedown', function(){
         if (canvas.startSelected == null && canvas.endSelected != c) {
             document.getElementById('start').value = c.name;
-            canvas.startSelected = c;
+            canvas.startSelected = c; c.selected = true;
             c.set('stroke', 'green');
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
             canvas.startSelected.set('stroke', 'gray');
-            canvas.startSelected = null;
+            canvas.startSelected = null; c.selected = false;
             c.set('stroke', 'gray');
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',false);
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
             canvas.endSelected = null;
-            c.set('stroke', 'gray');
+            c.set('stroke', 'gray'); c.selected = false;
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', false);endImg.set('top', c.get('top')- 25);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
-            canvas.endSelected = c;
+            canvas.endSelected = c; c.selected = true;
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }else{
             document.getElementById('end').value = c.name;
-            canvas.endSelected.set('stroke', 'gray');
+            canvas.endSelected.set('stroke', 'gray'); c.selected = true;
             canvas.endSelected = c;
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
@@ -147,6 +149,46 @@ function Init(rails, canvas){
     canvas.requestRenderAll();
 }
 
+function changeTextData(source, pointName = "none"){
+    var element;
+    if(document.getElementById('start').value == "" && canvas.startSelected !== null){
+        console.log("zz");
+        startImg.set('visible',false); canvas.startSelected.set('stroke', 'gray'); canvas.requestRenderAll();
+    }
+    else if(document.getElementById('end').value == "" && canvas.endSelected !== null){
+        endImg.set('visible',false); canvas.endSelected.set('stroke', 'gray'); canvas.requestRenderAll();
+    }
+    if(pointName === "start"){
+        element = getNodeElement(source, document.getElementById('start').value);
+        if(element != null){
+            for(let i = 0; i<Rails.length; i++)
+                Rails[i].init();
+            element.set('stroke', 'green');
+            if(element.selected !== true){
+                element.set('stroke', 'green'); canvas.startSelected.set('stroke', 'gray'); 
+                if(canvas.endSelected !== null) canvas.endSelected.set('stroke', 'green');
+                element.selected = false; canvas.startSelected =  element; document.getElementById('start').value = element.name;
+                startImg.set('left', element.get('left')+ 25); startImg.set('top', element.get('top')- 25); startImg.set('visible',true); 
+            }
+        }
+    }
+    else if(pointName === "end"){
+        element = getNodeElement(source, document.getElementById('end').value);
+        if(element != null){
+            for(let i = 0; i<Rails.length; i++)
+                Rails[i].init();
+            element.set('stroke', 'green');
+            if(element.selected !== true){
+                element.set('stroke', 'green'); canvas.endSelected.set('stroke', 'gray'); 
+                if(startSelected !== null) canvas.startSelected.set('stroke', 'green');
+                element.selected = false; canvas.endSelected = element; document.getElementById('end').value = element.name;
+                endImg.set('left', element.get('left')+ 25); endImg.set('top', element.get('top')- 25); endImg.set('visible',true); 
+            }
+        }
+    }
+     
+    canvas.requestRenderAll();
+}
 function getNodeElement(source, name){
     var Result;
     for(var i = 0; i<source.length; i++){
@@ -157,13 +199,14 @@ function getNodeElement(source, name){
     }
     return null;
 }
+
 function showResultPath(source, paths){
     var strArray= paths.split(' ');
     var Element;
     for(var i = 0; i<strArray.length; i++){
         Element = getNodeElement(source, strArray[i]);
         if(Element != null){
-            Element.set('stroke', 'black');
+            Element.set('fill', 'yellow');
         }
     }
 }
