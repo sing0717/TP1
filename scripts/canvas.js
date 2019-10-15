@@ -153,19 +153,24 @@ function changeTextData(source, pointName = "none"){
     var element;
     if(document.getElementById('start').value == "" && canvas.startSelected !== null){
         console.log("zz");
-        startImg.set('visible',false); canvas.startSelected.set('stroke', 'gray'); canvas.requestRenderAll();
+        startImg.set('visible',false); canvas.startSelected.set('stroke', 'gray');
+        canvas.startSelected = null;
     }
     else if(document.getElementById('end').value == "" && canvas.endSelected !== null){
-        endImg.set('visible',false); canvas.endSelected.set('stroke', 'gray'); canvas.requestRenderAll();
+        console.log("zz");
+        endImg.set('visible',false); canvas.endSelected.set('stroke', 'gray');
+        canvas.endSelected = null;
     }
     if(pointName === "start"){
         element = getNodeElement(source, document.getElementById('start').value);
+        console.log(element);
         if(element != null){
             for(let i = 0; i<Rails.length; i++)
                 Rails[i].init();
             element.set('stroke', 'green');
             if(element.selected !== true){
-                element.set('stroke', 'green'); canvas.startSelected.set('stroke', 'gray'); 
+                console.log("cc");
+                if(canvas.startSelected !== null) element.set('stroke', 'green'); canvas.startSelected.set('stroke', 'gray'); 
                 if(canvas.endSelected !== null) canvas.endSelected.set('stroke', 'green');
                 element.selected = false; canvas.startSelected =  element; document.getElementById('start').value = element.name;
                 startImg.set('left', element.get('left')+ 25); startImg.set('top', element.get('top')- 25); startImg.set('visible',true); 
@@ -179,8 +184,10 @@ function changeTextData(source, pointName = "none"){
                 Rails[i].init();
             element.set('stroke', 'green');
             if(element.selected !== true){
-                element.set('stroke', 'green'); canvas.endSelected.set('stroke', 'gray'); 
-                if(startSelected !== null) canvas.startSelected.set('stroke', 'green');
+                console.log("cc");
+                element.set('stroke', 'green');
+                if(canvas.endSelected !== null) canvas.endSelected.set('stroke', 'gray'); 
+                if(canvas.startSelected !== null) canvas.startSelected.set('stroke', 'green');
                 element.selected = false; canvas.endSelected = element; document.getElementById('end').value = element.name;
                 endImg.set('left', element.get('left')+ 25); endImg.set('top', element.get('top')- 25); endImg.set('visible',true); 
             }
