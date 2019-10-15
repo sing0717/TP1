@@ -102,8 +102,8 @@ var Graph = (function() {
 
   Graph.prototype.shortest = function(startKey, endKey) {
     var from = this.first;
-    var nodePath = this.first.key;
     while (from) {
+      console.log(from.key);
       if (from.key === startKey) {
         break;
       }
@@ -117,7 +117,7 @@ var Graph = (function() {
       temp.distance = Infinity;
       temp = temp.next;
     }
-    temp = this.first;
+    temp = from;
     temp.distance = 0;
     temp.roots = temp.key + " ";
     while (temp) { // 반복문을 돌며 최단 거리를 찾음

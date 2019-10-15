@@ -177,7 +177,7 @@ function Submit(source){
         alert('종착역을 선택해 주세요.');
         return;
     }
-    var inputData = document.getElementById('start').value + ' ' +document.getElementById('end').value;
+    var inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value);
     showResultPath(source,inputData);
     canvas.requestRenderAll();
 }
