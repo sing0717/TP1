@@ -10,24 +10,41 @@
         <script src="AlgoTester/Dijkstra.js"></script>
         <script type="text/javascript" src="scripts/format.js"></script>
         <script type="text/javascript" src="scripts/canvas.js"></script>
+        <script type="text/javascript" src="scripts/body.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
         <link rel="stylesheet" type="text/css" href="button/button.css">
         <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
         <link rel="stylesheet" type="text/css" href="textbox/textbox.css">
         <link rel="stylesheet" type="text/css" href="selectbox/selectbox.css">
+        <link rel="stylesheet" type="text/css" href="popup/popup.css">
     </head>
     <body>
         <script src="AlgoTester/AlgoTest.js"></script>  
-        <content>
+        <content></content>
             <div style = "display: none">
                 <img src = "images/Start.png" id="start-image">
                 <img src = "images/End.png" id="end-image">
-            </div>            
+            </div>
             <section class="msg">
                     <canvas id="c" width="1200" height="700"></canvas>
                     <script src="scripts/canvasMain.js"></script>
             </section>
-            
+            <div id="popup1" class="overlay">
+                <div class="popup">
+                    <h2>login / register</h2>
+                    <a class="close" href="">&times;</a>
+                    <div class="content">
+                        <form method="POST">
+                            <p>
+                                <span class="font">ID</span>
+                                <input type="text" name="UID" value="" id="UID" style="border: 1px solid black" onkeypress="UIDKeyPress()"><br>
+                                <!-- <span class="font">도착</span>
+                                <input type="text" name="inputbox2" value="" id="end"><br> -->
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <input id="menu" class="menu" type="checkbox" checked = "checked"/>
             <label class="menu" for="menu">
                 <i></i>
