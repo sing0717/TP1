@@ -1,3 +1,5 @@
+wlsgetItem = function(key){return sessionStorage.getItem(key);};
+wlssetItem = function(key, val){sessionStorage.setItem(key, val);};
 wsgetItem = function(key){return window.localStorage.getItem(key);};
 wssetItem = function(key, val){window.localStorage.setItem(key, val);};
 
@@ -14,28 +16,22 @@ window.onload = function(){
         wssetItem('numFavs', '0');
     }
 
-
-    if(wsgetItem('UID') == null || wsgetItem('visited') == null){
-        window.location.href += '#popup1';
-        wssetItem('visited', true);
-    }
     
-    // redirect to Popup
-    if(wsgetItem('visited') == null && wsgetItem('UID') != null){
-        wssetItem('visited', true);
-        if(window.document.location.hash == '#popup1'){
-            window.location.href = '#popup1';
-        }
+    // if(wlsgetItem('visited') == false){
+    //     wlssetItem('visited', true);
+    //     window.location.href += '#popup1';
+    //     return;
+    // }
+
+    if(wsgetItem('UID') == null){
+        window.location.href += '#popup1';
+        return;
     }
+
+    
 
     //FAV List
     for(var i = 0; i < parseInt(wsgetItem('numFavs')); i++){
         console.log(wsgetItem('start' + i.toString()) + ' ' + wsgetItem('end' + i.toString()));
-    }
-};
-
-UIDKeyPress = function(event){
-    if(event.keyCode == 13){
-        wssetItem('UID', document.getElementById('UID').value);
     }
 };
