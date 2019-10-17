@@ -96,6 +96,8 @@ var Graph = (function() {
     graph.insertArc(data, from, to);
     graph.insertArc(data, to, from);
   }
+ //////Queue
+ var queue = new Queue();
 
   //////////////////////////////////////////////////////////////////////////////
   //다익스트라 source: https://www.zerocho.com/category/Algorithm/post/584bd46f580277001862f1af

@@ -1,6 +1,6 @@
 var graph = new Graph();
-graph.insertVertex('T1');
 
+graph.insertVertex('T1');
 graph.insertVertex('R3');
 graph.insertVertex('R1');
 graph.insertVertex('R2');
@@ -8,7 +8,7 @@ graph.insertVertex('R2');
 graph.insertVertex('R4');
 graph.insertVertex('R5');
 graph.insertVertex('R6');
-graph.insertVertex('R7');
+graph.insertVertex('R7'); 
 graph.insertVertex('R8');
 
 graph.insertVertex('G1');
@@ -27,12 +27,11 @@ insertTwoWayArc(graph, 2.5, 'R5', 'R6');
 insertTwoWayArc(graph, 2.5, 'R6', 'R7');
 insertTwoWayArc(graph, 2.5, 'R7', 'R8');
 
-/*
+
 insertTwoWayArc(graph, 0.6, 'G1', 'G2');
 insertTwoWayArc(graph, 2.2, 'G2', 'G3');
 insertTwoWayArc(graph, 2.2, 'G3', 'T1');
 insertTwoWayArc(graph, 2.2, 'T1', 'G4');
 insertTwoWayArc(graph, 2, 'G4', 'G5');
 insertTwoWayArc(graph, 2, 'G5', 'G6');
-*/
 
