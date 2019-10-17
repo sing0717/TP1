@@ -212,6 +212,8 @@ function getNodeElement(source, name){
 function showResultPath(source, paths){
     var strArray= paths.split(' ');
     var Element;
+    for(let i = 0; i<Rails.length; i++)
+        Rails[i].init();
     for(var i = 0; i<strArray.length; i++){
         Element = getNodeElement(source, strArray[i]);
         if(Element != null){

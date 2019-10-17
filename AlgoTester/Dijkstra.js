@@ -133,11 +133,10 @@ var Graph = (function() {
           arc.destination.distance = current.distance + arc.data;
           arc.destination.roots = current.roots + " " + arc.destination.key + " ";
           queue.enqueue(arc.destination);
-          console.log(arc.destination.roots);
+          //console.log(arc.destination.roots);
         }
         arc = arc.nextArc;
       }
-      console.log("loop changed");
     }
     temp = this.first;
     while (temp) {
