@@ -115,19 +115,22 @@ var Graph = (function() {
     var arc;
     while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
       temp.distance = Infinity;
+      temp.visited =false;
       temp = temp.next;
     }
     temp = from;
     temp.distance = 0;
     temp.roots = temp.key + " ";
-    while (temp) { // 반복문을 돌며 최단 거리를 찾음
-      current = temp;
-      temp = temp.next;
+    queue.enqueue(from);
+    while (!(queue.isEmpty())) { // 반복문을 돌며 최단 거리를 찾음
+      current = queue.dequeue();
       arc = current.arc;
       while (arc) {
+        //console.log(current.key +"("+current.distance+")"+ "=" + "("+arc.data+")"+">" + arc.destination.key +"("+arc.destination.distance+")");
         if (arc.destination.distance > current.distance + arc.data) {
           arc.destination.distance = current.distance + arc.data;
           arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+          queue.enqueue(arc.destination);
           console.log(arc.destination.roots);
         }
         arc = arc.nextArc;
@@ -144,3 +147,4 @@ var Graph = (function() {
       temp = temp.next;
     }
   };
+  
