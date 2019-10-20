@@ -40,7 +40,7 @@ function makeRail(LineColor){
         for(i = 0 ;i < nodes.length;i++)
             canvas.add(nodes[i], nodes[i].Text);
     };
-
+/*
     nodes.init = function(){
         var i;
         for(i = 0;i<lines.length;i++)
@@ -49,7 +49,7 @@ function makeRail(LineColor){
             nodes[i].set('stroke', 'gray'), nodes[i].set('fill', 'white');
 
     };
-
+*/
     
     return nodes;
 }
@@ -79,6 +79,7 @@ function makeCircle(x, y, name) {
     c.on('mousedown', function(){
         if (canvas.startSelected == null && canvas.endSelected != c) {
             document.getElementById('start').value = c.name;
+            change_text(c.name);
             canvas.startSelected = c; c.selected = true;
             c.set('stroke', 'green');
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 

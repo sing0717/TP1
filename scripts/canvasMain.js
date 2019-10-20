@@ -16,34 +16,104 @@ canvas.add(startImg, endImg);
 redRail = makeRail('red');
 greenRail = makeRail('green');
 blueRail = makeRail('blue');
+yellowRail = makeRail('yellow');
+brownRail = makeRail('brown');
 
 
 Rails.push(greenRail);
 Rails.push(blueRail);
 Rails.push(redRail);
+Rails.push(yellowRail);
+Rails.push(brownRail);
 
-transfers.push(makeCircle(400,140, "T1"));
+transfers.push(makeCircle(420,170, "T2"));
+transfers.push(makeCircle(220,500, "T4"));
+transfers.push(makeCircle(200,600, "T5"));
+transfers.push(makeCircle(300,600, "T6"));
+transfers.push(makeCircle(600,600, "T7"));
+transfers.push(makeCircle(700,670, "T10"));
 
-redRail.add(makeCircle(400, 30, "R1"));
-redRail.add(makeCircle(400, 80, "R2"));
-redRail.add(transfers[0]);
-redRail.add(makeCircle(400, 180, "R3"));
-redRail.add(makeCircle(400, 280, "R4"));
-redRail.add(makeCircle(400, 405, "R5"));
-redRail.add(makeCircle(500, 505, "R6"));
-redRail.add(makeCircle(675, 505, "R7"));
-redRail.add(makeCircle(835, 505, "R8"));
-redRail.curve('R5'); //R6에서 다음 정거장으로 갈때 굽어짐
+brownRail.add(transfers[0]);
+brownRail.add(makeCircle(400, 270, "C1"));
+//brownRail.curve('C1');
+brownRail.add(makeCircle(340, 370, "C2"));
+brownRail.add(transfers[1]);
+brownRail.add(transfers[2]);
 
-greenRail.add(makeCircle(200, 40, "G1"));
-greenRail.add(makeCircle(200, 140, "G2"));
-greenRail.add(makeCircle(300, 140, "G3"));
-greenRail.add(transfers[0]);
-greenRail.add(makeCircle(500, 140, "G4"));
-greenRail.add(makeCircle(600, 140, "G5"));
-greenRail.add(makeCircle(700, 140, "G6"));
+blueRail.add(makeCircle(135, 270, "B8"));
+blueRail.add(makeCircle(135, 425, "B7"));
+blueRail.add(transfers[1]);
+blueRail.add(makeCircle(390, 520, "B6"));
+
+yellowRail.add(transfers[3]);
+yellowRail.add(makeCircle(400, 650, "E1"));
+yellowRail.add(makeCircle(500, 670, "E2"));
+yellowRail.add(makeCircle(590, 680, "E3"));
+yellowRail.add(transfers[5]);
+yellowRail.add(makeCircle(800, 660, "E4"));
+//greenRail.curve('R1'); //R6에서 다음 정거장으로 갈때 굽어짐
+
+redRail.add(makeCircle(50, 350, "D1"));
+redRail.add(makeCircle(50, 600, "D2"));
+//greenRail.add(makeCircle(300, 140, "G3"));
+redRail.add(transfers[2]);
+redRail.add(transfers[3]);
+redRail.add(makeCircle(450, 600, "D3"));
+redRail.add(transfers[4]);
+
 
 greenRail.connect();
 redRail.connect();
+yellowRail.connect();
+brownRail.connect();
+blueRail.connect();
+
 greenRail.draw();
 redRail.draw();
+yellowRail.draw();
+brownRail.draw();
+blueRail.draw();
+
+
+// Define an array with all fonts
+var fonts = ["Pacifico", "VT323", "Quicksand", "Inconsolata"];
+
+var textbox = new fabric.Textbox('changeTextData(Rails, start)', {
+  left: 150,
+  top: 50,
+  width: 150,
+  fontSize: 20
+});
+canvas.add(textbox).setActiveObject(textbox);
+fonts.unshift('Times New Roman');
+// Populate the fontFamily select
+var select = document.getElementById("font-family");
+fonts.forEach(function(font) {
+  var option = document.createElement('option');
+  option.innerHTML = font;
+  option.value = font;
+  select.appendChild(option);
+});
+
+// Apply selected font on change
+document.getElementById('font-family').onchange = function() {
+  if (this.value !== 'Times New Roman') {
+    loadAndUse(this.value);
+  } else {
+    canvas.getActiveObject().set("fontFamily", this.value);
+    canvas.requestRenderAll();
+  }
+};
+
+function loadAndUse(font) {
+  var myfont = new FontFaceObserver(font)
+  myfont.load()
+    .then(function() {
+      // when font is loaded, use it.
+      canvas.getActiveObject().set("fontFamily", font);
+      canvas.requestRenderAll();
+    }).catch(function(e) {
+      console.log(e)
+      alert('font loading failed ' + font);
+    });
+}
