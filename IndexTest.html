@@ -12,6 +12,7 @@
         <script type="text/javascript" src="scripts/format.js"></script>
         <script type="text/javascript" src="scripts/canvas.js"></script>
         <script type="text/javascript" src="scripts/body.js"></script>
+        <script type="text/javascript" src="buttonClick/buttonClick.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
         <link rel="stylesheet" type="text/css" href="button/button.css">
         <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
@@ -70,13 +71,13 @@
                                 <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소시간</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mTime',Rails),sideStart(),sideEnd(),sidePrint()">최소시간</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소환승</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mTrans',Rails),sideStart(),sideEnd(),sidePrint()">최소환승</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소비용</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mMoney',Rails),sideStart(),sideEnd(),sidePrint()">최소비용</button>
                             </div>
                             <select style='float:left'>
                                 <option>출발시간</option>
