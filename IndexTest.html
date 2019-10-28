@@ -64,10 +64,10 @@
                         </p>
                         <div style='display:inline;min-width:180px;'>
                             <div style='display:inline; float:left; width:120px 'class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails)">탐색</button>
+                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sideStart(),sideEnd(),sidePrint()">탐색</button>
                             </div> 
                             <div style='display:inline; float:left; width:100px ' class="container">
-                                <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas)">초기화</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
                                 <button type = "button" class="btn-1" onclick="">최소시간</button>
@@ -90,9 +90,9 @@
                             </select>
                         </div>
                         <p></p>
-                        <div style="width: 90%; height: 200%; overflow: hidden">
+                        <div style="width: 90%; height: 40%; overflow: hidden">
                             <section class="side">
-                                <canvas id="s" width="1000%" height="300%" ></canvas>
+                                <canvas id="s" height="250%"></canvas>
                                 <script src="sideCanvas/sideCanvas.js"></script>
                             </section> 
                         </div>
