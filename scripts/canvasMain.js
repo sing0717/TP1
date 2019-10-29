@@ -10,6 +10,7 @@ var startImg = new fabric.Image(startTag,{
     endImg = new fabric.Image(endTag,{
     left: 150, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false});
 var transfers = [];
+var branchLines = [];
 
 canvas.add(startImg, endImg);
 
@@ -42,6 +43,10 @@ transfers.push(makeCircle(710,170, "T8"));
 transfers.push(makeCircle(730,580, "T9"));
 transfers.push(makeCircle(750,650, "T10"));
 
+branchLines.push(makeCircle(580, 230, "B3")); 
+branchLines.push(makeCircle(390, 500, "B6")); 
+branchLines.push(makeCircle(650, 200, "B4")); 
+
 greenRail.add(makeCircle(70, 80, "A1"));
 greenRail.add(makeCircle(180, 80, "A2"));
 greenRail.add(transfers[0]);
@@ -52,22 +57,22 @@ greenRail.add(transfers[6]);
 greenRail.add(transfers[8]);
 greenRail.add(makeCircle(800, 580, "A4"));
 
-blueRail.add(makeCircle(390, 500, "B6"));
+blueRail.add(branchLines[1]);
 blueRail.add(transfers[2]);
 blueRail.add(makeCircle(590, 360, "B5"));
-blueRail.add(makeCircle(590, 360, "B5"));
-blueRail.add(makeCircle(580, 230, "B3"));
-blueRail.add(makeCircle(650, 200, "B4"));
+blueRail.add(branchLines[0]);
+blueRail.add(branchLines[2]);
 blueRail.add(transfers[7]);
-blueRail.add(makeCircle(650, 200, "B4"));
-blueRail.add(makeCircle(580, 230, "B3"));
+blueRail.add(branchLines[2]);
+blueRail.add(branchLines[0]);
 blueRail.add(makeCircle(520, 180, "B2"));
 blueRail.add(transfers[1]);
 blueRail.add(makeCircle(270, 170, "B1"));
 blueRail.add(makeCircle(135, 250, "B8"));
 blueRail.add(makeCircle(135, 405, "B7"));
 blueRail.add(transfers[3]);
-blueRail.add(makeCircle(390, 500, "B6"));
+blueRail.add(branchLines[1]);
+
 
 brownRail.add(transfers[1]);
 brownRail.add(makeCircle(400, 250, "C1"));

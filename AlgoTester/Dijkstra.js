@@ -105,7 +105,7 @@ var Graph = (function() {
   Graph.prototype.shortest = function(startKey, endKey) {
     var from = this.first;
     while (from) {
-      console.log(from.key);
+      //console.log(from.key);
       if (from.key === startKey) {
         break;
       }
