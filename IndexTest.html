@@ -12,6 +12,7 @@
         <script type="text/javascript" src="scripts/format.js"></script>
         <script type="text/javascript" src="scripts/canvas.js"></script>
         <script type="text/javascript" src="scripts/body.js"></script>
+        <script type="text/javascript" src="buttonClick/buttonClick.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
         <link rel="stylesheet" type="text/css" href="button/button.css">
         <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
@@ -64,35 +65,47 @@
                         </p>
                         <div style='display:inline;min-width:180px;'>
                             <div style='display:inline; float:left; width:120px 'class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails)">탐색</button>
+                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sideStart(),sideEnd(),sidePrint()">탐색</button>
                             </div> 
                             <div style='display:inline; float:left; width:100px ' class="container">
-                                <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas)">초기화</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소시간</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mTime',Rails),sideStart(),sideEnd(),sidePrint()">최소시간</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소환승</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mTrans',Rails),sideStart(),sideEnd(),sidePrint()">최소환승</button>
                             </div>
                             <div style='display:inline; float:left; width:85px 'class="container">
-                                <button type = "button" class="btn-1" onclick="">최소비용</button>
+                                <button type = "button" class="btn-1" onclick="javascript:buttonClick('mMoney',Rails),sideStart(),sideEnd(),sidePrint()">최소비용</button>
                             </div>
                             <select style='float:left'>
                                 <option>출발시간</option>
                                 <option>도착시간</option>
                             </select>
                             <select style='float:left'>
-                                <option>0시</option>
+                                <option>0시</option><option>1시</option><option>3시</option><option>4시</option><option>5시</option><option>6시</option>
+                                <option>7시</option><option>8시</option><option>9시</option><option>10시</option><option>11시</option><option>12시</option>
+                                <option>13시</option><option>14시</option><option>15시</option><option>16시</option><option>17시</option><option>18시</option>
+                                <option>19시</option><option>20시</option><option>21시</option><option>22시</option><option>23시</option><option>24시</option>
                             </select>
                             <select style='float:left'>
-                                <option>0분</option>
+                                <option>0분</option><option>1분</option><option>2분</option><option>3분</option><option>4분</option><option>5분</option>
+                                <option>6분</option><option>7분</option><option>8분</option><option>9분</option><option>10분</option><option>11분</option>
+                                <option>12분</option><option>13분</option><option>14분</option><option>15분</option><option>16분</option><option>17분</option>
+                                <option>18분</option><option>19분</option><option>20분</option><option>21분</option><option>22분</option><option>23분</option>
+                                <option>24분</option><option>25분</option><option>26분</option><option>27분</option><option>28분</option><option>29분</option>
+                                <option>30분</option><option>31분</option><option>32분</option><option>33분</option><option>34분</option><option>35분</option>
+                                <option>36분</option><option>37분</option><option>38분</option><option>39분</option><option>40분</option><option>41분</option>
+                                <option>42분</option><option>43분</option><option>44분</option><option>45분</option><option>46분</option><option>47분</option>
+                                <option>48분</option><option>49분</option><option>50분</option><option>51분</option><option>52분</option><option>53분</option>
+                                <option>54분</option><option>55분</option><option>56분</option><option>57분</option><option>58분</option><option>59분</option>
                             </select>
                         </div>
                         <p></p>
-                        <div style="width: 90%; height: 200%; overflow: hidden">
+                        <div style="width: 90%; height: 40%; overflow: hidden">
                             <section class="side">
-                                <canvas id="s" width="1000%" height="300%" ></canvas>
+                                <canvas id="s" width ="200%" height="250%"></canvas>
                                 <script src="sideCanvas/sideCanvas.js"></script>
                             </section> 
                         </div>

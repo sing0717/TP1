@@ -1,52 +1,79 @@
-function toggleUniform() {
-	var aObject = sideCanvas.getActiveObject();
-	if (aObject.type === 'activeSelection') {
-		aObject.getObjects().forEach(function(obj) {
-			obj.set('strokeUniform', !obj.strokeUniform);
-		});
-	} else {
-		aObject.set('strokeUniform', !aObject.strokeUniform);
+var sideCanvas = this.__canvas = new fabric.Canvas('s');
+
+function sideStart(){
+	var sideStartValue = document.getElementById('start').value;
+	return sideStartValue;
+}
+function sideEnd(){
+	var sideEndValue = document.getElementById('end').value;
+	return sideEndValue;
+}
+function sidePrint(){
+	sideCircle1 = new fabric.Circle({
+		top: 40,
+		left: 40,
+		strokeWidth: 10,
+		radius: 20,
+		fill: 'white',
+		stroke: 'gray',
+		lockMovementX: true,
+		lockMovementY: true,
+		selectable : false
+	});
+	sideCircle2 = new fabric.Circle({
+		top: 120,
+		left: 40,
+		strokeWidth: 10,
+		radius: 20,
+		fill: 'white',
+		stroke: 'gray',
+		lockMovementX: true,
+		lockMovementY: true,
+		selectable : false
+	});
+	sideText1 = new fabric.Text(sideStart(), {
+		top: 40,
+		left: 100,
+		fontSize: 20,
+		lockMovementX: true,
+		lockMovementY: true,
+		selectable : false
+	});
+	sideText2 = new fabric.Text(sideEnd(), {
+		top: 120,
+		left: 100,
+		fontSize: 20,
+		lockMovementX: true,
+		lockMovementY: true,
+		selectable : false
+	});
+	if(canvas.startSelected!=null && canvas.endSelected!=null){
+		sideCanvas.add(sideCircle1);
+		sideCanvas.add(sideCircle2);
+		sideCanvas.add(sideText1);
+		sideCanvas.add(sideText2);
 	}
-	sideCanvas.requestRenderAll();
+}
+function sideClear(){
+	sideCanvas.remove(sideCircle1);
+	sideCanvas.remove(sideCircle2);
+	sideCanvas.remove(sideText1);
+	sideCanvas.remove(sideText2);
 }
 
-var sideCanvas = this.__canvas = new fabric.Canvas('s');
-// create a rectangle object
-var rect = new fabric.Rect({
-	left: 100,
-	top: 30,
-	fill: '#D81B60',
-	width: 50,
-	height: 50,
-	strokeWidth: 2,
-	stroke: "#880E4F",
-	rx: 10,
-	ry: 10,
-	angle: 45,
-	scaleX: 3,
-	scaleY: 3,
-	hasControls: true
+//var aaa = document.getElementById('start').value;
+//document.getElementById('start').value;
+/*var point = new fabric.Circle({
+	top: 80,
+	left: 40,
+	radius: 3,
+	fill: 'gray',
+	lockMovementX: true,
+	lockMovementY: true,
+	selectable : false
 });
-
-sideCanvas.add(rect);
-
-var circle1 = new fabric.Circle({
-	radius: 65,
-	fill: '#039BE5',
-	left: 0,
-	stroke: 'red',
-	strokeWidth: 3
-});
-
-var circle2 = new fabric.Circle({
-	radius: 65,
-	fill: '#4FC3F7',
-	left: 110,
-	opacity: 0.7,
-	stroke: 'blue',
-	strokeWidth: 3,
-	strokeUniform: true
-});
-
-sideCanvas.add(circle1);
-sideCanvas.add(circle2);
+	sideCanvas.add(sideCircle1);
+	sideCanvas.add(sideCircle2);
+	sideCanvas.add(sideText1);
+	sideCanvas.add(sideText2);
+*/

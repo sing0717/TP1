@@ -98,6 +98,7 @@ function makeCircle(x, y, name) {
             canvas.startSelected = c; c.selected = true;
             c.set('stroke', 'green');
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 
+            //텍스트개체.set(value=c.name);
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
 			
@@ -133,8 +134,10 @@ function makeCircle(x, y, name) {
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }
+        
     });
     c.toString = function() {return x + ' ' + y;};
+
     return c;
 }
 
