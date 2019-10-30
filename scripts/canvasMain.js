@@ -130,10 +130,4 @@ blueRail.draw();
 greenRail.draw();
 grayRail.draw();
 
-var startTextbox = new fabric.Textbox('', {
-  left: 200,
-  top: 50,
-  width: 300,
-  fontSize: 20
-});
-canvas.add(textbox).setActiveObject(textbox);
+makeText(200, 50, '');
