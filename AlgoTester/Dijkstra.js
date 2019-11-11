@@ -1,4 +1,6 @@
 //그래프 source: https://www.zerocho.com/category/Algorithm/post/584b9033580277001862f16c
+var s_distance;
+var s_stationCount;
 var Graph = (function() {
     function Vertex(key) {
       this.next = null;
@@ -143,6 +145,8 @@ var Graph = (function() {
       if(temp.key === endKey){
         console.log('%s까지의 최단 거리는 %d입니다', temp.key, temp.distance);
         console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+        s_distance=temp.distance;
+        s_stationCount=temp.roots;
         return temp.roots;
       }
       temp = temp.next;
