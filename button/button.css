@@ -6,7 +6,6 @@
   .container {
     margin: 0em;
     padding: 0em;
-    
   }
   
   /* GENERAL BUTTON STYLING */
@@ -24,7 +23,7 @@
     color: #49beb7;
     font-weight: bold;
     border-radius: 5px;
-    display: block;
+    display: inline-block;
     font-size: 1.4em;
     margin: 1em auto;
     padding: 0.3em 0.7em;
@@ -32,6 +31,7 @@
     top:-25px;
     left:5px;
     text-transform: uppercase;
+    width: auto;
   }
   
   button::before,
