@@ -20,7 +20,8 @@
         <link rel="stylesheet" type="text/css" href="popup/popup.css">
     </head>
     <body>
-        <script type="text/javascript" src="AlgoTester/AlgoMain.js"></script>  
+        <script type="text/javascript" src="AlgoTester/AlgoMain.js"></script>
+        <script type= "text/javascript" src="scripts/format.js"></script>
         <content>
             <div style = "display: none">
                 <img src = "images/Start.png" id="start-image">
@@ -76,10 +77,10 @@
                                 <option>출발시간</option>
                                 <option>도착시간</option>
                             </select>
-                            <select style='float:left'>
+                            <select style='float:left' id = 'hourSelect'>
                                 <option>0시</option>
                             </select>
-                            <select style='float:left'>
+                            <select style='float:left' id = 'minuteSelect'>
                                 <option>0분</option>
                             </select>
                         </div>
