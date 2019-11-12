@@ -1,0 +1,17 @@
+.img img{
+    display:block;
+    margin:0 auto;
+    width:600px;
+    height:450px;
+}
+
+h1{
+    text-align:center;
+    font-family: 'Jua', sans-serif;
+}
+
+h3{
+    margin:0;
+    text-align:center;
+    font-family: 'Jua', sans-serif;
+}
