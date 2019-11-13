@@ -36,7 +36,7 @@ form {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-    background-color: #E0FFFF;
+    background-color: #f4f5f9;
   }
 
 .sidebar {
@@ -59,8 +59,8 @@ form {
   transition: width 475ms ease-out, transform 450ms ease, border-radius .8s .1s ease;
   transition: width 475ms ease-out, transform 450ms ease, border-radius .8s .1s ease, -webkit-transform 450ms ease;
   border-bottom-left-radius: 100vw;
-  background-color: #bdffff;
-  background-color: rgba(173, 255, 255, 0.8);
+  background-color: #dddfe6;
+  /*background-color: rgba(173, 255, 255, 0.8);*/
 }
 
 /* @media (min-width: 768px) {
