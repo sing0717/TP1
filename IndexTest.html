@@ -31,18 +31,19 @@
                 <canvas id="c" width="1200" height="700"></canvas>
                 <script src="scripts/canvasMain.js"></script>
             </section>            
-            <div id="popup1" class="overlay">
-                <div class="popup">
+            <div class="modal">
+                <div class="modal-content">
                     <h2>login / register</h2>
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
+                    <span class="close-button">&times;</span>
+                    <form id="login" action="" method="POST">
                         <p>
                             <span class="font">ID</span>
-                            <input type="text" name="UID" value="" id="UID" style="border: 1px solid black" onkeypress="if(event.keyCode == 13){wssetItem('UID', document.getElementById('UID').value);window.location.href = '';}"><br>
-                            <!-- <span class="font">도착</span>
-                            <input type="text" name="inputbox2" value="" id="end"><br> -->
+                            <input type="text" name="UID" value="" id="UID" style="border: 1px solid black"><br>
+                            <span class="font">PASS</span>
+                            <input type="text" name="UPS" value="" id="UPS" style="border: 1px solid black"><br>
+                            <button type = "button" class="btn-1" onclick="document.getElementById('login').submit();toggleModal();">test</button>
                         </p>
-                    </div>
+                    </form>
                 </div>
             </div>
 
