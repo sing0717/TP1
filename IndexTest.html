@@ -65,7 +65,7 @@
                         </p>
                         <div style='min-width:180px;'>
                             <div class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sideStart(),sideEnd(),sidePrint(),sideDistance(),sideStation()">탐색</button>
+                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sidePrint()">탐색</button>
                                 <button type = "button" class="btn-1" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div class="container">
@@ -87,7 +87,7 @@
                         <p></p>
                         <div style="width: 90%; height: 40%; overflow: hidden">
                             <section class="side">
-                                <canvas id="s" height="250%"></canvas>
+                                <canvas id="s" width="2000" height="2000"></canvas>
                                 <script src="sideCanvas/sideCanvas.js"></script>
                             </section>
                         </div>

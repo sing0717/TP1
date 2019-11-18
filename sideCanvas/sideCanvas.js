@@ -1,27 +1,23 @@
-var sideCanvas = this.__canvas = new fabric.Canvas('s');
+var sideCanvas = new fabric.Canvas('s');
 
-function sideStart(){
-	var sideStartValue = document.getElementById('start').value;
-	return sideStartValue;
-}
-function sideEnd(){
-	var sideEndValue = document.getElementById('end').value;
-	return sideEndValue;
-}
+var ssc = [];
+
 function sideDistance(){
-	var distanceValue = String(s_distance);
+	var distanceValue = String(Math.round(s_distance*10)/10.0);
 	return distanceValue;
 }
 function sideStation(){
-	var stationValue = String(parseInt((s_stationCount.length+1)/4-1));
+	var stationValue = s_stationCount.replace(/  /gi," ");
+	ssc = stationValue.split(" "); 
+	stationValue = ssc.length-2;
 	return stationValue;
 }
 function sidePrint(){
 	sideCircle1 = new fabric.Circle({
-		top: 40,
-		left: 40,
-		strokeWidth: 10,
-		radius: 20,
+		top: 50,
+		left: 30,
+		strokeWidth: 5,
+		radius: 10,
 		fill: 'white',
 		stroke: 'gray',
 		lockMovementX: true,
@@ -29,46 +25,53 @@ function sidePrint(){
 		selectable : false
 	});
 	sideCircle2 = new fabric.Circle({
-		top: 120,
-		left: 40,
-		strokeWidth: 10,
-		radius: 20,
+		top: sideCircle1.get('top')+40,
+		left: sideCircle1.get('left'),
+		strokeWidth: 5,
+		radius: 10,
 		fill: 'white',
 		stroke: 'gray',
 		lockMovementX: true,
 		lockMovementY: true,
 		selectable : false
 	});
-	sideText1 = new fabric.Text(sideStart(), {
-		top: 40,
-		left: 100,
-		fontSize: 20,
-		lockMovementX: true,
-		lockMovementY: true,
-		selectable : false
-	});
-	sideText2 = new fabric.Text(sideEnd(), {
-		top: 120,
-		left: 100,
-		fontSize: 20,
-		lockMovementX: true,
-		lockMovementY: true,
-		selectable : false
+	sideLine = new fabric.Line([sideCircle1.get('left'), sideCircle1.get('top')+10, sideCircle2.get('left'), sideCircle2.get('top')-10], {
+		strokeWidth: 5,
+		stroke: 'gray',
+		objectCaching: false
 	});
 	sideText3 = new fabric.Text(sideStation()+"개 역("+sideDistance()+"분)", {
-		top: 80,
-		left: 125,
+		top: 20,
+		left: 120,
 		fontSize: 15,
 		lockMovementX: true,
 		lockMovementY: true,
 		selectable : false
 	});
 	if(canvas.startSelected!=null && canvas.endSelected!=null){
+		sideCanvas = new fabric.Canvas('s');
+		sideText1 = new fabric.Text(ssc[0], {
+			top: sideCircle1.get('top'),
+			left: sideCircle1.get('left')+45,
+			fontSize: 20,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
+		sideText2 = new fabric.Text(ssc[ssc.length-2], {
+			top: sideCircle2.get('top'),
+			left: sideCircle2.get('left')+45,
+			fontSize: 20,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
 		sideCanvas.add(sideCircle1);
 		sideCanvas.add(sideCircle2);
 		sideCanvas.add(sideText1);
 		sideCanvas.add(sideText2);
 		sideCanvas.add(sideText3);
+		sideCanvas.add(sideLine);
 	}
 }
 function sideClear(){
@@ -77,21 +80,5 @@ function sideClear(){
 	sideCanvas.remove(sideText1);
 	sideCanvas.remove(sideText2);
 	sideCanvas.remove(sideText3);
+	sideCanvas.remove(sideLine);
 }
-
-//var aaa = document.getElementById('start').value;
-//document.getElementById('start').value;
-/*var point = new fabric.Circle({
-	top: 80,
-	left: 40,
-	radius: 3,
-	fill: 'gray',
-	lockMovementX: true,
-	lockMovementY: true,
-	selectable : false
-});
-	sideCanvas.add(sideCircle1);
-	sideCanvas.add(sideCircle2);
-	sideCanvas.add(sideText1);
-	sideCanvas.add(sideText2);
-*/
