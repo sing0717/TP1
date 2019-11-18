@@ -244,15 +244,17 @@ function showResultPath(source, paths){
 }
 
 function Submit(source){
-    if(canvas.startSelected==null){
+    var startStation = document.getElementById('start').value.trim();
+    var endStation = document.getElementById('end').value.trim();
+    if(startStation == ""){
         alert('출발역을 선택해 주세요.');
         return;
     }
-    if(canvas.endSelected==null){
+    if(endStation == ""){
         alert('종착역을 선택해 주세요.');
         return;
     }
-    var inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value);
+    var inputData = graph.shortest(startStation, endStation);
     showResultPath(source,inputData);
     canvas.requestRenderAll();
 }
