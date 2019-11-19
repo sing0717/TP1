@@ -1,6 +1,7 @@
 //그래프 source: https://www.zerocho.com/category/Algorithm/post/584b9033580277001862f16c
 var s_distance;
 var s_stationCount;
+var result = [];
 var Graph = (function() {
     function Vertex(key) {
       this.next = null;
@@ -9,10 +10,13 @@ var Graph = (function() {
       this.inTree = null;
       this.roots = " ";
     }
-    function Arc(data, dest, capacity) {
+    function Arc(distance, time, fee, dest, capacity) {
       this.nextArc = null;
       this.destination = dest;
-      this.data = data;
+      this.distance = distance;
+      this.time = time;
+      this.fee = fee;
+      this.dest = dest;
       this.capacity = capacity;
       this.inTree = null;
     }
@@ -49,7 +53,7 @@ var Graph = (function() {
       }
       this.count--;
     };
-    Graph.prototype.insertArc = function(data, fromKey, toKey, capacity) {
+    Graph.prototype.insertArc = function(distance , key, fee, fromKey, toKey, capacity) {
       var from = this.first;
       var to = this.first;
       while (from && from.key !== fromKey) {
@@ -59,7 +63,7 @@ var Graph = (function() {
         to = to.next;
       }
       if (!from || !to) return false;
-      var arc = new Arc(data, to, capacity);
+      var arc = new Arc(distance, key, fee, to, capacity);
       var fromLast = from.arc;
       if (fromLast) {
         while (fromLast.nextArc != null) {
@@ -94,9 +98,9 @@ var Graph = (function() {
     return Graph;
   })();
 
-  function insertTwoWayArc(graph, data, from, to) {
-    graph.insertArc(data, from, to);
-    graph.insertArc(data, to, from);
+  function insertTwoWayArc(graph, distance, data ,fee , from, to) {
+    graph.insertArc(distance, data, fee, from, to);
+    graph.insertArc(distance , data, fee, to, from);
   }
  //////Queue
  var queue = new Queue();
@@ -104,8 +108,9 @@ var Graph = (function() {
   //////////////////////////////////////////////////////////////////////////////
   //다익스트라 source: https://www.zerocho.com/category/Algorithm/post/584bd46f580277001862f1af
 
-  Graph.prototype.shortest = function(startKey, endKey) {
+  Graph.prototype.search = function(startKey, endKey, target){
     var from = this.first;
+    var curResult = [];
     while (from) {
       //console.log(from.key);
       if (from.key === startKey) {
@@ -118,24 +123,42 @@ var Graph = (function() {
     var current;
     var arc;
     while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
-      temp.distance = Infinity;
+      temp.time = temp.fee = temp.distance = Infinity;
       temp.visited =false;
+      temp.roots = '';
       temp = temp.next;
     }
     temp = from;
-    temp.distance = 0;
+    temp.time = temp.fee = temp.distance = 0;
     temp.roots = temp.key + " ";
     queue.enqueue(from);
-    while (!(queue.isEmpty())) { // 반복문을 돌며 최단 거리를 찾음
+    while (!(queue.isEmpty())) { // 반복문을 돌며 최단 값을 찾음
       current = queue.dequeue();
       arc = current.arc;
       while (arc) {
-        //console.log(current.key +"("+current.distance+")"+ "=" + "("+arc.data+")"+">" + arc.destination.key +"("+arc.destination.distance+")");
-        if (arc.destination.distance > current.distance + arc.data) {
-          arc.destination.distance = current.distance + arc.data;
-          arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-          queue.enqueue(arc.destination);
-          //console.log(arc.destination.roots);
+        if(target === 'distance'){
+          if (arc.destination.distance > current.distance + arc.distance) {
+            arc.destination.distance = current.distance + arc.distance;
+            arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+            queue.enqueue(arc.destination);
+            //console.log(arc.destination.roots);
+          }
+        }
+        else if(target === 'time'){
+          if (arc.destination.time > current.time + arc.time) {
+            arc.destination.time = current.time + arc.time;
+            arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+            queue.enqueue(arc.destination);
+            //console.log(arc.destination.roots);
+          }
+        }
+        else if(target === 'fee'){
+          if (arc.destination.fee > current.fee + arc.fee) {
+            arc.destination.fee = current.fee + arc.fee;            ;
+            arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+            queue.enqueue(arc.destination);
+            //console.log(arc.destination.roots);
+          }
         }
         arc = arc.nextArc;
       }
@@ -143,13 +166,42 @@ var Graph = (function() {
     temp = this.first;
     while (temp) {
       if(temp.key === endKey){
-        console.log('%s까지의 최단 거리는 %d입니다', temp.key, temp.distance);
-        console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-        s_distance=temp.distance;
-        s_stationCount=temp.roots;
-        return temp.roots;
+        if(target === 'distance'){
+          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.distance);
+          console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+          s_distance=temp.distance;
+          s_stationCount=temp.roots;
+          curResult.push(temp.distance);
+          curResult.push(temp.roots);
+        }
+        else if(target === 'time'){
+          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+          s_distance=temp.time;
+          s_stationCount=temp.roots;
+          curResult.push(temp.time);
+          curResult.push(temp.roots);
+        }
+        else if(target === 'fee'){
+          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.fee);
+          console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+          s_distance=temp.fee;
+          s_stationCount=temp.roots;
+          curResult.push(temp.time);
+          curResult.push(temp.roots);
+        }
+        return curResult;
       }
       temp = temp.next;
     }
-  };
+  }
   
+  Graph.prototype.shortest = function(startKey, endKey) {
+    if(result != []){
+      result.pop();result.pop();result.pop();
+    }
+    result.push(this.search(startKey, endKey, 'distance'));
+    result.push(this.search(startKey, endKey, 'time'));
+    result.push(this.search(startKey, endKey, 'fee'));
+    return result;
+  };

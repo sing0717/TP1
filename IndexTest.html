@@ -66,13 +66,13 @@
                         </p>
                         <div style='min-width:180px;'>
                             <div class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sidePrint()">탐색</button>
+                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails, 'time'),sidePrint()">탐색</button>
                                 <button type = "button" class="btn-1" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div class="container">
-                                <button type = "button" class="btn-2" onclick="">최소시간</button>
-                                <button type = "button" class="btn-2" onclick="">최소환승</button>
-                                <button type = "button" class="btn-2" onclick="">최소비용</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint()">최소시간</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'distance'),sidePrint()">최소거리</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint()">최소비용</button>
                             </div>
                             <select style='float:left'>
                                 <option>출발시간</option>
