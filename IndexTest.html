@@ -60,9 +60,12 @@
                     <form id="asideForm" name="myform" action="" method="get" style="margin: 10px">
                         <p>
                             <span class="font" >출발</span>
-                            <input type="text" name="inputbox" value="" id="start" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'start');}"><br>
-                            <span class="font">도착</span>
+                            
+                            <input type="text" name="inputbox" value=""  id="start" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'start');}"><br>
+                            <!--<button type = "button" style="float:right">↑↓</button>-->
+                            <span class="font" >도착</span>
                             <input type="text" name="inputbox2" value="" id="end" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'end');}"><br>
+                            
                         </p>
                         <div style='min-width:180px;'>
                             <div class="container">
@@ -72,6 +75,7 @@
                             <div class="container">
                                 <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint()">최소시간</button>
                                 <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'distance'),sidePrint()">최소거리</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint()">최소비용</button>
                                 <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint()">최소비용</button>
                             </div>
                             <select style='float:left'>
