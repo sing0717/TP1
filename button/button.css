@@ -28,6 +28,25 @@
     text-transform: uppercase;
     width: auto;
   }
+
+  p button{
+    background: none;
+    border: 3px solid rgb(255, 255, 255);
+    color: #252c41;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1.4em;
+    margin: 1em auto;
+    margin-top:0px;
+    margin-left:90px;
+    padding: 0.3em 0.7em;
+    position: relative;
+    top:2px;
+    left:5px;
+    text-transform: uppercase;
+    width: auto;
+  }
   
   button::before,
   button::after {
