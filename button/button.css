@@ -41,9 +41,9 @@
     margin-top:0px;
     margin-left:90px;
     padding: 0.3em 0.7em;
-    position: relative;
-    top:2px;
-    left:5px;
+    position: absolute;
+    top:70px;
+    left:110px;
     text-transform: uppercase;
     width: auto;
   }
