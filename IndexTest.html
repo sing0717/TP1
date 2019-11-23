@@ -34,14 +34,19 @@
             <div class="modal">
                 <div class="modal-content">
                     <h2>login / register</h2>
-                    <span class="close-button">&times;</span>
+                    <span class="close-button" onclick="toggleModal();">&times;</span>
                     <form id="login" action="" method="POST">
                         <p>
-                            <span class="font">ID</span>
-                            <input type="text" name="UID" value="" id="UID" style="border: 1px solid black"><br>
-                            <span class="font">PASS</span>
-                            <input type="text" name="UPS" value="" id="UPS" style="border: 1px solid black"><br>
+                            <span>
+                                <span class="font">ID</span>
+                                <input type="text" name="UID" value="" id="UID" style="border: 1px solid black"><br>
+                            </span>
+                            <span>
+                                <span class="font">PASS</span>
+                                <input type="text" name="UPS" value="" id="UPS" style="border: 1px solid black"><br>
+                            </span>
                             <button type = "button" class="btn-1" onclick="document.getElementById('login').submit();toggleModal();">test</button>
+                            <button type = "button" class="btn-1" onclick="toggleModal();"></button>
                         </p>
                     </form>
                 </div>
