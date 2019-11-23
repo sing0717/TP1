@@ -10,6 +10,7 @@ createFav = function(start, end){
 };
 
 function toggleModal(){
+    modal = document.querySelector('.modal');
     console.log('toggleModal()');
     modal.classList.toggle('show-modal');
 }
