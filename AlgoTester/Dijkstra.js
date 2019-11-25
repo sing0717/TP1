@@ -1,6 +1,6 @@
 //그래프 source: https://www.zerocho.com/category/Algorithm/post/584b9033580277001862f16c
-var s_distance;
-var s_stationCount;
+var s_distance = [];
+var s_stationCount = [];
 var result = [];
 var Graph = (function() {
     function Vertex(key) {
@@ -169,24 +169,24 @@ var Graph = (function() {
         if(target === 'distance'){
           console.log('%s까지의 최단값은 %d입니다', temp.key, temp.distance);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance=temp.distance;
-          s_stationCount=temp.roots;
+          s_distance[0]=temp.distance;
+          s_stationCount[0]=temp.roots;
           curResult.push(temp.distance);
           curResult.push(temp.roots);
         }
         else if(target === 'time'){
           console.log('%s까지의 최단값은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance=temp.time;
-          s_stationCount=temp.roots;
+          s_distance[1]=temp.time;
+          s_stationCount[1]=temp.roots;
           curResult.push(temp.time);
           curResult.push(temp.roots);
         }
         else if(target === 'fee'){
           console.log('%s까지의 최단값은 %d입니다', temp.key, temp.fee);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance=temp.fee;
-          s_stationCount=temp.roots;
+          s_distance[2]=temp.fee;
+          s_stationCount[2]=temp.roots;
           curResult.push(temp.time);
           curResult.push(temp.roots);
         }
