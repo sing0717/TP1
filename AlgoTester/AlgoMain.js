@@ -98,5 +98,5 @@ insertTwoWayArc(graph, 2.3, 2, 150, 'G1', 'T8');
 insertTwoWayArc(graph, 3.7, 2.9, 220, 'T8', 'G2');
 insertTwoWayArc(graph, 3.8, 2.7, 210, 'G2', 'T9');
 insertTwoWayArc(graph, 2, 2, 160, 'T9', 'T10');
-insertTwoWayArc(graph, 190, 2, 130, 'T10', 'G3');
+insertTwoWayArc(graph, 1.9, 2, 130, 'T10', 'G3');
 insertTwoWayArc(graph, 3, 3, 190, 'G3', 'G4');
