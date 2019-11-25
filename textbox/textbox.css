@@ -1,4 +1,4 @@
-input[type=text] {
+input[type=text].text {
     background: none;
     border: 3px solid rgb(255, 255, 255);
     color: #252c41;
