@@ -31,18 +31,24 @@
                 <canvas id="c" width="1300" height="807"></canvas>
                 <script src="scripts/canvasMain.js"></script>
             </section>            
-            <div id="popup1" class="overlay">
-                <div class="popup">
+            <div class="modal">
+                <div class="modal-content">
                     <h2>login / register</h2>
-                    <a class="close" href="">&times;</a>
-                    <div class="content">
+                    <span class="close-button" onclick="toggleModal();">&times;</span>
+                    <form id="login" action="" method="POST">
                         <p>
-                            <span class="font">ID</span>
-                            <input type="text" name="UID" value="" id="UID" style="border: 1px solid black" onkeypress="if(event.keyCode == 13){wssetItem('UID', document.getElementById('UID').value);window.location.href = '';}"><br>
-                            <!-- <span class="font">도착</span>
-                            <input type="text" name="inputbox2" value="" id="end"><br> -->
+                            <span>
+                                <span class="font">ID</span>
+                                <input type="text" name="UID" value="" id="UID" style="border: 1px solid black"><br>
+                            </span>
+                            <span>
+                                <span class="font">PASS</span>
+                                <input type="text" name="UPS" value="" id="UPS" style="border: 1px solid black"><br>
+                            </span>
+                            <button type = "button" class="btn-1" onclick="document.getElementById('login').submit();toggleModal();">test</button>
+                            <button type = "button" class="btn-1" onclick="toggleModal();"></button>
                         </p>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -58,20 +64,24 @@
             <section class="sidebar">
                     <form id="asideForm" name="myform" action="" method="get" style="margin: 10px">
                         <p>
-                            <span class="font" >출발</span>
-                            <input type="text" name="inputbox" value="" id="start" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'start');}"><br>
+                            
+                            <span class="font">출발</span>
+                            <input type="text"  name="inputbox" value=""  id="start" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'start');}"><br>
+                            <button type = "button" style="">↑↓</button>
                             <span class="font">도착</span>
-                            <input type="text" name="inputbox2" value="" id="end" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'end');}"><br>
+                            <input type="text"  name="inputbox2"  value="" id="end" onkeypress="if(event.keyCode==13) {javascript:changeTextData(Rails, 'end');}"><br>
+                            
                         </p>
                         <div style='min-width:180px;'>
                             <div class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails),sidePrint()">탐색</button>
+                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">탐색</button>
                                 <button type = "button" class="btn-1" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
                             </div>
                             <div class="container">
-                                <button type = "button" class="btn-2" onclick="">최소시간</button>
-                                <button type = "button" class="btn-2" onclick="">최소환승</button>
-                                <button type = "button" class="btn-2" onclick="">최소비용</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">최소시간</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'distance'),sidePrint(0)">최소거리</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
+                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
                             </div>
                             <select style='float:left'>
                                 <option>출발시간</option>
@@ -91,6 +101,7 @@
                                 <script src="sideCanvas/sideCanvas.js"></script>
                             </section>
                         </div>
+                        <p></p>
                         <input type="text" value="fav">
                     </form>
             </section>

@@ -9,26 +9,22 @@ createFav = function(start, end){
     wssetItem('numFavs', (parseInt(wsgetItem('numFavs'))+1).toString()); // numFavs++;
 };
 
+function toggleModal(){
+    modal = document.querySelector('.modal');
+    console.log('toggleModal()');
+    modal.classList.toggle('show-modal');
+}
+
 window.onload = function(){
+    if(wsgetItem('numFavs') == null){wssetItem('numFavs', '0');}
 
-    //INIT
-    if(wsgetItem('numFavs') == null){
-        wssetItem('numFavs', '0');
-    }
-
-    
-    // if(wlsgetItem('visited') == false){
-    //     wlssetItem('visited', true);
-    //     window.location.href += '#popup1';
-    //     return;
-    // }
+    closeButton.addEventListener('click', toggleModal()); // toggleModal() called on add
 
     if(wsgetItem('UID') == null){
-        window.location.href += '#popup1';
+        this.console.log('in');
+        // this.toggleModal();
         return;
     }
-
-    
 
     //FAV List
     for(var i = 0; i < parseInt(wsgetItem('numFavs')); i++){

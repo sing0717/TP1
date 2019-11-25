@@ -251,7 +251,7 @@ function showResultPath(source, paths){
     }
 }
 
-function Submit(source){
+function Submit(source, target){
     if(canvas.startSelected==null){
         alert('출발역을 선택해 주세요.');
         return;
@@ -260,7 +260,22 @@ function Submit(source){
         alert('종착역을 선택해 주세요.');
         return;
     }
-    var inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value);
+    var inputData;
+    if(target === 'distance'){
+        inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'distance');
+        console.log(inputData);
+        inputData = inputData[0][1];
+    }
+    else if(target === 'time'){
+        inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'time');
+        console.log(inputData);
+        inputData = inputData[1][1];
+    }
+    else if(target === 'fee'){
+        inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'fee');
+        console.log(inputData);
+        inputData = inputData[2][1];
+    }
     showResultPath(source,inputData);
     canvas.requestRenderAll();
 }
