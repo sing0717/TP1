@@ -293,3 +293,14 @@ fabric.Canvas.prototype.getItem  = function(id) {
 
   return object;
 };
+
+function swapInput(){
+    var tempText = document.getElementById('start').value;
+    var tempMatrix = [];
+    document.getElementById('start').value = document.getElementById('end').value;
+    document.getElementById('end').value = tempText;
+    tempMatrix[0] = startImg.get('left'); tempMatrix[1] = startImg.get('top');
+    startImg.set('left', endImg.get('left')); startImg.set('top', endImg.get('top'));
+    endImg.set('left', tempMatrix[0]); endImg.set('top', tempMatrix[1]);
+    canvas.requestRenderAll();
+}
