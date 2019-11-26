@@ -164,7 +164,7 @@ function makeLine(startCircle, endCircle, curve) {
     return Line;
 }
 
-function Init(rails, canvas){
+function InitRails(rails, canvas){
     canvas.startSelected.set('stroke', 'gray');
     canvas.endSelected.set('stroke', 'gray');
     canvas.startSelected = null;
