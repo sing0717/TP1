@@ -1,10 +1,10 @@
 @charset "UTF-8";
-span.fav label {
+span.star label {
   display: inline-block;
   cursor: pointer;
 }
 
-span.fav label:after {
+span.star label:after {
   -webkit-transition: all 0.4s ease-out;
   transition: all 0.4s ease-out;
   -webkit-font-smoothing: antialiased;
@@ -18,12 +18,12 @@ span.fav label:after {
           animation: 1s pulse ease;
 }
 
-span.fav input {
+span.star input {
   display: none;
 }
 
-span.fav input:checked + label:after,
-span.fav input:checked ~ label:after {
+span.star input:checked + label:after,
+span.star input:checked ~ label:after {
   content: '★';
   color: #F9BF3B;
 }
