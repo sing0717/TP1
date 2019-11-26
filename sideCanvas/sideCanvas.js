@@ -1,4 +1,4 @@
-var sideCanvas = new fabric.Canvas('s');
+var sideCanvas;
 
 var ssc = [];
 var ssc_trans = [];
@@ -6,6 +6,10 @@ var sideCircle = [];
 var sideLine = [];
 var sideText = [];
 var c_c = 0;
+
+function makeSideCanvas(){
+	sideCanvas = new fabric.Canvas('s');
+}
 
 function sideDistance(i){
 	var distanceValue = String(Math.round(s_distance[i]*10)/10.0);
