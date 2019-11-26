@@ -9,9 +9,9 @@
         <script type="text/javascript" src="scripts/fabric.min.js"></script>
         <script type="text/javascript" src="AlgoTester/Queue.js"></script>
         <script type="text/javascript" src="AlgoTester/Dijkstra.js"></script>
-        <script type="text/javascript" src="scripts/format.js"></script>
         <script type="text/javascript" src="scripts/canvas.js"></script>
         <script type="text/javascript" src="scripts/body.js"></script>
+        <script type="text/javascript" src="sideCanvas/sideCanvas.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet/styles.css">
         <link rel="stylesheet" type="text/css" href="button/button.css">
         <link rel="stylesheet" type="text/css" href="sideCanvas/sideCanvas.css">
@@ -22,7 +22,6 @@
     </head>
     <body>
         <script type="text/javascript" src="AlgoTester/AlgoMain.js"></script>
-        <script type= "text/javascript" src="scripts/format.js"></script>
         <content>
             <div style = "display: none">
                 <img src = "images/Start.png" id="start-image">
@@ -86,50 +85,10 @@
                         </p>
                         <div style='min-width:180px;'>
                             <div class="container">
-                                <button type = "button" class="btn-1" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">탐색</button>
-                                <button type = "button" class="btn-1" onclick="javascript:Init(Rails, canvas),sideClear()">초기화</button>
+                                <button id="search" type = "button" class="btn-1" onclick="javascript:Submit(Rails, 'time');addHistory(document.querySelector('#start').value,document.querySelector('#end').value);change();sidePrint(1);">탐색</button>
+                                <button id="init" type = "button" class="btn-1" onclick="javascript:InitRails(Rails, canvas);sideClear();change();">초기화</button>
                             </div>
-                            <div class="container">
-                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">최소시간</button>
-                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'distance'),sidePrint(0)">최소거리</button>
-                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
-                                <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
-                            </div>
-                            <select style='float:left'>
-                                <option>출발시간</option>
-                                <option>도착시간</option>
-                            </select>
-                            <select style='float:left' id = 'hourSelect'>
-                                <option>0시</option>
-                            </select>
-                            <select style='float:left' id = 'minuteSelect'>
-                                <option>0분</option>
-                            </select>
                         </div>
-                        <p></p>
-                        <div style="width: 90%; height: 40%; overflow: hidden">
-                            <section class="side">
-                                <canvas id="s" width="2000" height="2000"></canvas>
-                                <script src="sideCanvas/sideCanvas.js"></script>
-                            </section>
-                        </div>
-                        <p></p>
-                        <!-- <div id="divFav">
-                            <div>
-                                <input class="_search" type="text" value="fav" disabled>
-                                <span class="fav">
-                                    <input type="checkbox">
-                                    <label for="star"></label>
-                                </span>
-                            </div>
-                            <div>
-                                <input class="_search" type="text" value="fav" disabled>
-                                <span class="fav">
-                                    <input type="checkbox">
-                                    <label for="star"></label>
-                                </span>
-                            </div>
-                        </div> -->
                     </form>
             </section>
         </content>
