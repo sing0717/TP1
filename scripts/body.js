@@ -176,7 +176,6 @@ function Init(){
 }
 
 function change(){
-    // var form = document.querySelector('#asideForm');
     var History = document.querySelector('#History');
     var Favorites = document.querySelector('#Favorites');
     var divButtons = document.querySelector('#container');
