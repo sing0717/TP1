@@ -28,3 +28,17 @@ span.star input:checked ~ label:after {
   color: #F9BF3B;
 }
 /*# sourceMappingURL=fav.css.map */
+
+#Favorites input[type=button], #History input[type=button]{
+  background: none;
+  border: 3px solid rgb(255, 255, 255);
+  color: #252c41;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 1.6em;
+  margin: 0.1em ;
+  padding: 0.3em 0.7em;
+  text-transform: uppercase;
+  width: 100px;
+  
+}
