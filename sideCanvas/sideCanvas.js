@@ -21,21 +21,22 @@ function sideStation(i){
 	stationValue = ssc.length-2;
 	return stationValue;
 }
-function sidePrint(i){
+function sidePrint(spNum){
 	if(c_c > 0){
 		sideClear();
 	}
-	if(i==1){
+	if(spNum==1){
 		s_text1 = "분 )";
 	}
-	else if(i==0){
+	else if(spNum==0){
 		s_text1 = "km )";
 	}
 	else{ 
 		s_text1 = "원 )";
 	}
 	var simgElement = document.getElementById('transfer-image');
-	sideMainText = new fabric.Text(sideStation(i)+"개 역 ( "+sideDistance(i)+s_text1, {
+	sideTransImg = new fabric.Image(simgElement,{}); //?
+	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideDistance(spNum)+s_text1, {
 		top: 25,
 		left: 160,
 		fontSize: 25,
@@ -165,8 +166,8 @@ function sidePrint(i){
 		for(i=0; i<=s_j; i++){
 			if(i==0){
 				sideCircle[i] = new fabric.Circle({
-					top: 60,
-					left: 40,
+					top: 70,
+					left: 150,
 					strokeWidth: 5,
 					radius: 15,
 					fill: 'yellow',
@@ -177,7 +178,7 @@ function sidePrint(i){
 				});
 				sideText[i] = new fabric.Text(ssc_trans[i], {
 					top: sideCircle[i].get('top'),
-					left: sideCircle[i].get('left')+45,
+					left: sideCircle[i].get('left')+50,
 					fontSize: 20,
 					lockMovementX: true,
 					lockMovementY: true,
@@ -206,7 +207,7 @@ function sidePrint(i){
 				});
 				sideText[i] = new fabric.Text(ssc_trans[i], {
 					top: sideCircle[i].get('top'),
-					left: sideCircle[i].get('left')+45,
+					left: sideCircle[i].get('left')+50,
 					fontSize: 20,
 					lockMovementX: true,
 					lockMovementY: true,
@@ -235,7 +236,7 @@ function sidePrint(i){
 				});
 				sideText[i] = new fabric.Text(ssc_trans[i], {
 					top: sideCircle[i].get('top'),
-					left: sideCircle[i].get('left')+45,
+					left: sideCircle[i].get('left')+50,
 					fontSize: 20,
 					lockMovementX: true,
 					lockMovementY: true,
@@ -243,14 +244,94 @@ function sidePrint(i){
 				});
 			}
 		}
-		sideTransImg = new fabric.Image(simgElement,{
-					top: sideCircle[i-1].get('top')+40,
-					left: sideCircle[i-1].get('left'),
-					scaleX: 0.039,
-					scaleY: 0.039,
-					opacity: 0.85,
-					selectable : false
-		});
+		sHour = document.getElementById('hourSelect').value;
+		sMinute = document.getElementById('minuteSelect').value;
+		sHour = sHour.replace(/[^0-9]/g,"");
+		sMinute = sMinute.replace(/[^0-9]/g,"");
+		sAfterHour = sHour;
+		if(document.getElementById('timeSelect').value == "출발시간"){
+			sAfterMinute = Math.round(sMinute) + Math.round(sideDistance(1));
+			if(sAfterMinute>=60){
+				if(sAfterHour==23){
+					sAfterHour = String(Math.round(sAfterHour) - 23);
+					sAfterMinute = String(sAfterMinute - 60);
+				}
+				else{
+					sAfterHour = String(Math.round(sAfterHour) + 1);
+					sAfterMinute = String(sAfterMinute - 60);
+				}
+			}
+		}
+		else{
+			sAfterMinute = sMinute;
+			sMinute = Math.round(sAfterMinute) - Math.round(sideDistance(1));
+			if(sMinute<0){
+				if(sHour==0){
+					sHour = String(Math.round(sAfterHour) + 23);
+					sMinute = String(60 + sMinute);
+				}
+				else{
+					sHour = String(Math.round(sAfterHour) - 1);
+					sMinute = String(60 + sMinute);
+				}
+			}
+		}
+		if(spNum==0){
+			sideTimeStart = new fabric.Text(" ", {
+				top: sideCircle[0].get('top'),
+				left: sideCircle[0].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+			sideTimeEnd = new fabric.Text(" ", {
+				top: sideCircle[s_j].get('top'),
+				left: sideCircle[s_j].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+		}
+		else if(spNum==1){
+			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
+				top: sideCircle[0].get('top'),
+				left: sideCircle[0].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
+				top: sideCircle[s_j].get('top'),
+				left: sideCircle[s_j].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+		}
+		else{
+			sideTimeStart = new fabric.Text(" ", {
+				top: sideCircle[0].get('top'),
+				left: sideCircle[0].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+			sideTimeEnd = new fabric.Text(" ", {
+				top: sideCircle[s_j].get('top'),
+				left: sideCircle[s_j].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+		}
+		sideCanvas.add(sideTimeStart);
+		sideCanvas.add(sideTimeEnd);
 		sideCanvas.add(sideMainText);
 		for(i=0; i<=s_j; i++){
 			if(i==0){
@@ -298,5 +379,7 @@ function sideClear(){
 	for(i=0; i<s_j-1; i++){
 		sideCanvas.remove(sideTransImg[i]);
 	}
+	sideCanvas.remove(sideTimeStart);
+	sideCanvas.remove(sideTimeEnd);
 	c_c = 0;
 }

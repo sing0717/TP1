@@ -2,6 +2,7 @@ var form;
 var modal;
 var storage;
 var closeButton;
+var d = new Date();
 
 window.addEventListener('DOMContentLoaded', function(){
     this.storage = window.localStorage;
@@ -42,12 +43,22 @@ window.addEventListener('DOMContentLoaded', function(){
     var hourTag = document.getElementById('hourSelect');
     var minuteTag = document.getElementById('minuteSelect');
     for(var i = 0; i<60; i++){
-        options += '<option>' + i +'분</option>';
+        if(i==d.getMinutes()){
+            options += '<option selected>' + i +'분</option>';
+        }
+        else{
+            options += '<option>' + i +'분</option>';
+        }
     }
     minuteTag.innerHTML = options;
     options = '';
-    for(var i = 0; i<25; i++){
-        options += '<option>' + i +'시</option>';
+    for(var i = 0; i<24; i++){
+        if(i==d.getHours()){
+            options += '<option selected>' + i +'시</option>';
+        }
+        else{
+            options += '<option>' + i +'시</option>';
+        }
     }
     hourTag.innerHTML = options;
 
@@ -176,22 +187,22 @@ function Init(){
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
         </div>
-        <select style='float:left'>
+        <select style='float:left' id = 'timeSelect'>
             <option>출발시간</option>
             <option>도착시간</option>
         </select>
         <select style='float:left' id = 'hourSelect'>
-            <option>0시</option>
+            <option></option>
         </select>
         <select style='float:left' id = 'minuteSelect'>
-            <option>0분</option>
+            <option></option>
         </select>`;
         form.appendChild(divButtons);
     }
     if(sideCanvas == null || divButtons == undefined){
         sideCanvas = document.createElement('div');
         sideCanvas.setAttribute('id', 'sideCanvas');
-        sideCanvas.setAttribute('style', 'width: 90%; height: 50%; overflow: hidden');
+        sideCanvas.setAttribute('style', 'width: 90%; height: 55%; overflow: hidden');
         sideCanvas.style.display = 'none';
         sideCanvas.style.visibility = 'hidden';
         sideCanvas.innerHTML = `

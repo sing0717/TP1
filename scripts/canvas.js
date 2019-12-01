@@ -93,14 +93,14 @@ function makeCircle(x, y, name) {
         if (canvas.startSelected == null && canvas.endSelected != c) {
             document.getElementById('start').value = c.name;			
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.startSelected = c; c.selected = true;
             c.set('stroke', 'green');
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.startSelected.set('stroke', 'gray');
             canvas.startSelected = null; c.selected = false;
             c.set('stroke', 'gray');
@@ -108,21 +108,21 @@ function makeCircle(x, y, name) {
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected = null;
             c.set('stroke', 'gray'); c.selected = false;
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', false);endImg.set('top', c.get('top')- 25);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected = c; c.selected = true;
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }else{
             document.getElementById('end').value = c.name;
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected.set('stroke', 'gray'); c.selected = true;
             canvas.endSelected = c;
             c.set('stroke', 'green');
