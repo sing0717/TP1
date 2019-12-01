@@ -8,23 +8,48 @@ window.addEventListener('DOMContentLoaded', function(){
     this.modal = this.document.querySelector('.modal');
     this.form = this.document.querySelector('#asideform');
     closeButton = this.document.querySelector('.close-button');
+    var SearchButton = document.querySelector('#search');
+    var InitButton = document.querySelector('#init');
+    SearchButton.addEventListener('click',function(){
+        SearchButton.setAttribute('searched', 'true');
+        if(canvas.startSelected==null){
+            alert('출발역을 선택해 주세요.');
+            return;
+        }
+        if(canvas.endSelected==null){
+            alert('종착역을 선택해 주세요.');
+            return;
+        }
+        Submit(Rails, 'time');
+        addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
+        change();
+        sidePrint(1);
+    });
+
+    InitButton.addEventListener('click', function(){
+        InitRails(Rails, canvas);
+        if(SearchButton.getAttribute('searched') == 'true'){
+            change();
+            sidePrint(1);
+        }
+        SearchButton.setAttribute('searched', 'false');
+    });
 
     Init();
     makeSideCanvas();
-    // remove();
-    //from format.js -- disabled for test
-    // var options = '';
-    // var hourTag = document.getElementById('hourSelect');
-    // var minuteTag = document.getElementById('minuteSelect');
-    // for(var i = 0; i<60; i++){
-    //     options += '<option>' + i +'분</option>';
-    // }
-    // minuteTag.innerHTML = options;
-    // options = '';
-    // for(var i = 0; i<25; i++){
-    //     options += '<option>' + i +'시</option>';
-    // }
-    // hourTag.innerHTML = options;
+
+    var options = '';
+    var hourTag = document.getElementById('hourSelect');
+    var minuteTag = document.getElementById('minuteSelect');
+    for(var i = 0; i<60; i++){
+        options += '<option>' + i +'분</option>';
+    }
+    minuteTag.innerHTML = options;
+    options = '';
+    for(var i = 0; i<25; i++){
+        options += '<option>' + i +'시</option>';
+    }
+    hourTag.innerHTML = options;
 
     // // .fav init
     // var starInputList = this.document.querySelectorAll('.fav > input');
@@ -48,10 +73,12 @@ window.addEventListener('DOMContentLoaded', function(){
 function showFav(element){
     var startLabel = document.querySelector('#start');
     var endLabel = document.querySelector('#end');
+    var SearchButton = document.querySelector('#search');
     startLabel.value = element.getAttribute('start');
     endLabel.value = element.getAttribute('end');
     canvas.startSelected = getNodeElement(Rails, startLabel.value);
     canvas.endSelected = getNodeElement(Rails, endLabel.value);
+    SearchButton.setAttribute('searched', 'true');
     Submit(Rails, 'time');
     sidePrint(1);
     change();
@@ -253,7 +280,6 @@ function delFav(start, end){
 }
 
 function addHistory(start, end){
-
     if(start == undefined || start == null || start == ""){
         return;
     }
