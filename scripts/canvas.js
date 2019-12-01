@@ -31,6 +31,7 @@ function makeRail(LineColor){
             else
                 lines.push(makeLine(nodes[i],nodes[i+1], false));
     };
+
     nodes.draw = function(){
         var i;
         for(i = 0;i<lines.length;i++){
@@ -47,10 +48,8 @@ function makeRail(LineColor){
             lines[i].redraw('LineColor', 5);
         for(i = 0 ;i <nodes.length;i++)
             nodes[i].set('stroke', 'gray'), nodes[i].set('fill', 'white');
-
     };
 
-    
     return nodes;
 }
 
@@ -92,8 +91,7 @@ function makeCircle(x, y, name) {
     });
     c.on('mousedown', function(){
         if (canvas.startSelected == null && canvas.endSelected != c) {
-            document.getElementById('start').value = c.name;
-			
+            document.getElementById('start').value = c.name;			
 			var txtBox = canvas.getItem('textbox');
 			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.startSelected = c; c.selected = true;
@@ -101,7 +99,6 @@ function makeCircle(x, y, name) {
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',true); 
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
-			
 			var txtBox = canvas.getItem('textbox');
 			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.startSelected.set('stroke', 'gray');
@@ -110,7 +107,6 @@ function makeCircle(x, y, name) {
             startImg.set('left', c.get('left')+ 25); startImg.set('top', c.get('top')- 25); startImg.set('visible',false);
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
-			
 			var txtBox = canvas.getItem('textbox');
 			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected = null;
@@ -118,7 +114,6 @@ function makeCircle(x, y, name) {
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', false);endImg.set('top', c.get('top')- 25);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
-			
 			var txtBox = canvas.getItem('textbox');
 			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected = c; c.selected = true;
@@ -126,7 +121,6 @@ function makeCircle(x, y, name) {
             endImg.set('left', c.get('left')+ 25); endImg.set('visible', true);endImg.set('top', c.get('top')- 25);
         }else{
             document.getElementById('end').value = c.name;
-			
 			var txtBox = canvas.getItem('textbox');
 			txtBox.set({ text : "출발 :" + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
             canvas.endSelected.set('stroke', 'gray'); c.selected = true;
@@ -150,7 +144,6 @@ function makeLine(startCircle, endCircle, curve) {
     };
 
     var Line;
-
     if(!curve){
         Line = new fabric.Line(new Array(startCircle.left, startCircle.top, endCircle.left, endCircle.top), info);
     }else{
@@ -165,17 +158,20 @@ function makeLine(startCircle, endCircle, curve) {
 }
 
 function InitRails(rails, canvas){
-    canvas.startSelected.set('stroke', 'gray');
-    canvas.endSelected.set('stroke', 'gray');
+    if(canvas.startSelected!=null)
+        canvas.startSelected.set('stroke', 'gray');
+    if(canvas.endSelected != null)
+        canvas.endSelected.set('stroke', 'gray');
     canvas.startSelected = null;
     canvas.endSelected = null;
     document.getElementById('start').value = '';
     document.getElementById('end').value = '';
     endImg.set('visible', false);
     startImg.set('visible', false);
-    for(let i = 0; i < rails.length; i++)
+    for(var i = 0; i < rails.length; i++)
         rails[i].init();
     canvas.requestRenderAll();
+    return true;
 }
 
 function changeTextData(source, pointName = "none"){
@@ -211,7 +207,7 @@ function changeTextData(source, pointName = "none"){
         element = getNodeElement(source, document.getElementById('end').value);
         console.log(element);
         if(element != null){
-            for(let i = 0; i<Rails.length; i++)
+            for(var i = 0; i<Rails.length; i++)
                 Rails[i].init();
             element.set('stroke', 'green');
             if(canvas.startSelected !== null) canvas.startSelected.set('stroke', 'green');
@@ -241,9 +237,9 @@ function getNodeElement(source, name){
 function showResultPath(source, paths){
     var strArray= paths.split(' ');
     var Element;
-    for(let i = 0; i<Rails.length; i++)
+    for(var i = 0; i<Rails.length; i++)
         Rails[i].init();
-    for(var i = 0; i<strArray.length; i++){
+    for(i = 0; i<strArray.length; i++){
         Element = getNodeElement(source, strArray[i]);
         if(Element != null){
             Element.set('fill', 'yellow');
@@ -252,14 +248,6 @@ function showResultPath(source, paths){
 }
 
 function Submit(source, target){
-    if(canvas.startSelected==null){
-        alert('출발역을 선택해 주세요.');
-        return;
-    }
-    if(canvas.endSelected==null){
-        alert('종착역을 선택해 주세요.');
-        return;
-    }
     var inputData;
     if(target === 'distance'){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'distance');
