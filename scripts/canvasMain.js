@@ -34,18 +34,18 @@ Rails.push(grayRail);
 
 transfers.push(makeCircle(480,180, "T1"));
 transfers.push(makeCircle(520,250, "T2"));
-transfers.push(makeCircle(610,570, "T3"));
-transfers.push(makeCircle(320,580, "T4"));
-transfers.push(makeCircle(300,680, "T5"));
-transfers.push(makeCircle(400,680, "T6"));
+transfers.push(makeCircle(640,570, "T3"));
+transfers.push(makeCircle(360,580, "T4"));
+transfers.push(makeCircle(320,680, "T5"));
+transfers.push(makeCircle(420,680, "T6"));
 transfers.push(makeCircle(700,680, "T7"));
-transfers.push(makeCircle(810,270, "T8"));
+transfers.push(makeCircle(820,290, "T8"));
 transfers.push(makeCircle(830,680, "T9"));
 transfers.push(makeCircle(850,750, "T10"));
 
-branchLines.push(makeCircle(680, 330, "B3")); 
-branchLines.push(makeCircle(490, 600, "B6")); 
-branchLines.push(makeCircle(750, 300, "B4")); 
+branchLines.push(makeCircle(715, 360, "B3")); 
+branchLines.push(makeCircle(490, 590, "B6")); 
+branchLines.push(makeCircle(740, 280, "B4")); 
 
 greenRail.add(makeCircle(170, 180, "A1"));
 greenRail.add(makeCircle(280, 180, "A2"));

@@ -90,7 +90,7 @@ function makeCircle(x, y, name) {
     c.hasControls = c.hasBorders = false;
     c.selected = false;
     c.name = name;
-    c.Text = new fabric.Text(name, {left: x+20, top: y-15, fontSize: 20, lockMovementX: true, lockMovementY: true, selectable: false});
+    c.Text = new fabric.Text(name, {left: x+20, top: y-10, fontSize: 20, lockMovementX: true, lockMovementY: true, selectable: false});
     c.Text.hasControls = false;
 
     c.on('modified', function(){
