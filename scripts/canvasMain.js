@@ -68,7 +68,7 @@ blueRail.add(branchLines[0]);
 blueRail.add(makeCircle(620, 280, "B2"));
 blueRail.add(transfers[1]);
 blueRail.add(makeCircle(370, 270, "B1"));
-blueRail.add(makeCircle(235, 350, "B8"));
+blueRail.add(makeCircle(235, 300, "B8"));
 blueRail.add(makeCircle(235, 505, "B7"));
 blueRail.add(transfers[3]);
 blueRail.add(branchLines[1]);
