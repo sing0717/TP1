@@ -120,123 +120,132 @@ function sidePrint(spNum){
 			}
 		}
 		for(s_i = 1; s_i < ssc.length-2; s_i++){
-			if(ssc[s_i] == "T8"){
-				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
+			if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
+				if(ssc[s_i] == "T8"){
 					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-	
-			else if(ssc[s_i-1] == "T1" && ssc[s_i] == "T2"){
-				if(ssc[s_i+1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T1" && ssc[s_i+1] == "T2"){
-				if(ssc[s_i-1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T2" && ssc[s_i-1].charAt(0) == "C"){
-				ssc_trans[s_j] = ssc[s_i];
-				s_j++;}
-			else if(ssc[s_i+1].charAt(0) == "C" && ssc[s_i] == "T2"){
-				ssc_trans[s_j] = ssc[s_i];
-				s_j++;}	
-			else if(ssc[s_i-1] == "T2" && ssc[s_i] == "T1"){
-				if(ssc[s_i+1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}					
-			else if(ssc[s_i] == "T2" && ssc[s_i+1] == "T1"){
-				if(ssc[s_i-1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+					s_j++;}
+					
+				else if(ssc[s_i-1] == "T1" && ssc[s_i] == "T2"){
+					if(ssc[s_i+1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T1" && ssc[s_i+1] == "T2"){
+					if(ssc[s_i-1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T2" && ssc[s_i] == "T1"){
+					if(ssc[s_i+1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T2" && ssc[s_i+1] == "T1"){
+					if(ssc[s_i-1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}						
 
-			else if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
-				if(ssc[s_i+1].charAt(0) != "C"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T4" && ssc[s_i+1] == "T5"){
-				if(ssc[s_i-1].charAt(0) != "C"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				else if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
+					if(ssc[s_i+1].charAt(0) != "C"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T4" && ssc[s_i+1] == "T5"){
+					if(ssc[s_i-1].charAt(0) != "C"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T4"){
+					if(ssc[s_i+1].charAt(0) != "C"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T4"){
+					if(ssc[s_i-1].charAt(0) != "C"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
 
-			else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T4"){
-				if(ssc[s_i+1].charAt(0) != "C"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T4"){
-				if(ssc[s_i-1].charAt(0) != "C"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T6"){
+					if(ssc[s_i+1].charAt(0) != "D"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T6"){
+					if(ssc[s_i-1].charAt(0) != "D"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T6" && ssc[s_i] == "T5"){
+					if(ssc[s_i+1].charAt(0) != "D"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T6" && ssc[s_i+1] == "T5"){
+					if(ssc[s_i-1].charAt(0) != "D"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
 
-			else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T6"){
-				if(ssc[s_i+1].charAt(0) != "D"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T6"){
-				if(ssc[s_i-1].charAt(0) != "D"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				else if(ssc[s_i-1] == "T3" && ssc[s_i] == "T7"){
+					if(ssc[s_i+1] != "T9"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T3" && ssc[s_i+1] == "T7"){
+					if(ssc[s_i-1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T3"){
+					if(ssc[s_i+1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T3"){
+					if(ssc[s_i-1] != "T9"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
 
-			else if(ssc[s_i-1] == "T6" && ssc[s_i] == "T5"){
-				if(ssc[s_i+1].charAt(0) != "D"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T6" && ssc[s_i+1] == "T5"){
-				if(ssc[s_i-1].charAt(0) != "D"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T9"){
+					if(ssc[s_i+1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T9"){
+					if(ssc[s_i-1] != "T3"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T7"){
+					if(ssc[s_i-1] != "T3"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}						
+				else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T7"){
+					if(ssc[s_i-1].charAt(0) != "A"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
 
-			else if(ssc[s_i-1] == "T3" && ssc[s_i] == "T7"){
-				if(ssc[s_i+1].charAt(0) != "A" && ssc[s_i+1] != "T9"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T3" && ssc[s_i+1] == "T7"){
-				if(ssc[s_i-1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T10"){
+					if(ssc[s_i+1].charAt(0) != "G"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T10"){
+					if(ssc[s_i-1].charAt(0) != "G"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
+					if(ssc[s_i+1].charAt(0) != "G"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				else if(ssc[s_i] == "T10" && ssc[s_i+1] == "T9"){
+					if(ssc[s_i-1].charAt(0) != "G"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+			}
+			else{
+				if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
+					if(ssc[s_i+1] == "T6"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				if(ssc[s_i-1] == "T6" && ssc[s_i] == "T5"){
+					if(ssc[s_i+1] == "T4"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
 
-			else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T3"){
-				if(ssc[s_i+1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T3"){
-				if(ssc[s_i-1].charAt(0) != "A" && ssc[s_i-1] != "T9"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-
-			else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T7"){
-				if(ssc[s_i+1].charAt(0) != "A" && ssc[s_i+1] != "T3"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T9"){
-				if(ssc[s_i-1].charAt(0) != "A" && ssc[s_i-1] != "T3"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-
-			else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T9"){
-				if(ssc[s_i+1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T7"){
-				if(ssc[s_i-1].charAt(0) != "A"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-
-			else if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
-				if(ssc[s_i+1].charAt(0) != "G"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T10"){
-				if(ssc[s_i-1].charAt(0) != "G"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-
-			else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T10"){
-				if(ssc[s_i+1].charAt(0) != "G"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
-			else if(ssc[s_i] == "T10" && ssc[s_i+1] == "T9"){
-				if(ssc[s_i-1].charAt(0) != "G"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+				if(ssc[s_i-1] == "T7" && ssc[s_i] == "T9"){
+					if(ssc[s_i+1] == "T10"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}
+				if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
+					if(ssc[s_i+1] == "T7"){
+						ssc_trans[s_j] = ssc[s_i];
+						s_j++;}}						
+			}
 		}
 		ssc_trans[s_j] = ssc[ssc.length-2];
 		
@@ -407,6 +416,7 @@ function sidePrint(spNum){
 				selectable : false
 			});
 		}
+
 		sideCanvas.add(sideTimeStart);
 		sideCanvas.add(sideTimeEnd);
 		sideCanvas.add(sideMainText);
