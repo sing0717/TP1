@@ -5,12 +5,75 @@ var ssc_trans = [];
 var sideCircle = [];
 var sideLine = [];
 var sideText = [];
+var sideColor = [];
 var c_c = 0;
 
 function makeSideCanvas(){
 	sideCanvas = new fabric.Canvas('s');
 }
-
+function SideColorCheck(color1, color2){
+	if(color1.charAt(0)=="A"){
+		return "green";
+	}
+	else if(color1.charAt(0)=="B"){
+		return "blue";
+	}
+	else if(color1.charAt(0)=="C"){
+		return "brown";
+	}
+	else if(color1.charAt(0)=="D"){
+		return "red";
+	}
+	else if(color1.charAt(0)=="E"){
+		return "#E5E500";
+	}
+	else if(color1.charAt(0)=="F"){
+		return "orange";
+	}
+	else if(color1.charAt(0)=="G"){
+		return "gray";
+	}
+	else{
+		if(color2.charAt(0)=="A"){
+			return "green";
+		}
+		else if(color2.charAt(0)=="B"){
+			return "blue";
+		}
+		else if(color2.charAt(0)=="C"){
+			return "brown";
+		}
+		else if(color2.charAt(0)=="D"){
+			return "red";
+		}
+		else if(color2.charAt(0)=="E"){
+			return "#E5E500";
+		}
+		else if(color2.charAt(0)=="F"){
+			return "orange";
+		}
+		else if(color2.charAt(0)=="G"){
+			return "gray";
+		}
+		else{
+			if(color1=="T1"&&color2=="T2"){ return "green"; }
+			else if(color1=="T2"&&color2=="T1"){ return "green"; }
+			else if(color1=="T4"&&color2=="T5"){ return "brown"; }
+			else if(color1=="T5"&&color2=="T4"){ return "brown"; }
+			else if(color1=="T5"&&color2=="T6"){ return "red"; }
+			else if(color1=="T6"&&color2=="T5"){ return "red"; }
+			else if(color1=="T3"&&color2=="T7"){ return "green"; }
+			else if(color1=="T7"&&color2=="T3"){ return "green"; }
+			else if(color1=="T7"&&color2=="T9"){ return "green"; }
+			else if(color1=="T9"&&color2=="T7"){ return "green"; }
+			else if(color1=="T9"&&color2=="T10"){ return "gray"; }
+			else if(color1=="T10"&&color2=="T9"){ return "gray"; }
+			else{
+				return "white";
+			}
+		}
+	}
+}
 function sideDistance(i){
 	var distanceValue = String(Math.round(s_distance[i]*10)/10.0);
 	return distanceValue;
@@ -45,8 +108,17 @@ function sidePrint(spNum){
 		selectable : false});
 	if(canvas.startSelected!=null && canvas.endSelected!=null){
 		s_j = 1;
+		s_c = 1;
 		ssc_trans = [];
+		ssc_color = [];
 		ssc_trans[0] = ssc[0];
+		ssc_color[0] = SideColorCheck(ssc[0],ssc[1]);
+		for(i=2; i< ssc.length-1; i++){
+			if(SideColorCheck(ssc[i-2],ssc[i-1]) != SideColorCheck(ssc[i-1],ssc[i])){
+				ssc_color[s_c] = SideColorCheck(ssc[i-1],ssc[i]);
+				s_c++;
+			}
+		}
 		for(s_i = 1; s_i < ssc.length-2; s_i++){
 			if(ssc[s_i] == "T8"){
 				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
@@ -152,7 +224,7 @@ function sidePrint(spNum){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
 
-			else if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
+			else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T10"){
 				if(ssc[s_i+1].charAt(0) != "G"){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
@@ -168,10 +240,10 @@ function sidePrint(spNum){
 				sideCircle[i] = new fabric.Circle({
 					top: 70,
 					left: 150,
-					strokeWidth: 5,
+					strokeWidth: 5.5,
 					radius: 15,
 					fill: 'yellow',
-					stroke: 'gray',	
+					stroke: ssc_color[i],
 					lockMovementX: true,
 					lockMovementY: true,
 					selectable : false
@@ -189,20 +261,20 @@ function sidePrint(spNum){
 				sideCircle[i] = new fabric.Circle({
 					top: sideCircle[i-1].get('top')+50,
 					left: sideCircle[i-1].get('left'),
-					strokeWidth: 5,
+					strokeWidth: 5.5,
 					radius: 15,
 					fill: 'yellow',
-					stroke: 'gray',	
+					stroke: ssc_color[s_j-1],
 					lockMovementX: true,
 					lockMovementY: true,
 					selectable : false
 				});
 				sideLine[i-1] = new fabric.Line([sideCircle[i-1].get('left'),
-												 sideCircle[i-1].get('top')+15, 
+												 sideCircle[i-1].get('top')+17, 
 												 sideCircle[i].get('left'), 
 												 sideCircle[i].get('top')-15], {
-					strokeWidth: 5,
-					stroke: 'gray',
+					strokeWidth: 7.5,
+					stroke: ssc_color[s_j-1],
 					selectable : false
 				});
 				sideText[i] = new fabric.Text(ssc_trans[i], {
@@ -218,20 +290,20 @@ function sidePrint(spNum){
 				sideCircle[i] = new fabric.Circle({
 					top: sideCircle[i-1].get('top')+50,
 					left: sideCircle[i-1].get('left'),
-					strokeWidth: 5,
-					radius: 10,
+					strokeWidth: 5.5,
+					radius: 15,
 					fill: "white",
-					stroke: 'white',
+					stroke: ssc_color[i-1],
 					lockMovementX: true,
 					lockMovementY: true,
 					selectable : false
 				});
 				sideLine[i-1] = new fabric.Line([sideCircle[i-1].get('left'),
-												 sideCircle[i-1].get('top')+15, 
+												 sideCircle[i-1].get('top')+17, 
 												 sideCircle[i].get('left'), 
 												 sideCircle[i].get('top')-15], {
-					strokeWidth: 5,
-					stroke: 'gray',
+					strokeWidth: 7.5,
+					stroke: ssc_color[i-1],
 					selectable : false
 				});
 				sideText[i] = new fabric.Text(ssc_trans[i], {
@@ -351,11 +423,11 @@ function sidePrint(spNum){
 		}
 		for(i=0; i<s_j-1; i++){
 			sideTransImg[i] = new fabric.Image(simgElement,{
-				top: sideCircle[i].get('top')+49.25,
+				top: sideCircle[i].get('top')+50,
 				left: sideCircle[i].get('left'),
-				scaleX: 0.0575,
-				scaleY: 0.0575,
-				opacity: 0.75,
+				scaleX: 0.04275,
+				scaleY: 0.04275,
+				opacity: 0.8,
 				selectable : false
 			});
 			sideCanvas.add(sideTransImg[i]);
