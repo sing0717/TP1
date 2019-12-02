@@ -37,16 +37,16 @@ graph.insertVertex('G2');
 graph.insertVertex('G3');
 graph.insertVertex('G4');
 
-graph.insertVertex('T1');
-graph.insertVertex('T2');
-graph.insertVertex('T3');
-graph.insertVertex('T4');
-graph.insertVertex('T5');
-graph.insertVertex('T6');
-graph.insertVertex('T7');
-graph.insertVertex('T8');
-graph.insertVertex('T9');
-graph.insertVertex('T10');
+graph.insertVertex('T1', ['A','F']);
+graph.insertVertex('T2', ['A','B','C']);
+graph.insertVertex('T3', ['A','B']);
+graph.insertVertex('T4', ['B','C']);
+graph.insertVertex('T5', ['C','D']);
+graph.insertVertex('T6', ['D','E']);
+graph.insertVertex('T7', ['A','D']);
+graph.insertVertex('T8', ['B','F','G']);
+graph.insertVertex('T9', ['A','G']);
+graph.insertVertex('T10',['E','G']);
 
 insertTwoWayArc(graph, 2, 2, 100, 'A1', 'A2');
 insertTwoWayArc(graph, 2.6, 3, 130, 'A2', 'T1');

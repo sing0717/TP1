@@ -248,6 +248,14 @@ function showResultPath(source, paths){
 }
 
 function Submit(source, target){
+    if(canvas.startSelected==null){
+        alert('출발역을 선택해 주세요.');
+        return;
+    }
+    if(canvas.endSelected==null){
+        alert('종착역을 선택해 주세요.');
+        return;
+    }
     var inputData;
     if(target === 'distance'){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'distance');
@@ -263,6 +271,10 @@ function Submit(source, target){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'fee');
         console.log(inputData);
         inputData = inputData[2][1];
+    }
+    else if(target === 'transfer'){
+        inputData = graph.lessTransfer(document.getElementById('start').value, document.getElementById('end').value);
+        console.log(inputData);
     }
     showResultPath(source,inputData);
     canvas.requestRenderAll();
