@@ -113,6 +113,8 @@ var Graph = (function() {
   Graph.prototype.search = function(startKey, endKey, target){
     var from = this.first;
     var curResult = [];
+    var pathWay;
+
     while (from) {
       //console.log(from.key);
       if (from.key === startKey) {
@@ -122,27 +124,46 @@ var Graph = (function() {
     }
     console.log('시작점은 %s입니다', from.key);
     var temp = this.first;
-    var current;
-    var arc;
+    
     while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
       temp.transfers = temp.time = temp.fee = temp.distance = Infinity;
-      temp.roots = '';
+      temp.transferRoots = temp.roots = '';
       temp = temp.next;
     }
+
+    
+    var current;
+    var arc;
+    var tempWay; var checkTrans;
+
     temp = from;
     temp.transfers = temp.time = temp.fee = temp.distance = 0;
     temp.roots = temp.key + " ";
-    queue.enqueue(from);
+    temp= from.key.substring(0,1) == 'T' ? [from, from.lineInfo] : [from, [from.key.substring(0,1)]];
+    queue.enqueue(temp);
+
     while (!(queue.isEmpty())) { // 반복문을 돌며 최단 값을 찾음
       current = queue.dequeue();
+      pathWay = current[1];
+      current = current[0];
+
       arc = current.arc;
       while (arc) {
+        checkTrans = this.checkAddTransfer(pathWay, arc.destination);
+        
         if(target === 'distance'){
           if (arc.destination.distance > current.distance + arc.distance) {
             arc.destination.time = current.time + arc.time;
             arc.destination.distance = current.distance + arc.distance;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-            queue.enqueue(arc.destination);
+            checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
+            if(arc.destination.key.substring(0,1) == 'T'){
+              tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+            }
+            else{
+              tempWay = [arc.destination.key.substring(0,1)];
+            }
+            queue.enqueue([arc.destination, tempWay]);
             //console.log(arc.destination.roots);
           }
         }
@@ -150,16 +171,30 @@ var Graph = (function() {
           if (arc.destination.time > current.time + arc.time) {
             arc.destination.time = current.time + arc.time;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-            queue.enqueue(arc.destination);
+            checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
+            if(arc.destination.key.substring(0,1) == 'T'){
+              tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+            }
+            else{
+              tempWay = [arc.destination.key.substring(0,1)];
+            }
+            queue.enqueue([arc.destination, tempWay]);
             //console.log(arc.destination.roots);
           }
         }
         else if(target === 'fee'){
           if (arc.destination.fee > current.fee + arc.fee) {
             arc.destination.time = current.time + arc.time;
-            arc.destination.fee = current.fee + arc.fee;            ;
+            arc.destination.fee = current.fee + arc.fee;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-            queue.enqueue(arc.destination);
+            checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
+            if(arc.destination.key.substring(0,1) == 'T'){
+              tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+            }
+            else{
+              tempWay = [arc.destination.key.substring(0,1)];
+            }
+            queue.enqueue([arc.destination, tempWay]);
             //console.log(arc.destination.roots);
           }
         }
@@ -172,6 +207,7 @@ var Graph = (function() {
         if(target === 'distance'){
           console.log('%s까지의 최단거리는 %d입니다', temp.key, temp.distance);
           console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[0]=temp.distance;
           s_stationCount[0]=temp.roots;
@@ -180,6 +216,8 @@ var Graph = (function() {
         }
         else if(target === 'time'){
           console.log('%s까지의 최단시간은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[1]=temp.time;
           s_stationCount[1]=temp.roots;
@@ -189,6 +227,7 @@ var Graph = (function() {
         else if(target === 'fee'){
           console.log('%s까지의 최단비용은 %d입니다', temp.key, temp.fee);
           console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[2]=temp.fee;
           s_stationCount[2]=temp.roots;
@@ -228,7 +267,6 @@ var Graph = (function() {
   Graph.prototype.lessTransfer = function(startKey, endKey){
     var from = this.first;
     var pathWay;
-   
 
     while (from) {
       //console.log(from.key);
@@ -241,7 +279,7 @@ var Graph = (function() {
     var temp = this.first;
     while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
       temp.transfers = temp.time = temp.fee = temp.distance = Infinity;
-      temp.transRoots = temp.roots = '';
+      temp.transferRoots = temp.roots = '';
       temp = temp.next;
     }
 
@@ -273,10 +311,10 @@ var Graph = (function() {
             arc.destination.time = current.time + arc.time;
             arc.destination.transfers = curTransfer;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-            console.log(checkTrans);
-            console.log(current.key);
+            //console.log(checkTrans);
+            //console.log(current.key);
             checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
-            console.log(arc.destination.transferRoots);
+            //console.log(arc.destination.transferRoots);
             //console.log(arc.destination.roots);
             if(arc.destination.key.substring(0,1) == 'T'){
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
