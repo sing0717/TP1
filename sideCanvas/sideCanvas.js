@@ -11,6 +11,7 @@ var c_c = 0;
 function makeSideCanvas(){
 	sideCanvas = new fabric.Canvas('s');
 }
+
 function SideColorCheck(color1, color2){
 	if(color1.charAt(0)=="A"){
 		return "green";
@@ -489,4 +490,4 @@ function sideClear(){
 	sideCanvas.remove(sideTimeStart);
 	sideCanvas.remove(sideTimeEnd);
 	c_c = 0;
-}
+} 
