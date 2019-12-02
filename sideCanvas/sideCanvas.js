@@ -124,7 +124,7 @@ function sidePrint(spNum){
 				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
-			else if(ssc[s_i] == "T2"){
+			else if(ssc[s_i] == "T2" && ssc[s_i+1].charAt(0)!="T"){
 				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
