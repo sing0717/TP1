@@ -10,11 +10,27 @@ function makeCanvas(name){
 //Rail Creator
 function makeRail(LineColor){
     var nodes = [];
-    var opts = [];
     var lines = [];
 
     nodes.add = function(obj){nodes.push(obj);};
-    nodes.curve = function(name){opts.push(name);};
+
+    nodes.line = function(startCircle, endCircle, curvePoint=null){
+        startNode = null;
+        endNode = null;
+        for(i = 0;i<nodes.length;i++){
+            if(nodes[i].name == startCircle){
+                startNode = nodes[i];
+            }
+            if(nodes[i].name == endCircle){
+                endNode = nodes[i];
+            }
+        }
+        if(startNode == null || endNode == null){
+            return;
+        }
+        lines.push(makeLine(startNode, endNode, curvePoint));
+    };
+
     nodes.getNode = function(name){
         for(var i = 0; i < nodes.length; i++){
             if(nodes[i].name == name)
@@ -22,16 +38,7 @@ function makeRail(LineColor){
         }
         return null;
     };
-
-    nodes.connect = function(){
-        var i, j = 0;
-        for(i = 0;i<nodes.length - 1;i++)
-            if(typeof opts[j] !== 'undefined' && opts[j] == nodes[i].name)
-                lines.push(makeLine(nodes[i], nodes[i+1], true));
-            else
-                lines.push(makeLine(nodes[i],nodes[i+1], false));
-    };
-
+    
     nodes.draw = function(){
         var i;
         for(i = 0;i<lines.length;i++){
@@ -135,7 +142,7 @@ function makeCircle(x, y, name) {
 
 
 //easier makeline
-function makeLine(startCircle, endCircle, curve) {
+function makeLine(startCircle, endCircle, curvePoint) {
     var info =  {
         evented: false,
         lockMovementX: true,
@@ -144,13 +151,12 @@ function makeLine(startCircle, endCircle, curve) {
     };
 
     var Line;
-    if(!curve){
+    if(curvePoint == null){
         Line = new fabric.Line(new Array(startCircle.left, startCircle.top, endCircle.left, endCircle.top), info);
     }else{
-        curvePoint = String(new Array(startCircle.left, endCircle.top));
-        Line = new fabric.Path(String('M '+startCircle.toString() + ' C ' +curvePoint+' '+curvePoint+ ' ' + endCircle.toString()), info);
+        Line = new fabric.Path(String('M '+startCircle.toString() + ' C ' +curvePoint+ ' ' + endCircle.toString()), info);
     }
-    Line.paint = function(color){Line.set('fill', color);if(curve){Line.set('fill','');}Line.set('stroke',color);};
+    Line.paint = function(color){Line.set('fill', color);if(curvePoint!=null){Line.set('fill','');}Line.set('stroke',color);};
     Line.resize = function(size){Line.set('strokeWidth', size);};
     Line.redraw = function(color, size){Line.paint(color);Line.resize(size);};
     Line.hasControls = false;

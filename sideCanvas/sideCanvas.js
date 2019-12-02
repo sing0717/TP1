@@ -99,7 +99,7 @@ function sidePrint(spNum){
 	}
 	var simgElement = document.getElementById('transfer-image');
 	sideTransImg = new fabric.Image(simgElement,{}); //?
-	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideDistance(spNum)+s_text1, {
+	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideDistance(spNum)+"분 )", {
 		top: 25,
 		left: 160,
 		fontSize: 25,
@@ -121,111 +121,113 @@ function sidePrint(spNum){
 		}
 		for(s_i = 1; s_i < ssc.length-2; s_i++){
 			if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
-				if(ssc[s_i] == "T8"){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}
-					
-				else if(ssc[s_i-1] == "T1" && ssc[s_i] == "T2"){
-					if(ssc[s_i+1].charAt(0) != "A"){
+				if(ssc[s_i].charAt(0) == "T"){
+					if(ssc[s_i-1].charAt(0) != "T" && ssc[s_i+1].charAt(0) != "T"){
 						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T1" && ssc[s_i+1] == "T2"){
-					if(ssc[s_i-1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T2" && ssc[s_i] == "T1"){
-					if(ssc[s_i+1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T2" && ssc[s_i+1] == "T1"){
-					if(ssc[s_i-1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}						
+						s_j++;}
 
-				else if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
-					if(ssc[s_i+1].charAt(0) != "C"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T4" && ssc[s_i+1] == "T5"){
-					if(ssc[s_i-1].charAt(0) != "C"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T4"){
-					if(ssc[s_i+1].charAt(0) != "C"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T4"){
-					if(ssc[s_i-1].charAt(0) != "C"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
+					else if(ssc[s_i-1] == "T1" && ssc[s_i] == "T2"){
+						if(ssc[s_i+1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T1" && ssc[s_i+1] == "T2"){
+						if(ssc[s_i-1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T2" && ssc[s_i] == "T1"){
+						if(ssc[s_i+1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T2" && ssc[s_i+1] == "T1"){
+						if(ssc[s_i-1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}						
 
-				else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T6"){
-					if(ssc[s_i+1].charAt(0) != "D"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T6"){
-					if(ssc[s_i-1].charAt(0) != "D"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T6" && ssc[s_i] == "T5"){
-					if(ssc[s_i+1].charAt(0) != "D"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T6" && ssc[s_i+1] == "T5"){
-					if(ssc[s_i-1].charAt(0) != "D"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
+					else if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
+						if(ssc[s_i+1].charAt(0) != "C"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T4" && ssc[s_i+1] == "T5"){
+						if(ssc[s_i-1].charAt(0) != "C"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T4"){
+						if(ssc[s_i+1].charAt(0) != "C"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T4"){
+						if(ssc[s_i-1].charAt(0) != "C"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
 
-				else if(ssc[s_i-1] == "T3" && ssc[s_i] == "T7"){
-					if(ssc[s_i+1] != "T9"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T3" && ssc[s_i+1] == "T7"){
-					if(ssc[s_i-1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T3"){
-					if(ssc[s_i+1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T3"){
-					if(ssc[s_i-1] != "T9"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
+					else if(ssc[s_i-1] == "T5" && ssc[s_i] == "T6"){
+						if(ssc[s_i+1].charAt(0) != "D"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T5" && ssc[s_i+1] == "T6"){
+						if(ssc[s_i-1].charAt(0) != "D"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T6" && ssc[s_i] == "T5"){
+						if(ssc[s_i+1].charAt(0) != "D"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T6" && ssc[s_i+1] == "T5"){
+						if(ssc[s_i-1].charAt(0) != "D"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
 
-				else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T9"){
-					if(ssc[s_i+1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T9"){
-					if(ssc[s_i-1] != "T3"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T7"){
-					if(ssc[s_i-1] != "T3"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}						
-				else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T7"){
-					if(ssc[s_i-1].charAt(0) != "A"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
+					else if(ssc[s_i-1] == "T3" && ssc[s_i] == "T7"){
+						if(ssc[s_i+1] != "T9"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T3" && ssc[s_i+1] == "T7"){
+						if(ssc[s_i-1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T3"){
+						if(ssc[s_i+1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T3"){
+						if(ssc[s_i-1] != "T9"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
 
-				else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T10"){
-					if(ssc[s_i+1].charAt(0) != "G"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T10"){
-					if(ssc[s_i-1].charAt(0) != "G"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
-					if(ssc[s_i+1].charAt(0) != "G"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
-				else if(ssc[s_i] == "T10" && ssc[s_i+1] == "T9"){
-					if(ssc[s_i-1].charAt(0) != "G"){
-						ssc_trans[s_j] = ssc[s_i];
-						s_j++;}}
+					else if(ssc[s_i-1] == "T7" && ssc[s_i] == "T9"){
+						if(ssc[s_i+1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T7" && ssc[s_i+1] == "T9"){
+						if(ssc[s_i-1] != "T3"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T7"){
+						if(ssc[s_i-1] != "T3"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}						
+					else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T7"){
+						if(ssc[s_i-1].charAt(0) != "A"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+
+					else if(ssc[s_i-1] == "T9" && ssc[s_i] == "T10"){
+						if(ssc[s_i+1].charAt(0) != "G"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T9" && ssc[s_i+1] == "T10"){
+						if(ssc[s_i-1].charAt(0) != "G"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i-1] == "T10" && ssc[s_i] == "T9"){
+						if(ssc[s_i+1].charAt(0) != "G"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+					else if(ssc[s_i] == "T10" && ssc[s_i+1] == "T9"){
+						if(ssc[s_i-1].charAt(0) != "G"){
+							ssc_trans[s_j] = ssc[s_i];
+							s_j++;}}
+				}
 			}
 			else{
 				if(ssc[s_i-1] == "T4" && ssc[s_i] == "T5"){
@@ -336,7 +338,7 @@ function sidePrint(spNum){
 		sMinute = sMinute.replace(/[^0-9]/g,"");
 		sAfterHour = sHour;
 		if(document.getElementById('timeSelect').value == "출발시간"){
-			sAfterMinute = Math.round(sMinute) + Math.round(sideDistance(1));
+			sAfterMinute = Math.round(sMinute) + Math.round(sideDistance(spNum));
 			if(sAfterMinute>=60){
 				if(sAfterHour==23){
 					sAfterHour = String(Math.round(sAfterHour) - 23);
@@ -350,7 +352,7 @@ function sidePrint(spNum){
 		}
 		else{
 			sAfterMinute = sMinute;
-			sMinute = Math.round(sAfterMinute) - Math.round(sideDistance(1));
+			sMinute = Math.round(sAfterMinute) - Math.round(sideDistance(spNum));
 			if(sMinute<0){
 				if(sHour==0){
 					sHour = String(Math.round(sAfterHour) + 23);
@@ -363,7 +365,7 @@ function sidePrint(spNum){
 			}
 		}
 		if(spNum==0){
-			sideTimeStart = new fabric.Text(" ", {
+			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
 				top: sideCircle[0].get('top'),
 				left: sideCircle[0].get('left')-80,
 				fontSize: 20,
@@ -371,7 +373,7 @@ function sidePrint(spNum){
 				lockMovementY: true,
 				selectable : false
 			});
-			sideTimeEnd = new fabric.Text(" ", {
+			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
 				top: sideCircle[s_j].get('top'),
 				left: sideCircle[s_j].get('left')-80,
 				fontSize: 20,
@@ -398,8 +400,8 @@ function sidePrint(spNum){
 				selectable : false
 			});
 		}
-		else{
-			sideTimeStart = new fabric.Text(" ", {
+		else if(spNum==2){
+			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
 				top: sideCircle[0].get('top'),
 				left: sideCircle[0].get('left')-80,
 				fontSize: 20,
@@ -407,7 +409,25 @@ function sidePrint(spNum){
 				lockMovementY: true,
 				selectable : false
 			});
-			sideTimeEnd = new fabric.Text(" ", {
+			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
+				top: sideCircle[s_j].get('top'),
+				left: sideCircle[s_j].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+		}
+		else{
+			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
+				top: sideCircle[0].get('top'),
+				left: sideCircle[0].get('left')-80,
+				fontSize: 20,
+				lockMovementX: true,
+				lockMovementY: true,
+				selectable : false
+			});
+			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
 				top: sideCircle[s_j].get('top'),
 				left: sideCircle[s_j].get('left')-80,
 				fontSize: 20,
@@ -469,4 +489,4 @@ function sideClear(){
 	sideCanvas.remove(sideTimeStart);
 	sideCanvas.remove(sideTimeEnd);
 	c_c = 0;
-}
+} 
