@@ -197,9 +197,6 @@ function Init(){
         <select style='float:left' id = 'minuteSelect'>
             <option></option>
         </select>
-        <select style='float:left' id = 'TransferSelect'>
-            <option></option>
-        </select>
         `;
         form.appendChild(divButtons);
     }
