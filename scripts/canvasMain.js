@@ -12,7 +12,7 @@ var startImg = new fabric.Image(startTag,{
 var transfers = [];
 var branchLines = [];
 
-canvas.add(startImg, endImg);
+
 
 redRail = makeRail('red');
 greenRail = makeRail('green');
@@ -130,4 +130,6 @@ blueRail.draw();
 greenRail.draw();
 grayRail.draw();
 
+
+canvas.add(startImg, endImg);
 makeText(200,100,'출발 :  =>  도착 : ');
