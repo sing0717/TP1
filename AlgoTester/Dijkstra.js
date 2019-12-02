@@ -9,6 +9,7 @@ var Graph = (function() {
       this.key = key;
       this.inTree = null;
       this.roots = " ";
+      this.transferRoots = " ";
       this.lineInfo = lineInfo;
     }
     function Arc(distance, time, fee, dest) {
@@ -138,6 +139,7 @@ var Graph = (function() {
       while (arc) {
         if(target === 'distance'){
           if (arc.destination.distance > current.distance + arc.distance) {
+            arc.destination.time = current.time + arc.time;
             arc.destination.distance = current.distance + arc.distance;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
             queue.enqueue(arc.destination);
@@ -154,6 +156,7 @@ var Graph = (function() {
         }
         else if(target === 'fee'){
           if (arc.destination.fee > current.fee + arc.fee) {
+            arc.destination.time = current.time + arc.time;
             arc.destination.fee = current.fee + arc.fee;            ;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
             queue.enqueue(arc.destination);
@@ -167,7 +170,8 @@ var Graph = (function() {
     while (temp) {
       if(temp.key === endKey){
         if(target === 'distance'){
-          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.distance);
+          console.log('%s까지의 최단거리는 %d입니다', temp.key, temp.distance);
+          console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[0]=temp.distance;
           s_stationCount[0]=temp.roots;
@@ -175,7 +179,7 @@ var Graph = (function() {
           curResult.push(temp.roots);
         }
         else if(target === 'time'){
-          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.time);
+          console.log('%s까지의 최단시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[1]=temp.time;
           s_stationCount[1]=temp.roots;
@@ -183,7 +187,8 @@ var Graph = (function() {
           curResult.push(temp.roots);
         }
         else if(target === 'fee'){
-          console.log('%s까지의 최단값은 %d입니다', temp.key, temp.fee);
+          console.log('%s까지의 최단비용은 %d입니다', temp.key, temp.fee);
+          console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
           s_distance[2]=temp.fee;
           s_stationCount[2]=temp.roots;
@@ -208,8 +213,8 @@ var Graph = (function() {
   
   Graph.prototype.checkAddTransfer =  function(startNode, endNode){
     endNode = endNode.key.substring(0,1) == 'T' ? endNode.lineInfo : [endNode.key.substring(0,1)];
-    console.log(startNode);
-    console.log(endNode);
+    //console.log(startNode);
+    //console.log(endNode);
     for(curStartLane of startNode){
       for(curEndLane of endNode){
         if(curStartLane == curEndLane){
@@ -223,6 +228,8 @@ var Graph = (function() {
   Graph.prototype.lessTransfer = function(startKey, endKey){
     var from = this.first;
     var pathWay;
+   
+
     while (from) {
       //console.log(from.key);
       if (from.key === startKey) {
@@ -232,44 +239,47 @@ var Graph = (function() {
     }
     console.log('시작점은 %s입니다', from.key);
     var temp = this.first;
+    while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
+      temp.transfers = temp.time = temp.fee = temp.distance = Infinity;
+      temp.transRoots = temp.roots = '';
+      temp = temp.next;
+    }
+
     var current;
     var arc;
     var curTransfer;
-    var tempWay;
-    while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
-      temp.transfers = temp.time = temp.fee = temp.distance = Infinity;
-      temp.roots = '';
-      temp = temp.next;
-    }
+    var tempWay; var checkTrans;
 
     temp = from;
     temp.transfers = 0;
     temp.roots = temp.key + " ";
     temp= from.key.substring(0,1) == 'T' ? [from, from.lineInfo] : [from, [from.key.substring(0,1)]];
     queue.enqueue(temp);
-    console.log(temp);
+    //console.log(temp);
   
 
     while(!(queue.isEmpty())){
-      console.log('loop Enter');
       current = queue.dequeue();
       pathWay = current[1];
       current = current[0];
-      console.log(current);
+      //console.log(current);
 
       arc = current.arc;
       while(arc){
-          console.log(pathWay);
-          curTransfer = current.transfers + this.checkAddTransfer(pathWay, arc.destination);
-          console.log(curTransfer);
+          checkTrans = this.checkAddTransfer(pathWay, arc.destination);
+          curTransfer = current.transfers + checkTrans;
 
           if(arc.destination.transfers > curTransfer){
+            arc.destination.time = current.time + arc.time;
             arc.destination.transfers = curTransfer;
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-            console.log(arc.destination.roots);
+            console.log(checkTrans);
+            console.log(current.key);
+            checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
+            console.log(arc.destination.transferRoots);
+            //console.log(arc.destination.roots);
             if(arc.destination.key.substring(0,1) == 'T'){
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
-              console.log(tempWay);
             }
             else{
               tempWay = [arc.destination.key.substring(0,1)];
@@ -283,7 +293,8 @@ var Graph = (function() {
     temp = this.first;
     while(temp){
       if(temp.key == endKey){
-        console.log('%s까지의 최단값은 %d입니다', temp.key, temp.transfers);
+        console.log('%s까지의 최단환승수는 %d입니다', temp.key, temp.transfers);
+        console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
         console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
         return temp.roots;
       }
