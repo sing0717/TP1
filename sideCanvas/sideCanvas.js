@@ -124,10 +124,7 @@ function sidePrint(spNum){
 				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
-			else if(ssc[s_i] == "T2" && ssc[s_i+1].charAt(0)!="T"){
-				if(ssc[s_i-1].charAt(0) != ssc[s_i+1].charAt(0)){
-					ssc_trans[s_j] = ssc[s_i];
-					s_j++;}}
+	
 			else if(ssc[s_i-1] == "T1" && ssc[s_i] == "T2"){
 				if(ssc[s_i+1].charAt(0) != "A"){
 					ssc_trans[s_j] = ssc[s_i];
@@ -136,7 +133,12 @@ function sidePrint(spNum){
 				if(ssc[s_i-1].charAt(0) != "A"){
 					ssc_trans[s_j] = ssc[s_i];
 					s_j++;}}
-
+			else if(ssc[s_i] == "T2" && ssc[s_i-1].charAt(0) == "C"){
+				ssc_trans[s_j] = ssc[s_i];
+				s_j++;}
+			else if(ssc[s_i+1].charAt(0) == "C" && ssc[s_i] == "T2"){
+				ssc_trans[s_j] = ssc[s_i];
+				s_j++;}	
 			else if(ssc[s_i-1] == "T2" && ssc[s_i] == "T1"){
 				if(ssc[s_i+1].charAt(0) != "A"){
 					ssc_trans[s_j] = ssc[s_i];
