@@ -76,14 +76,12 @@ blueRail.add(branchLines[1]);
 
 brownRail.add(transfers[1]);
 brownRail.add(makeCircle(500, 350, "C1"));
-//brownRail.curve('C1');
 brownRail.add(makeCircle(440, 450, "C2"));
 brownRail.add(transfers[3]);
 brownRail.add(transfers[4]);
 
 redRail.add(makeCircle(150, 430, "D1"));
 redRail.add(makeCircle(150, 680, "D2"));
-//greenRail.add(makeCircle(300, 140, "G3"));
 redRail.add(transfers[4]);
 redRail.add(transfers[5]);
 redRail.add(makeCircle(550, 680, "D3"));
@@ -112,17 +110,62 @@ grayRail.add(transfers[9]);
 grayRail.add(makeCircle(880, 780, "G3"));
 grayRail.add(makeCircle(1040, 780, "G4"));
 
-orangeRail.connect();
-greenRail.connect();
-redRail.connect();
-yellowRail.connect();
-brownRail.connect();
-blueRail.connect();
-greenRail.connect();
-grayRail.connect();
+// Rail.line(nameCirlce, nameCircle, CurvePoint);
+
+orangeRail.line("T1", "F1");
+orangeRail.line("F1", "F2");
+orangeRail.line("F2", "T8");
+orangeRail.line("T8", "F3");
+orangeRail.line("F3", "F4");
+orangeRail.line("F4", "F5");
+
+greenRail.line("A1", "A2");
+greenRail.line("A2", "T1");
+greenRail.line("T1", "T2");
+greenRail.line("T2", "A3");
+greenRail.line("A3", "T3");
+greenRail.line("T3", "T7");
+greenRail.line("T7", "T9");
+greenRail.line("T9", "A4");
+
+redRail.line("D1", "D2");
+redRail.line("D2", "T5");
+redRail.line("T5", "T6");
+redRail.line("T6", "D3");
+redRail.line("D3", "T7");
+
+yellowRail.line("T6", "E1");
+yellowRail.line("E1", "E2");
+yellowRail.line("E2", "E3");
+yellowRail.line("E3", "T10");
+yellowRail.line("T10", "E4");
+
+brownRail.line("T2","C1");
+brownRail.line("C1","C2");
+brownRail.line("C2","T4");
+brownRail.line("T4","T5");
+
+blueRail.line("B1", "T2");
+blueRail.line("T2", "B2");
+blueRail.line("B2", "B3");
+blueRail.line("B3", "B4");
+blueRail.line("B3", "B5");
+blueRail.line("B4", "T8");
+blueRail.line("B5", "T3");
+blueRail.line("T3", "B6");
+blueRail.line("B6", "T4");
+blueRail.line("T4", "B7");
+blueRail.line("B7", "B8");
+blueRail.line("B8", "B1");
+
+grayRail.line("G1", "T8");
+grayRail.line("T8", "G2");
+grayRail.line("G2", "T9");
+grayRail.line("T9", "T10");
+grayRail.line("T10", "G3");
+grayRail.line("G3", "G4");
 
 orangeRail.draw();
-greenRail.draw();
 redRail.draw();
 yellowRail.draw();
 brownRail.draw();
