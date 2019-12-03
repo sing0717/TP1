@@ -15,17 +15,25 @@ window.addEventListener('DOMContentLoaded', function(){
     var divCover = document.querySelector('#cover');
     divBody.style.visibility = 'hidden';
     divBody.style.display = 'none';
+    divBody.style.opacity = 0;
     setTimeout(function(){
         divCover.style.opacity = 1;
-        (function fade() {
-            if ((divCover.style.opacity -= .1) < 0) {
+        (function fadeout() {
+            if ((divCover.style.opacity -= .05) < 0) {
                 divCover.style.display = "none";
                 divBody.style.visibility = 'visible';
                 divBody.style.display = 'block';
                 document.documentElement.style.overflow = 'auto';
                 document.body.scroll = 'yes';
+                (function fadein() {
+                    var val = parseFloat(divBody.style.opacity);
+                    if (!((val += .05) > 1)){
+                        divBody.style.opacity = val;
+                        requestAnimationFrame(fadein);
+                    }
+                })();
             } else {
-                requestAnimationFrame(fade);
+                requestAnimationFrame(fadeout);
             }
         })();
     },3000);
@@ -104,23 +112,6 @@ window.addEventListener('DOMContentLoaded', function(){
         }
     }
     hourTag.innerHTML = options;
-
-    // // .fav init
-    // var starInputList = this.document.querySelectorAll('.fav > input');
-    // var starLabelList = this.document.querySelectorAll('.fav > label');
-    // for(var i=0;i<starInputList.length;i++){
-    //     starInputList[i].setAttribute('id', 'star'+i);
-    //     starLabelList[i].setAttribute('for', 'star'+i);
-    // }
-    // for(i=0;i<starInputList.length;i++){
-    //     starInputList[i].addEventListener('click', function(){
-    //         if(!this.checked){
-    //             console.log('delFav() called');
-    //         }else{
-    //             console.log('addFav() called');
-    //         }
-    //     });
-    // }
 });
 
 //shows Favorite
