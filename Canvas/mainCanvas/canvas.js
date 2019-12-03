@@ -265,18 +265,19 @@ function Submit(source, target){
     var inputData;
     if(target === 'distance'){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'distance');
-        console.log(inputData);
         inputData = inputData[0][1];
+        console.log(inputData);
     }
     else if(target === 'time'){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'time');
         console.log(inputData);
-        inputData = inputData[1][1];
+        inputData = inputData[0][1];
+        console.log(inputData);
     }
     else if(target === 'fee'){
         inputData = graph.shortest(document.getElementById('start').value, document.getElementById('end').value, 'fee');
+        inputData = inputData[0][1];
         console.log(inputData);
-        inputData = inputData[2][1];
     }
     else if(target === 'transfer'){
         inputData = graph.lessTransfer(document.getElementById('start').value, document.getElementById('end').value);

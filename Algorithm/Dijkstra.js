@@ -256,13 +256,16 @@ var Graph = (function() {
     }
   }
   
-  Graph.prototype.shortest = function(startKey, endKey) {
+  Graph.prototype.shortest = function(startKey, endKey, target) {
     if(result != []){
-      result.pop();result.pop();result.pop();
+      result.pop();
     }
-    result.push(this.search(startKey, endKey, 'distance'));
-    result.push(this.search(startKey, endKey, 'time'));
-    result.push(this.search(startKey, endKey, 'fee'));
+
+    if(target=='distance') result.push(this.search(startKey, endKey, 'distance'));
+    else if(target == 'time') result.push(this.search(startKey, endKey, 'time'));
+    else if(target == 'fee') result.push(this.search(startKey, endKey, 'fee'));
+    else result.push(' ');
+    console.log(result);
     return result;
   };
   
