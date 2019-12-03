@@ -1,5 +1,6 @@
 //그래프 source: https://www.zerocho.com/category/Algorithm/post/584b9033580277001862f16c
-var s_distance = [];
+var s_value = [];
+var s_time = [];
 var s_stationCount = [];
 var result = [];
 var Graph = (function() {
@@ -209,7 +210,8 @@ var Graph = (function() {
           console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance[0]=temp.distance;
+          s_value[0]=temp.distance;
+          s_time[0]=temp.time;
           s_stationCount[0]=temp.roots;
           curResult.push(temp.distance);
           curResult.push(temp.roots);
@@ -219,7 +221,8 @@ var Graph = (function() {
           console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance[1]=temp.time;
+          s_value[1]=temp.time;
+          s_time[1]=temp.time;
           s_stationCount[1]=temp.roots;
           curResult.push(temp.time);
           curResult.push(temp.roots);
@@ -229,7 +232,8 @@ var Graph = (function() {
           console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
           console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
           console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-          s_distance[2]=temp.fee;
+          s_value[2]=temp.fee;
+          s_time[2]=temp.time;
           s_stationCount[2]=temp.roots;
           curResult.push(temp.time);
           curResult.push(temp.roots);
@@ -334,6 +338,9 @@ var Graph = (function() {
         console.log('%s까지의 최단환승수는 %d입니다', temp.key, temp.transfers);
         console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
         console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+        s_value[3]=temp.transfers;
+        s_time[3]=0;
+        s_stationCount[3]=temp.roots;
         return temp.roots;
       }
       temp = temp.next;

@@ -207,7 +207,7 @@ function Init(){
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">최소시간</button>
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'distance'),sidePrint(0)">최소거리</button>
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'fee'),sidePrint(2)">최소비용</button>
-            <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'transfer'),sidePrint(2)">최소환승</button>
+            <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'transfer'),sidePrint(3)">최소환승</button>
         </div>
         <select style='float:left' id = 'timeSelect'>
             <option>출발시간</option>

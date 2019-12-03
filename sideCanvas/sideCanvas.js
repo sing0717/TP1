@@ -6,7 +6,7 @@ var sideCircle = [];
 var sideLine = [];
 var sideText = [];
 var sideColor = [];
-var c_c = 0;git 
+var c_c = 0;
 
 function makeSideCanvas(){
 	sideCanvas = new fabric.Canvas('s');
@@ -74,9 +74,13 @@ function SideColorCheck(color1, color2){
 		}
 	}
 }
-function sideDistance(i){
-	var distanceValue = String(Math.round(s_distance[i]*10)/10.0);
-	return distanceValue;
+function sideTime(i){
+	var side_time = String(Math.round(s_time[i]*10)/10.0);
+	return side_time;
+}
+function sideValue(i){
+	var side_value = String(Math.round(s_value[i]*10)/10.0);
+	return side_value;
 }
 function sideStation(i){
 	var stationValue = s_stationCount[i].replace(/  /gi," ");
@@ -89,20 +93,23 @@ function sidePrint(spNum){
 		sideClear();
 	}
 	if(spNum==1){
-		s_text1 = "분 )";
+		s_text1 = " 최소시간 : " +sideValue(1)+ "분";
 	}
 	else if(spNum==0){
-		s_text1 = "km )";
+		s_text1 = " 최소거리 : " +sideValue(0)+ "km";
+	}
+	else if(spNum==2){
+		s_text1 = " 최소비용 : " +sideValue(2)+ "원";
 	}
 	else{ 
-		s_text1 = "원 )";
+		s_text1 = " 최소환승 : " +sideValue(3)+ "개";
 	}
 	var simgElement = document.getElementById('transfer-image');
 	sideTransImg = new fabric.Image(simgElement,{}); //?
-	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideDistance(spNum)+"분 )", {
+	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideTime(spNum)+"분 )"+ s_text1, {
 		top: 25,
 		left: 160,
-		fontSize: 25,
+		fontSize: 20,
 		lockMovementX: true,
 		lockMovementY: true,
 		selectable : false});
@@ -338,7 +345,7 @@ function sidePrint(spNum){
 		sMinute = sMinute.replace(/[^0-9]/g,"");
 		sAfterHour = sHour;
 		if(document.getElementById('timeSelect').value == "출발시간"){
-			sAfterMinute = Math.round(sMinute) + Math.round(sideDistance(spNum));
+			sAfterMinute = Math.round(sMinute) + Math.round(sideTime(spNum));
 			if(sAfterMinute>=60){
 				if(sAfterHour==23){
 					sAfterHour = String(Math.round(sAfterHour) - 23);
@@ -352,7 +359,7 @@ function sidePrint(spNum){
 		}
 		else{
 			sAfterMinute = sMinute;
-			sMinute = Math.round(sAfterMinute) - Math.round(sideDistance(spNum));
+			sMinute = Math.round(sAfterMinute) - Math.round(sideTime(spNum));
 			if(sMinute<0){
 				if(sHour==0){
 					sHour = String(Math.round(sAfterHour) + 23);
@@ -364,43 +371,7 @@ function sidePrint(spNum){
 				}
 			}
 		}
-		if(spNum==0){
-			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
-				top: sideCircle[0].get('top'),
-				left: sideCircle[0].get('left')-80,
-				fontSize: 20,
-				lockMovementX: true,
-				lockMovementY: true,
-				selectable : false
-			});
-			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
-				top: sideCircle[s_j].get('top'),
-				left: sideCircle[s_j].get('left')-80,
-				fontSize: 20,
-				lockMovementX: true,
-				lockMovementY: true,
-				selectable : false
-			});
-		}
-		else if(spNum==1){
-			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
-				top: sideCircle[0].get('top'),
-				left: sideCircle[0].get('left')-80,
-				fontSize: 20,
-				lockMovementX: true,
-				lockMovementY: true,
-				selectable : false
-			});
-			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
-				top: sideCircle[s_j].get('top'),
-				left: sideCircle[s_j].get('left')-80,
-				fontSize: 20,
-				lockMovementX: true,
-				lockMovementY: true,
-				selectable : false
-			});
-		}
-		else if(spNum==2){
+		if(1){
 			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
 				top: sideCircle[0].get('top'),
 				left: sideCircle[0].get('left')-80,
