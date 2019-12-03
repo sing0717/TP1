@@ -105,7 +105,17 @@ function sidePrint(spNum){
 		s_text1 = " 최소환승 : " +sideValue(3)+ "개";
 	}
 	var simgElement = document.getElementById('transfer-image');
+	var imgElement = document.getElementById('transfers-image');
 	sideTransImg = new fabric.Image(simgElement,{}); //?
+	sideTransfersImg = new fabric.Image(imgElement,{
+		top: 25,
+		left: 160,
+		scaleX: 0.4,
+		scaleY: 0.4,
+		opacity: 0.8,
+		selectable : false
+	});
+	sideCanvas.add(sideTransfersImg);
 	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideTime(spNum)+"분 )"+ s_text1, {
 		top: 25,
 		left: 160,
