@@ -159,7 +159,11 @@ var Graph = (function() {
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
             checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
             if(arc.destination.key.substring(0,1) == 'T'){
+              if(current.key.substring(0,1) == 'T') pathWay = current.lineInfo;
+              //console.log('beforeF: ' + pathWay);
+              //console.log(arc.destination.lineInfo);
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+              //console.log('filtered: ' + tempWay);
             }
             else{
               tempWay = [arc.destination.key.substring(0,1)];
@@ -174,7 +178,11 @@ var Graph = (function() {
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
             checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
             if(arc.destination.key.substring(0,1) == 'T'){
+              if(current.key.substring(0,1) == 'T') pathWay = current.lineInfo;
+              //console.log('beforeF: ' + pathWay);
+              //console.log(arc.destination.lineInfo);
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+              //console.log('filtered: ' + tempWay);
             }
             else{
               tempWay = [arc.destination.key.substring(0,1)];
@@ -190,7 +198,11 @@ var Graph = (function() {
             arc.destination.roots = current.roots + " " + arc.destination.key + " ";
             checkTrans == 1 ? arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " : arc.destination.transferRoots = current.transferRoots;
             if(arc.destination.key.substring(0,1) == 'T'){
+              if(current.key.substring(0,1) == 'T') pathWay = current.lineInfo;
+              //console.log('beforeF: ' + pathWay);
+              //console.log(arc.destination.lineInfo);
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+              //console.log('filtered: ' + tempWay);
             }
             else{
               tempWay = [arc.destination.key.substring(0,1)];
@@ -321,7 +333,11 @@ var Graph = (function() {
             //console.log(arc.destination.transferRoots);
             //console.log(arc.destination.roots);
             if(arc.destination.key.substring(0,1) == 'T'){
+              if(current.key.substring(0,1) == 'T') pathWay = current.lineInfo;
+              //console.log('beforeF: ' + pathWay);
+              //console.log(arc.destination.lineInfo);
               tempWay = pathWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+              //console.log('filtered: ' + tempWay);
             }
             else{
               tempWay = [arc.destination.key.substring(0,1)];
