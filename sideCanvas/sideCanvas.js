@@ -6,7 +6,7 @@ var sideCircle = [];
 var sideLine = [];
 var sideText = [];
 var sideColor = [];
-var c_c = 0;
+var c_c = 0;git 
 
 function makeSideCanvas(){
 	sideCanvas = new fabric.Canvas('s');

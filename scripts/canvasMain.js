@@ -32,7 +32,7 @@ Rails.push(orangeRail);
 Rails.push(greenRail);
 Rails.push(grayRail);
 
-transfers.push(makeCircle(480,180, "T1"));
+transfers.push(makeCircle(440,180, "T1"));
 transfers.push(makeCircle(520,250, "T2"));
 transfers.push(makeCircle(640,570, "T3"));
 transfers.push(makeCircle(360,580, "T4"));
@@ -44,7 +44,7 @@ transfers.push(makeCircle(830,680, "T9"));
 transfers.push(makeCircle(850,750, "T10"));
 
 branchLines.push(makeCircle(715, 360, "B3")); 
-branchLines.push(makeCircle(490, 590, "B6")); 
+branchLines.push(makeCircle(490, 600, "B6")); 
 branchLines.push(makeCircle(740, 280, "B4")); 
 
 greenRail.add(makeCircle(170, 180, "A1"));
@@ -59,7 +59,7 @@ greenRail.add(makeCircle(900, 680, "A4"));
 
 blueRail.add(branchLines[1]);
 blueRail.add(transfers[2]);
-blueRail.add(makeCircle(690, 460, "B5"));
+blueRail.add(makeCircle(710, 460, "B5"));
 blueRail.add(branchLines[0]);
 blueRail.add(branchLines[2]);
 blueRail.add(transfers[7]);
@@ -68,7 +68,7 @@ blueRail.add(branchLines[0]);
 blueRail.add(makeCircle(620, 280, "B2"));
 blueRail.add(transfers[1]);
 blueRail.add(makeCircle(370, 270, "B1"));
-blueRail.add(makeCircle(235, 300, "B8"));
+blueRail.add(makeCircle(235, 340, "B8"));
 blueRail.add(makeCircle(235, 505, "B7"));
 blueRail.add(transfers[3]);
 blueRail.add(branchLines[1]);
@@ -81,7 +81,7 @@ brownRail.add(transfers[3]);
 brownRail.add(transfers[4]);
 
 redRail.add(makeCircle(150, 430, "D1"));
-redRail.add(makeCircle(150, 680, "D2"));
+redRail.add(makeCircle(150, 580, "D2"));
 redRail.add(transfers[4]);
 redRail.add(transfers[5]);
 redRail.add(makeCircle(550, 680, "D3"));
@@ -90,7 +90,7 @@ redRail.add(transfers[6]);
 yellowRail.add(transfers[5]);
 yellowRail.add(makeCircle(500, 730, "E1"));
 yellowRail.add(makeCircle(600, 750, "E2"));
-yellowRail.add(makeCircle(690, 760, "E3"));
+yellowRail.add(makeCircle(690, 750, "E3"));
 yellowRail.add(transfers[9]);
 yellowRail.add(makeCircle(950, 740, "E4"));
 
@@ -99,7 +99,7 @@ orangeRail.add(makeCircle(600, 180, "F1"));
 orangeRail.add(makeCircle(730, 180, "F2"));
 orangeRail.add(transfers[7]);
 orangeRail.add(makeCircle(900, 270, "F3"));
-orangeRail.add(makeCircle(1000, 270, "F4"));
+orangeRail.add(makeCircle(1000, 320, "F4"));
 orangeRail.add(makeCircle(1000, 470, "F5"));
 
 grayRail.add(makeCircle(810, 120, "G1"));
@@ -110,59 +110,59 @@ grayRail.add(transfers[9]);
 grayRail.add(makeCircle(880, 780, "G3"));
 grayRail.add(makeCircle(1040, 780, "G4"));
 
-// Rail.line(nameCirlce, nameCircle, CurvePoint);
+//Rail.line(nameCirlce, nameCircle, CurvePoint);
 
 orangeRail.line("T1", "F1");
 orangeRail.line("F1", "F2");
-orangeRail.line("F2", "T8");
-orangeRail.line("T8", "F3");
-orangeRail.line("F3", "F4");
+orangeRail.line("F2", "T8", "775, 190 765, 260 ");
+orangeRail.line("T8", "F3", "870, 310 880, 290");
+orangeRail.line("F3", "F4", "930, 260 970, 260");
 orangeRail.line("F4", "F5");
 
 greenRail.line("A1", "A2");
 greenRail.line("A2", "T1");
-greenRail.line("T1", "T2");
+greenRail.line("T1", "T2", "510, 175  515, 230");
 greenRail.line("T2", "A3");
 greenRail.line("A3", "T3");
-greenRail.line("T3", "T7");
+greenRail.line("T3", "T7", "670, 670 650, 680");
 greenRail.line("T7", "T9");
 greenRail.line("T9", "A4");
 
 redRail.line("D1", "D2");
-redRail.line("D2", "T5");
+redRail.line("D2", "T5", "170, 670 250, 670");
 redRail.line("T5", "T6");
 redRail.line("T6", "D3");
 redRail.line("D3", "T7");
 
 yellowRail.line("T6", "E1");
-yellowRail.line("E1", "E2");
+yellowRail.line("E1", "E2", "560, 750 550, 750");
 yellowRail.line("E2", "E3");
 yellowRail.line("E3", "T10");
 yellowRail.line("T10", "E4");
 
-brownRail.line("T2","C1");
+brownRail.line("T2","C1", "520, 280  540, 290");
 brownRail.line("C1","C2");
-brownRail.line("C2","T4");
-brownRail.line("T4","T5");
+brownRail.line("C2","T4");//, "400, 520  360, 520");
+brownRail.line("T4","T5");//, "370, 610  370, 690");
 
-blueRail.line("B1", "T2");
-blueRail.line("T2", "B2");
-blueRail.line("B2", "B3");
-blueRail.line("B3", "B4");
-blueRail.line("B3", "B5");
-blueRail.line("B4", "T8");
-blueRail.line("B5", "T3");
-blueRail.line("T3", "B6");
-blueRail.line("B6", "T4");
-blueRail.line("T4", "B7");
-blueRail.line("B7", "B8");
-blueRail.line("B8", "B1");
+blueRail.line("B1", "T2", "390, 260 450, 250");
+blueRail.line("T2", "B2", "530, 255 550, 245");
+blueRail.line("B2", "B3", "640, 290 655, 300");
+blueRail.line("B3", "B4", "680, 320 720, 280");
+blueRail.line("B3", "B5", "710, 350 740, 390");
+blueRail.line("B4", "T8", "760, 250 790, 270");
+blueRail.line("B5", "T3", "700, 480 680, 530");
+blueRail.line("T3", "B6", "610, 590 510, 600");
+blueRail.line("B6", "T4", "500, 595 410, 600");
+blueRail.line("T4", "B7", "320, 580 250, 540");
+blueRail.line("B7", "B8", "210, 430 220, 380");
+blueRail.line("B8", "B1", "270, 310 280, 290");
 
 grayRail.line("G1", "T8");
 grayRail.line("T8", "G2");
 grayRail.line("G2", "T9");
 grayRail.line("T9", "T10");
-grayRail.line("T10", "G3");
+grayRail.line("T10", "G3", "860, 770 850, 770");
 grayRail.line("G3", "G4");
 
 orangeRail.draw();
