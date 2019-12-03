@@ -5,6 +5,15 @@ var startImgElement = document.getElementById("start-image");
 var endImgElement = document.getElementById("end-image");
 var startTag = document.getElementById('start-image'),
     endTag = document.getElementById('end-image');
+var imgElement = document.getElementById('transfers-image');
+var sideTransfersImg = new fabric.Image(imgElement,{
+    top: 100,
+    left: 150,
+    scaleX: 0.3,
+    scaleY: 0.4,
+    opacity: 0.8,
+    selectable : false
+});
 var startImg = new fabric.Image(startTag,{
     left: 100, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false}),
     endImg = new fabric.Image(endTag,{
@@ -12,7 +21,10 @@ var startImg = new fabric.Image(startTag,{
 var transfers = [];
 var branchLines = [];
 
+var imgElement = document.getElementById('transfers-image');
 
+	
+	
 
 redRail = makeRail('red');
 greenRail = makeRail('green');
@@ -175,4 +187,5 @@ grayRail.draw();
 
 
 canvas.add(startImg, endImg);
+canvas.add(sideTransfersImg);
 makeText(200,100,'출발 :  =>  도착 : ');
