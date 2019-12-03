@@ -80,7 +80,7 @@ function makeCircle(x, y, name) {
         left: x,//x위치
         top: y,//y위치
         strokeWidth: 5,//테두리의 굵기
-        radius: 10,//원의 반지름 크기
+        radius: 12,//원의 반지름 크기
         fill: 'white',//안쪽 색
         stroke: 'gray',//테두리의 색
         lockMovementX: true,
@@ -90,7 +90,7 @@ function makeCircle(x, y, name) {
     c.hasControls = c.hasBorders = false;
     c.selected = false;
     c.name = name;
-    c.Text = new fabric.Text(name, {left: x+20, top: y-15, fontSize: 20, lockMovementX: true, lockMovementY: true, selectable: false});
+    c.Text = new fabric.Text(name, {left: x+25, top: y-15, fontSize: 20, lockMovementX: true, lockMovementY: true, selectable: false});
     c.Text.hasControls = false;
 
     c.on('modified', function(){
