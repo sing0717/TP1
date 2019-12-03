@@ -3,16 +3,20 @@ var modal;
 var storage;
 var closeButton;
 var d = new Date();
+var SearchButton;
+var swapButton;
+var InitButton;
 
 window.addEventListener('DOMContentLoaded', function(){
     this.storage = window.localStorage;
     this.modal = this.document.querySelector('.modal');
     this.form = this.document.querySelector('#asideform');
     closeButton = this.document.querySelector('.close-button');
-    var SearchButton = document.querySelector('#search');
-    var InitButton = document.querySelector('#init');
+    SearchButton = document.querySelector('#search');
+    InitButton = document.querySelector('#init');
+    swapButton = document.querySelector('#swap');
+    InitButton.setAttribute('inits', 'true');
     SearchButton.addEventListener('click',function(){
-        SearchButton.setAttribute('searched', 'true');
         if(canvas.startSelected==null){
             alert('출발역을 선택해 주세요.');
             return;
@@ -21,19 +25,35 @@ window.addEventListener('DOMContentLoaded', function(){
             alert('종착역을 선택해 주세요.');
             return;
         }
-        Submit(Rails, 'time');
-        addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
-        change();
-        sidePrint(1);
+        if(SearchButton.getAttribute('searched') != 'true' && InitButton.getAttribute('inits') == 'true'){
+            Submit(Rails, 'time');
+            addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
+            change();
+            sidePrint(1);
+        }
+        SearchButton.setAttribute('searched', 'true');
+        InitButton.setAttribute('inits', 'false');
     });
 
     InitButton.addEventListener('click', function(){
         InitRails(Rails, canvas);
-        if(SearchButton.getAttribute('searched') == 'true'){
+        if(SearchButton.getAttribute('searched') == 'true' && InitButton.getAttribute('inits') != 'true'){
+            InitButton.setAttribute('inits', 'true');
             change();
             sidePrint(1);
         }
         SearchButton.setAttribute('searched', 'false');
+    });
+
+    swapButton.addEventListener('click', function(){
+        swapInput();
+        if(canvas.startSelected != null && canvas.endSelected != null){
+            Submit(Rails, 'time');
+            addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
+            sidePrint(1);
+        }
+        SearchButton.setAttribute('searched', 'true');
+        InitButton.setAttribute('inits', 'false');
     });
 
     Init();
@@ -84,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function(){
 function showFav(element){
     var startLabel = document.querySelector('#start');
     var endLabel = document.querySelector('#end');
-    var SearchButton = document.querySelector('#search');
+    SearchButton = document.querySelector('#search');
     startLabel.value = element.getAttribute('start');
     endLabel.value = element.getAttribute('end');
     canvas.startSelected = getNodeElement(Rails, startLabel.value);
@@ -93,6 +113,8 @@ function showFav(element){
     Submit(Rails, 'time');
     sidePrint(1);
     change();
+    SearchButton.setAttribute('searched', 'true');
+    InitButton.setAttribute('inits', 'false');
 }
 
 function addFav(start, end){
