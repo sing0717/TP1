@@ -8,10 +8,33 @@ var swapButton;
 var InitButton;
 
 window.addEventListener('DOMContentLoaded', function(){
-    this.storage = window.localStorage;
-    this.modal = this.document.querySelector('.modal');
-    this.form = this.document.querySelector('#asideform');
-    closeButton = this.document.querySelector('.close-button');
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.scroll = 'no';
+    var divBody = document.querySelector('#body');
+    var divCover = document.querySelector('#cover');
+    divBody.style.visibility = 'hidden';
+    divBody.style.display = 'none';
+    setTimeout(function(){
+        divCover.style.opacity = 1;
+        (function fade() {
+            if ((divCover.style.opacity -= .1) < 0) {
+                divCover.style.display = "none";
+                divBody.style.visibility = 'visible';
+                divBody.style.display = 'block';
+                document.documentElement.style.overflow = 'auto';
+                document.body.scroll = 'yes';
+            } else {
+                requestAnimationFrame(fade);
+            }
+        })();
+    },3000);
+
+
+    storage = window.localStorage;
+    modal = document.querySelector('.modal');
+    form = document.querySelector('#asideform');
+    closeButton = document.querySelector('.close-button');
     SearchButton = document.querySelector('#search');
     InitButton = document.querySelector('#init');
     swapButton = document.querySelector('#swap');
