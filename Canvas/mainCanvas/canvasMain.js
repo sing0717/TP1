@@ -53,7 +53,7 @@ transfers.push(makeCircle(450,580, "T6"));
 transfers.push(makeCircle(650,500, "T7"));
 transfers.push(makeCircle(850,260, "T8"));
 transfers.push(makeCircle(850,500, "T9"));
-transfers.push(makeCircle(850,640, "T10"));
+transfers.push(makeCircle(850,660, "T10"));
 
 branchLines.push(makeCircle(650, 340, "B3")); 
 branchLines.push(makeCircle(450, 500, "B6")); 
@@ -100,11 +100,11 @@ redRail.add(makeCircle(550, 580, "D3"));
 redRail.add(transfers[6]);
 
 yellowRail.add(transfers[5]);
-yellowRail.add(makeCircle(550, 640, "E1"));
-yellowRail.add(makeCircle(650, 640, "E2"));
-yellowRail.add(makeCircle(750, 640, "E3"));
+yellowRail.add(makeCircle(550, 660, "E1"));
+yellowRail.add(makeCircle(650, 660, "E2"));
+yellowRail.add(makeCircle(750, 660, "E3"));
 yellowRail.add(transfers[9]);
-yellowRail.add(makeCircle(950, 640, "E4"));
+yellowRail.add(makeCircle(950, 660, "E4"));
 
 orangeRail.add(transfers[0]);
 orangeRail.add(makeCircle(550, 180, "F1"));

@@ -2,10 +2,14 @@ var sideCanvas;
 
 var ssc = [];
 var ssc_trans = [];
+var s_t_time = [];
 var sideCircle = [];
 var sideLine = [];
 var sideText = [];
 var sideColor = [];
+var sMidHour = [];
+var sMidMinute = [];
+var sideTimeMid = [];
 var c_c = 0;
 var sBarImgElement;
 
@@ -93,11 +97,18 @@ function sideStation(i){
 	stationValue = ssc.length-2;
 	return stationValue;
 }
+function sideTransferTime(i){
+	var transferTimeValue = s_transferTime[i].replace(/  /gi," ");
+	s_t_time = transferTimeValue.split(" "); 
+	transferTimeValue = s_t_time.length-2;
+	return transferTimeValue;
+}
 function sidePrint(spNum){
 	if(c_c > 0){
 		sideClear();
 	}
 	var s_x = sideStation(spNum); //?
+	//var s_x = sideTransferTime(i); //?
 	var s_x = sideTime(spNum); //?
 	//var s_x = sideDistance(spNum); //?
 	//var s_x = sideFee(spNum); //?
@@ -395,8 +406,8 @@ function sidePrint(spNum){
 		sMinute = document.getElementById('minuteSelect').value;
 		sHour = sHour.replace(/[^0-9]/g,"");
 		sMinute = sMinute.replace(/[^0-9]/g,"");
-		sAfterHour = sHour;
 		if(document.getElementById('timeSelect').value == "출발시간"){
+			sAfterHour = sHour;
 			sAfterMinute = Math.round(sMinute) + Math.round(sideTime(spNum));
 			if(sAfterMinute>=60){
 				if(sAfterHour==23){
@@ -408,8 +419,27 @@ function sidePrint(spNum){
 					sAfterMinute = String(sAfterMinute - 60);
 				}
 			}
+			if(sideTransferTime(spNum) >= 1){
+				sMidHour[0] = sHour;
+				sMidMinute[0] = sMinute;
+				for(i=1; i<=sideTransferTime(spNum) ;i++){
+					sMidHour[i] = sMidHour[i-1];
+					sMidMinute[i] = String(Math.round(sAfterHour) + Math.round(s_t_time[i]));
+					if(sMidMinute[i]>=60){
+						if(sMidHour[i]==23){
+							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
+							sMidMinute[i] = String(sMidMinute[i] - 60);
+						}
+						else{
+							sMidHour[i] = String(Math.round(sMidHour[i]) + 1);
+							sMidMinute[i] = String(sMidMinute[i] - 60);
+						}
+					}
+				}
+			}
 		}
 		else{
+			sAfterHour = sHour;
 			sAfterMinute = sMinute;
 			sMinute = Math.round(sAfterMinute) - Math.round(sideTime(spNum));
 			if(sMinute<0){
@@ -422,8 +452,27 @@ function sidePrint(spNum){
 					sMinute = String(60 + sMinute);
 				}
 			}
+			if(sideTransferTime(spNum) >= 1){
+				sMidHour[0] = sAfterHour;
+				sMidMinute[0] = sAfterMinute;
+				for(i=1; i<=sideTransferTime(spNum) ;i++){
+					sMidHour[i] = sMidHour[i-1];
+					sMidMinute[i] = String(Math.round(sAfterHour) + Math.round(s_t_time[i]));
+					if(sMidMinute[i]<0){
+						if(sMidHour[i]==0){
+							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
+							sMidMinute[i] = String(sMidMinute[i] - 60);
+						}
+						else{
+							sMidHour[i] = String(Math.round(sAfterHour) + 1);
+							sMidMinute[i] = String(sMidMinute[i] - 60);
+						}
+					}
+				}
+			}
 		}
-		if(1){
+
+		if(sideTransferTime(spNum) >= 1){
 			sideTimeStart = new fabric.Text(sHour+"시 "+sMinute+"분", {
 				top: sideCircle[0].get('top'),
 				left: sideCircle[0].get('left')-80,
@@ -432,6 +481,16 @@ function sidePrint(spNum){
 				lockMovementY: true,
 				selectable : false
 			});
+			for(i=1; i<=sideTransferTime(spNum) ;i++){
+				sideTimeMid[i-1] = new fabric.Text(sMidHour[i]+"시 "+sMidMinute[i]+"분", {
+					top: sideCircle[i].get('top'),
+					left: sideCircle[i].get('left')-80,
+					fontSize: 20,
+					lockMovementX: true,
+					lockMovementY: true,
+					selectable : false
+				});
+			}
 			sideTimeEnd = new fabric.Text(sAfterHour+"시 "+sAfterMinute+"분", {
 				top: sideCircle[s_j].get('top'),
 				left: sideCircle[s_j].get('left')-80,
@@ -461,6 +520,10 @@ function sidePrint(spNum){
 		}
 
 		sideCanvas.add(sideTimeStart);
+		for(i=0; i<sideTransferTime(spNum) ;i++){
+			sideCanvas.add(sideTimeMid[i]);
+		}
+
 		sideCanvas.add(sideTimeEnd);
 		
 		for(i=0; i<=s_j; i++){
@@ -527,6 +590,9 @@ function sideClear(){
 	sideCanvas.remove(sideMainText3);
 	sideCanvas.remove(sideMainText4);
 	sideCanvas.remove(sideTimeStart);
+	for(i=0; i<sideTimeMid.length; i++){
+		sideCanvas.remove(sideTimeMid[i]);
+	}
 	sideCanvas.remove(sideTimeEnd);
 	c_c = 0;
 } 
