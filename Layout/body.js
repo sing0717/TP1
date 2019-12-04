@@ -6,6 +6,7 @@ var d = new Date();
 var SearchButton;
 var swapButton;
 var InitButton;
+var favNhisButton;
 
 window.addEventListener('DOMContentLoaded', function(){
 
@@ -46,8 +47,14 @@ window.addEventListener('DOMContentLoaded', function(){
     SearchButton = document.querySelector('#search');
     InitButton = document.querySelector('#init');
     swapButton = document.querySelector('#swap');
+    favNhisButton = document.querySelector('#HisNFav');
     InitButton.setAttribute('inits', 'true');
+    favNhisButton.setAttribute('clicked', 'false');
     SearchButton.addEventListener('click',function(){
+        if(favNhisButton.getAttribute('clicked') != 'false'){
+            change();
+            favNhisButton.setAttribute('clicked', false);
+        }
         if(canvas.startSelected==null){
             alert('출발역을 선택해 주세요.');
             return;
@@ -56,25 +63,20 @@ window.addEventListener('DOMContentLoaded', function(){
             alert('종착역을 선택해 주세요.');
             return;
         }
-        if(SearchButton.getAttribute('searched') != 'true' && InitButton.getAttribute('inits') == 'true'){
-            Submit(Rails, 'time');
-            addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
-            change();
-            sidePrint(1);
-        }
-        SearchButton.setAttribute('searched', 'true');
-        InitButton.setAttribute('inits', 'false');
+        Submit(Rails, 'time');
+        addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
+        sidePrint(1)
     });
 
     InitButton.addEventListener('click', function(){
-        InitRails(Rails, canvas);
-        if(SearchButton.getAttribute('searched') == 'true' && InitButton.getAttribute('inits') != 'true'){
-            InitButton.setAttribute('inits', 'true');
+        if(favNhisButton.getAttribute('clicked') != 'false'){
             change();
-            sidePrint(1);
+            favNhisButton.setAttribute('clicked', false);
         }
-        SearchButton.setAttribute('searched', 'false');
+        InitRails(Rails, canvas);
+        sidePrint(1);
     });
+
 
     swapButton.addEventListener('click', function(){
         swapInput();
@@ -83,9 +85,14 @@ window.addEventListener('DOMContentLoaded', function(){
             addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
             sidePrint(1);
         }
-        SearchButton.setAttribute('searched', 'true');
-        InitButton.setAttribute('inits', 'false');
     });
+
+    favNhisButton.addEventListener('click', function(){
+        if(this.getAttribute('clicked') != 'true'){
+            change();
+            this.setAttribute('clicked', true);
+        }
+    })
 
     Init();
     makeSideCanvas();
@@ -123,12 +130,10 @@ function showFav(element){
     endLabel.value = element.getAttribute('end');
     canvas.startSelected = getNodeElement(Rails, startLabel.value);
     canvas.endSelected = getNodeElement(Rails, endLabel.value);
-    SearchButton.setAttribute('searched', 'true');
     Submit(Rails, 'time');
     sidePrint(1);
     change();
-    SearchButton.setAttribute('searched', 'true');
-    InitButton.setAttribute('inits', 'false');
+    favNhisButton.setAttribute('clicked', false);
 }
 
 function addFav(start, end){
@@ -178,8 +183,8 @@ function Init(){
         History = document.createElement('div');
         History.setAttribute('id', 'History');
         History.setAttribute('count', '0');
-        History.style.visibility = 'visible';
-        History.style.display = 'block';
+        History.style.visibility = 'hidden';
+        History.style.display = 'none';
         History.innerHTML = `
         <p style="font-size: 12px;">
             <b>최근 검색</b>
@@ -196,8 +201,8 @@ function Init(){
         Favorites = document.createElement('div');
         Favorites.setAttribute('id', 'Favorites');
         Favorites.setAttribute('count', '0');
-        Favorites.style.display = 'block';
-        Favorites.style.visibility = 'visible';
+        Favorites.style.display = 'none';
+        Favorites.style.visibility = 'hidden';
         Favorites.innerHTML = `
         <p style="font-size: 12px;">
             <b>즐겨찾기한 지하철</b>
@@ -214,8 +219,8 @@ function Init(){
         divButtons = document.createElement('div');
         divButtons.setAttribute('id', 'container');
         divButtons.setAttribute('style', 'min-width:180px;');
-        divButtons.style.display = 'none';
-        divButtons.style.visibility = 'hidden';
+        divButtons.style.display = 'block';
+        divButtons.style.visibility = 'visible';
         divButtons.innerHTML = `
         <div class="container">
             <button type = "button" class="btn-2" onclick="javascript:Submit(Rails, 'time'),sidePrint(1)">최소시간</button>
@@ -240,8 +245,8 @@ function Init(){
         sideCanvas = document.createElement('div');
         sideCanvas.setAttribute('id', 'sideCanvas');
         sideCanvas.setAttribute('style', 'width: 90%; height: 55%; overflow: hidden');
-        sideCanvas.style.display = 'none';
-        sideCanvas.style.visibility = 'hidden';
+        sideCanvas.style.display = 'block';
+        sideCanvas.style.visibility = 'visible';
         sideCanvas.innerHTML = `
         <section class="side">
             <canvas id="s" width="500" height="1000"></canvas>
