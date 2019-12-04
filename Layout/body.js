@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function(){
     setTimeout(function(){
         divCover.style.opacity = 1;
         (function fadeout() {
-            if ((divCover.style.opacity -= .05) < 0) {
+            if ((divCover.style.opacity -= .01) < 0) {
                 divCover.style.display = "none";
                 divBody.style.visibility = 'visible';
                 divBody.style.display = 'block';
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 document.body.scroll = 'yes';
                 (function fadein() {
                     var val = parseFloat(divBody.style.opacity);
-                    if (!((val += .05) > 1)){
+                    if (!((val += .03) > 1)){
                         divBody.style.opacity = val;
                         requestAnimationFrame(fadein);
                     }
@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 requestAnimationFrame(fadeout);
             }
         })();
-    },3000);
+    },1500);
 
 
     storage = window.localStorage;
@@ -132,9 +132,9 @@ function showFav(element){
 }
 
 function addFav(start, end){
-    var divFavorites = this.document.querySelector('#Favorites');
+    var divFavorites = this.document.querySelector('div#Favorites');
     var FavCount = Number(divFavorites.getAttribute('count'));
-    var FavPrompt = this.document.querySelector('#Favorites .prompt');
+    var FavPrompt = this.document.querySelector('div#Favorites .prompt');
     var element = document.createElement('div');
     element.setAttribute('class', 'show');
     element.setAttribute('start', `${start}`);
@@ -171,7 +171,7 @@ function addFav(start, end){
 function Init(){
     var form = document.querySelector('#asideForm');
     var History = document.querySelector('#History');
-    var Favorites = document.querySelector('#Favorites');
+    var Favorites = document.querySelector('div#Favorites');
     var divButtons = document.querySelector('#container');
     var sideCanvas = document.querySelector('#sideCanvas');
     if( History == null || History == undefined ){
@@ -252,7 +252,7 @@ function Init(){
 
 function change(){
     var History = document.querySelector('#History');
-    var Favorites = document.querySelector('#Favorites');
+    var Favorites = document.querySelector('div#Favorites');
     var divButtons = document.querySelector('#container');
     var sideCanvas = document.querySelector('#sideCanvas');
     if(History != null && History.style.display == 'none' && History.style.visibility == 'hidden'){
@@ -286,7 +286,7 @@ function change(){
 }
 
 function delFav(start, end){
-    var divFavorites = this.document.querySelector('#Favorites');
+    var divFavorites = this.document.querySelector('div#Favorites');
     var FavCount = Number(divFavorites.getAttribute('count'));
 
     divFavorites.setAttribute('count', ''+(FavCount-1));
@@ -314,7 +314,7 @@ function delFav(start, end){
     }
 
     if(FavCount==0){
-        var existFavPrompt = this.document.querySelector('#Favorites .prompt');
+        var existFavPrompt = this.document.querySelector('div#Favorites .prompt');
         var newFavPrompt = this.document.createElement('div');
         newFavPrompt.setAttribute('class', 'show');
         newFavPrompt.innerHTML = `
