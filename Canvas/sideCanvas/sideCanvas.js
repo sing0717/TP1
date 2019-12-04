@@ -7,6 +7,7 @@ var sideLine = [];
 var sideText = [];
 var sideColor = [];
 var c_c = 0;
+var sBarImgElement;
 
 function makeSideCanvas(){
 	sideCanvas = new fabric.Canvas('s');
@@ -92,37 +93,40 @@ function sidePrint(spNum){
 	if(c_c > 0){
 		sideClear();
 	}
+	var s_x = sideStation(spNum); //?
+	var s_x = sideTime(spNum); //?
 	if(spNum==1){
-		s_text1 = " 최소시간 : " +sideValue(1)+ "분";
+		sBarImgElement = document.getElementById('time-image');
+		s_text1 = String(sideValue(1));
+		s_text2 = String(sideStation(spNum));
+		s_text3 = String(0);
+		s_text4 = String(0);
 	}
 	else if(spNum==0){
-		s_text1 = " 최소거리 : " +sideValue(0)+ "km";
+		sBarImgElement = document.getElementById('distance-image');
+		s_text1 = String(sideValue(0));
+		s_text2 = String(sideStation(spNum));
+		s_text3 = String(sideTime(spNum));
+		s_text4 = String(0);
 	}
 	else if(spNum==2){
-		s_text1 = " 최소비용 : " +sideValue(2)+ "원";
+		sBarImgElement = document.getElementById('fee-image');
+		s_text1 = String(sideValue(2));
+		s_text2 = String(sideStation(spNum));
+		s_text3 = String(sideTime(spNum));
+		s_text4 = String(0);
 	}
 	else{ 
-		s_text1 = " 최소환승 : " +sideValue(3)+ "개";
+		sBarImgElement = document.getElementById('transfers-image');
+		s_text1 = String(sideStation(spNum)); //sideValue(3);
+		s_text2 = String(sideTime(spNum));
+		s_text3 = String(0);
+		s_text4 = String(0);
 	}
 	var simgElement = document.getElementById('transfer-image');
-	var imgElement = document.getElementById('transfers-image');
 	sideTransImg = new fabric.Image(simgElement,{}); //?
-	sideTransfersImg = new fabric.Image(imgElement,{
-		top: 25,
-		left: 160,
-		scaleX: 0.4,
-		scaleY: 0.4,
-		opacity: 0.8,
-		selectable : false
-	});
-	sideCanvas.add(sideTransfersImg);
-	sideMainText = new fabric.Text(sideStation(spNum)+"개 역 ( "+sideTime(spNum)+"분 )"+ s_text1, {
-		top: 25,
-		left: 160,
-		fontSize: 20,
-		lockMovementX: true,
-		lockMovementY: true,
-		selectable : false});
+	//sideBarImg = new fabric.Image(sBarImgElement,{}); //?
+	
 	if(canvas.startSelected!=null && canvas.endSelected!=null){
 		s_j = 1;
 		s_c = 1;
@@ -267,7 +271,39 @@ function sidePrint(spNum){
 			}
 		}
 		ssc_trans[s_j] = ssc[ssc.length-2];
-		
+		sideMainText1 = new fabric.Text(s_text1, {
+			top: 32.5,
+			left: 40,
+			fontSize: 25,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
+		sideMainText2 = new fabric.Text(s_text2, {
+			top: 36.5,
+			left: 150,
+			fontSize: 15,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
+		sideMainText3 = new fabric.Text(s_text3, {
+			top: 36.5,
+			left: 210,
+			fontSize: 15,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
+		sideMainText4 = new fabric.Text(s_text4, {
+			top: 36.5,
+			left: 260,
+			fontSize: 15,
+			lockMovementX: true,
+			lockMovementY: true,
+			selectable : false
+		});
+
 		for(i=0; i<=s_j; i++){
 			if(i==0){
 				sideCircle[i] = new fabric.Circle({
@@ -420,7 +456,7 @@ function sidePrint(spNum){
 
 		sideCanvas.add(sideTimeStart);
 		sideCanvas.add(sideTimeEnd);
-		sideCanvas.add(sideMainText);
+		
 		for(i=0; i<=s_j; i++){
 			if(i==0){
 				sideCanvas.add(sideCircle[i]);
@@ -437,6 +473,19 @@ function sidePrint(spNum){
 				sideCanvas.add(sideText[i]);
 			}
 		}
+		sideBarImg = new fabric.Image(sBarImgElement,{
+			top: 25,
+			left: 160,
+			scaleX: 0.4,
+			scaleY: 0.4,
+			opacity: 1,
+			selectable : false
+		});
+		sideCanvas.add(sideBarImg);
+		sideCanvas.add(sideMainText1);
+		sideCanvas.add(sideMainText2);
+		sideCanvas.add(sideMainText3);
+		sideCanvas.add(sideMainText4);
 		for(i=0; i<s_j-1; i++){
 			sideTransImg[i] = new fabric.Image(simgElement,{
 				top: sideCircle[i].get('top')+50,
@@ -452,7 +501,6 @@ function sidePrint(spNum){
 	}
 }
 function sideClear(){
-	sideCanvas.remove(sideMainText);
 	for(i=0; i<=s_j; i++){
 		if(i==0){
 			sideCanvas.remove(sideCircle[i]);
@@ -467,6 +515,11 @@ function sideClear(){
 	for(i=0; i<s_j-1; i++){
 		sideCanvas.remove(sideTransImg[i]);
 	}
+	sideCanvas.remove(sideBarImg);
+	sideCanvas.remove(sideMainText1);
+	sideCanvas.remove(sideMainText2);
+	sideCanvas.remove(sideMainText3);
+	sideCanvas.remove(sideMainText4);
 	sideCanvas.remove(sideTimeStart);
 	sideCanvas.remove(sideTimeEnd);
 	c_c = 0;
