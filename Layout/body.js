@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function(){
     setTimeout(function(){
         divCover.style.opacity = 1;
         (function fadeout() {
-            if ((divCover.style.opacity -= .01) < 0) {
+            if ((divCover.style.opacity -= .05) < 0) {
                 divCover.style.display = "none";
                 divBody.style.visibility = 'visible';
                 divBody.style.display = 'block';
