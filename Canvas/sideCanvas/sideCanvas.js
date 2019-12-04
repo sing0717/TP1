@@ -79,9 +79,13 @@ function sideTime(i){
 	var side_time = String(Math.round(s_time[i]*10)/10.0);
 	return side_time;
 }
-function sideValue(i){
-	var side_value = String(Math.round(s_value[i]*10)/10.0);
-	return side_value;
+function sideDistance(i){
+	var side_distance = String(Math.round(s_distance[i]*10)/10.0);
+	return side_distance;
+}
+function sideFee(i){
+	var side_fee = String(Math.round(s_fee[i]*10)/10.0);
+	return side_fee;
 }
 function sideStation(i){
 	var stationValue = s_stationCount[i].replace(/  /gi," ");
@@ -95,33 +99,35 @@ function sidePrint(spNum){
 	}
 	var s_x = sideStation(spNum); //?
 	var s_x = sideTime(spNum); //?
+	//var s_x = sideDistance(spNum); //?
+	//var s_x = sideFee(spNum); //?
 	if(spNum==1){
 		sBarImgElement = document.getElementById('time-image');
-		s_text1 = String(sideValue(1));
+		s_text1 = String(sideTime(spNum));
 		s_text2 = String(sideStation(spNum));
-		s_text3 = String(0);
-		s_text4 = String(0);
+		s_text3 = String(sideFee(spNum));
+		s_text4 = String(sideDistance(spNum));
 	}
 	else if(spNum==0){
 		sBarImgElement = document.getElementById('distance-image');
-		s_text1 = String(sideValue(0));
+		s_text1 = String(sideDistance(spNum));
 		s_text2 = String(sideStation(spNum));
 		s_text3 = String(sideTime(spNum));
-		s_text4 = String(0);
+		s_text4 = String(sideFee(spNum));
 	}
 	else if(spNum==2){
 		sBarImgElement = document.getElementById('fee-image');
-		s_text1 = String(sideValue(2));
+		s_text1 = String(sideFee(spNum));
 		s_text2 = String(sideStation(spNum));
 		s_text3 = String(sideTime(spNum));
-		s_text4 = String(0);
+		s_text4 = String(sideDistance(spNum));
 	}
 	else{ 
 		sBarImgElement = document.getElementById('transfers-image');
 		s_text1 = String(sideStation(spNum)); //sideValue(3);
 		s_text2 = String(sideTime(spNum));
-		s_text3 = String(0);
-		s_text4 = String(0);
+		s_text3 = String(sideFee(spNum));
+		s_text4 = String(sideDistance(spNum));
 	}
 	var simgElement = document.getElementById('transfer-image');
 	sideTransImg = new fabric.Image(simgElement,{}); //?
