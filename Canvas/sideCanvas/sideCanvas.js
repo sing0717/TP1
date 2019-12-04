@@ -423,22 +423,22 @@ function sidePrint(spNum){
 				sMidHour[0] = sHour;
 				sMidMinute[0] = sMinute;
 				for(i=1; i<=sideTransferTime(spNum) ;i++){
-					sMidHour[i] = sMidHour[i-1];
-					sMidMinute[i] = String(Math.round(sAfterHour) + Math.round(s_t_time[i]));
+					sMidHour[i] = sMidHour[0];
+					sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
 					if(sMidMinute[i]>=60){
 						if(sMidHour[i]==23){
 							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
-							sMidMinute[i] = String(sMidMinute[i] - 60);
+							sMidMinute[i] = String(Math.round(sMidMinute[i]) - 60);
 						}
 						else{
 							sMidHour[i] = String(Math.round(sMidHour[i]) + 1);
-							sMidMinute[i] = String(sMidMinute[i] - 60);
+							sMidMinute[i] = String(Math.round(sMidMinute[i]) - 60);
 						}
 					}
 				}
 			}
 		}
-		else{
+		else if(document.getElementById('timeSelect').value == "도착시간"){
 			sAfterHour = sHour;
 			sAfterMinute = sMinute;
 			sMinute = Math.round(sAfterMinute) - Math.round(sideTime(spNum));
@@ -453,19 +453,19 @@ function sidePrint(spNum){
 				}
 			}
 			if(sideTransferTime(spNum) >= 1){
-				sMidHour[0] = sAfterHour;
-				sMidMinute[0] = sAfterMinute;
+				sMidHour[0] = sHour;
+				sMidMinute[0] = sMinute;
 				for(i=1; i<=sideTransferTime(spNum) ;i++){
-					sMidHour[i] = sMidHour[i-1];
-					sMidMinute[i] = String(Math.round(sAfterHour) + Math.round(s_t_time[i]));
+					sMidHour[i] = sMidHour[0];
+					sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
 					if(sMidMinute[i]<0){
 						if(sMidHour[i]==0){
 							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
-							sMidMinute[i] = String(sMidMinute[i] - 60);
+							sMidMinute[i] = String(Math.round(sMidMinute[i]) - 60);
 						}
 						else{
-							sMidHour[i] = String(Math.round(sAfterHour) + 1);
-							sMidMinute[i] = String(sMidMinute[i] - 60);
+							sMidHour[i] = String(Math.round(sMidHour[i]) + 1);
+							sMidMinute[i] = String(Math.round(sMidMinute[i]) - 60);
 						}
 					}
 				}
