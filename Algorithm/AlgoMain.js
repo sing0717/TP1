@@ -1,41 +1,41 @@
 var graph = new Graph();
 
-graph.insertVertex('A1');
-graph.insertVertex('A2');
-graph.insertVertex('A3');
-graph.insertVertex('A4');
+graph.insertVertex('A1', ['A']);
+graph.insertVertex('A2', ['A']);
+graph.insertVertex('A3', ['A']);
+graph.insertVertex('A4', ['A']);
 
-graph.insertVertex('B1');
-graph.insertVertex('B2');
-graph.insertVertex('B3');
-graph.insertVertex('B4'); 
-graph.insertVertex('B5');
-graph.insertVertex('B6');
-graph.insertVertex('B7');
-graph.insertVertex('B8');
+graph.insertVertex('B1', ['B']);
+graph.insertVertex('B2', ['B']);
+graph.insertVertex('B3', ['B']);
+graph.insertVertex('B4', ['B']); 
+graph.insertVertex('B5', ['B']);
+graph.insertVertex('B6', ['B']);
+graph.insertVertex('B7', ['B']);
+graph.insertVertex('B8', ['B']);
 
-graph.insertVertex('C1');
-graph.insertVertex('C2');
+graph.insertVertex('C1', ['C']);
+graph.insertVertex('C2', ['C']);
 
-graph.insertVertex('D1');
-graph.insertVertex('D2');
-graph.insertVertex('D3');
+graph.insertVertex('D1', ['D']);
+graph.insertVertex('D2', ['D']);
+graph.insertVertex('D3', ['D']);
 
-graph.insertVertex('E1');
-graph.insertVertex('E2');
-graph.insertVertex('E3');
-graph.insertVertex('E4');
+graph.insertVertex('E1', ['E']);
+graph.insertVertex('E2', ['E']);
+graph.insertVertex('E3', ['E']);
+graph.insertVertex('E4', ['E']);
 
-graph.insertVertex('F1');
-graph.insertVertex('F2');
-graph.insertVertex('F3');
-graph.insertVertex('F4');
-graph.insertVertex('F5');
+graph.insertVertex('F1', ['F']);
+graph.insertVertex('F2', ['F']);
+graph.insertVertex('F3', ['F']);
+graph.insertVertex('F4', ['F']);
+graph.insertVertex('F5', ['F']);
 
-graph.insertVertex('G1');
-graph.insertVertex('G2');
-graph.insertVertex('G3');
-graph.insertVertex('G4');
+graph.insertVertex('G1', ['G']);
+graph.insertVertex('G2', ['G']);
+graph.insertVertex('G3', ['G']);
+graph.insertVertex('G4', ['G']);
 
 graph.insertVertex('T1', ['A','F']);
 graph.insertVertex('T2', ['A','B','C']);
