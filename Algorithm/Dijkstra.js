@@ -112,7 +112,6 @@ var Graph = (function() {
   }
  //////Queue
  var queue = new Queue();
- var qqtest;
   //////////////////////////////////////////////////////////////////////////////
   //다익스트라 source: https://www.zerocho.com/category/Algorithm/post/584bd46f580277001862f1af
 
@@ -209,6 +208,20 @@ var Graph = (function() {
             queue.enqueue(arc.destination);
           }
         }
+        else if(target === 'transfer'){
+          if (arc.destination.fee > current.fee + arc.fee) {
+            arc.destination.time = current.time + arc.time;
+            arc.destination.distance = current.distance + arc.distance;
+            arc.destination.fee = current.fee + arc.fee;
+            arc.destination.roots = current.roots + " " + arc.destination.key + " ";
+            if(checkTrans == 0){
+            tempWay = current.lineInfo;
+            tempWay = tempWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
+            arc.destination.pathWay = tempWay;
+            queue.enqueue(arc.destination);
+            }
+          }
+        }
         arc = arc.nextArc;
       }
     }
@@ -260,6 +273,18 @@ var Graph = (function() {
           curResult.push(temp.time);
           curResult.push(temp.roots);
         }
+        else if(target === 'transfer'){
+          // console.log('%s까지의 비용은 %d입니다', temp.key, temp.fee);
+          // console.log('%s까지의 거리는 %d입니다', temp.key, temp.distance);
+          // console.log('%s까지의 시간은 %d입니다', temp.key, temp.time);
+          // console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
+          temp.roots = temp.roots.replace(endKey, '');
+          temp.roots = temp.roots.slice(0,-2);
+          curResult.push(temp.time);
+          curResult.push(temp.distance);
+          curResult.push(temp.fee);
+          curResult.push(temp.roots);
+        }
         return curResult;
       }
       temp = temp.next;
@@ -292,10 +317,49 @@ var Graph = (function() {
     return 1;
   };
 
-  Graph.prototype.lessTransfer = function(startKey, endKey){
-    var from = this.first;
-    var to; var chk;
+//only for less transfers
+///////////////////////////////////////////////
+var transferEachLanes = [
+  ['A',['T1', 'T2', 'T3', 'T7', 'T9']], //a
+  ['B',['T2', 'T4', 'T3', 'T7', 'T8']], //b
+  ['C', ['T2', 'T4', 'T5']], //c
+  ['D',['T5', 'T6', 'T7']], //d
+  ['E',['T6', 'T10']], //e
+  ['F',['T1', 'T8']], //f
+  ['G',['T8', 'T10']] //g
+];
 
+
+var transferLineInfo = [
+['A','F'], //T1
+['A','B','C'], //T2
+['A','B'], //T3
+['B','C'], //T4
+['C','D'], //T5
+['D','E'], //T6
+['A','D'], //T7
+['B','F','G'], //T8
+['A','G'], //T9
+['E','G'] // T10
+];
+
+var transNode = function(key, roots, count, lineInfo){
+  this.key = key;
+  this.roots = roots;
+  this.count = count;
+  this.lineInfo = lineInfo;
+}
+var transNodeCheck = [];
+/////////////////////////////////////////////////////////
+ 
+  Graph.prototype.lessTransfer = function(startKey, endKey){
+    var from = this.first; var to = this.first;
+    var temp; var current;
+    var pathWay; var transNodes;
+    var tempIndex; var count = 0;
+    var qNode;
+ 
+    for(i = 0; i<10; i++) transNodeCheck[i] = true;
     while (from) {
       //console.log(from.key);
       if (from.key === startKey) {
@@ -303,84 +367,93 @@ var Graph = (function() {
       }
       from = from.next;
     }
-    console.log('시작점은 %s입니다', from.key);
-    var temp = this.first;
-    while (temp) { // 모든 버텍스 최단거리를 Infinity로 초기화
-      temp.transfers = temp.time = temp.fee = temp.distance = Infinity;
-      temp.transferTimes = temp.transferRoots = temp.roots = '';
-      temp = temp.next;
-    }
 
-    var current;
-    var arc;
-    var curTransfer;
-    var tempWay; var checkTrans;
-
-    temp = from;
-    temp.transfers = 0;
-    temp.roots = temp.key + " ";
-    temp.pathWay = temp.lineInfo;
-    queue.enqueue(temp);
-    //console.log(temp);
-
-   to = this.first;
-    while(to){
-      if(to.key == endKey){
-        to = to.lineInfo;
+    while (to) {
+      //console.log(from.key);
+      if (to.key === endKey) {
         break;
       }
       to = to.next;
     }
-    console.log(to);
+    
+    if(this.checkAddTransfer(from.lineInfo, to.lineInfo) ==0){
+      return [from.key + " " + to.key, count];
+    }
+    temp = new transNode(from.key, from.key + " ", count, from.lineInfo);
+
+    queue.enqueue(temp);
     while(!(queue.isEmpty())){
       current = queue.dequeue();
-
-      arc = current.arc;
-      while(arc){
-          checkTrans = this.checkAddTransfer(current.pathWay, arc.destination.lineInfo);
-          curTransfer = current.transfers + checkTrans;
-          
-          chk = false;
-          if(arc.destination.key.substring(0,1) == 'T' && arc.destination.transfers == curTransfer){
-            for(var curInfo of current.lineInfo){
-              for(var destInfo of to){
-                if(curInfo == destInfo) chk = true;
+      count = current.count;
+      pathWay = current.lineInfo;
+      //현재 노드 라인에서
+      for(var curNode of pathWay){
+        //T노드들 찾기
+        for(var lineCheck of transferEachLanes){
+          if(lineCheck[0] == curNode){
+            transNodes = lineCheck[1];
+            //해당 라인 T노드들 중에서 목적지 라인이 연결된 노드가 있는지 확인
+            for(var tNode of transNodes){     
+              tempIndex = Number(tNode.substring(1)) - 1;
+              if(this.checkAddTransfer(to.lineInfo,transferLineInfo[tempIndex]) == 0){
+                //console.log(transferLineInfo[tempIndex]);
+                //console.log(current.roots + " " + tNode +  " " + to.key + " : " + current.count);
+                return [current.roots + " " + tNode +  " " + to.key, current.count + 1];
+              }
+              if(transNodeCheck[tempIndex]){
+                qNode = new transNode(tNode, current.roots + " " + tNode + " ", count+1, transferLineInfo[tempIndex]);
+                //console.log(qNode);
+                queue.enqueue(qNode);
+                transNodeCheck[tempIndex] = false;
               }
             }
-          }
-          if(arc.destination.transfers > curTransfer || chk){
-            if(arc.destination.transfers == curTransfer && arc.destination.key.substring(0,1) == 'T') console.log(current.key + " => " + arc.destination.key);
-            arc.destination.time = current.time + arc.time;
-            arc.destination.transfers = curTransfer;
-            arc.destination.roots = current.roots + " " + arc.destination.key + " ";
-
-            if(checkTrans == 1){ arc.destination.transferRoots = current.transferRoots  +  " " + current.key + " " ;
-              arc.destination.transferTimes = current.transferTimes + " " + current.time+ " ";}
-            else{ arc.destination.transferRoots = current.transferRoots;
-              arc.destination.transferTimes = current.transferTimes;}
-
-            tempWay = current.lineInfo;
-            tempWay = tempWay.filter(lane => {for(check of arc.destination.lineInfo) if(lane == check) return lane});
-            arc.destination.pathWay = tempWay;
-            queue.enqueue(arc.destination);
-
-          }
-        arc = arc.nextArc;
+          } 
+        }
       }
     }
-    temp = this.first;
-    while(temp){
-      if(temp.key == endKey){
-        console.log('%s까지의 최단환승수는 %d입니다', temp.key, temp.transfers);
-        console.log('%s까지의 환승루트는 %s입니다', temp.key, temp.transferRoots);
-        console.log('%s까지의 루트는 %s입니다', temp.key, temp.roots);
-        s_time[3]="0";
-        s_distance[3]="0";
-        s_fee[3]="0";
-        s_transferTime[3]="0";
-        s_stationCount[3]=temp.roots;
-        return temp.roots;
-      }
-      temp = temp.next;
+  };
+
+  Graph.prototype.leastTransferSearch = function(startKey, endKey){
+    var tempTransfer = this.lessTransfer(startKey,endKey);
+    var temptransferRoots = tempTransfer[0];
+    var transferEachRoots = [];
+    var resultPaths = []; var resultInfo;
+    var  totalTime = 0;
+    var totalFee = 0; 
+    var totalDistance = 0;
+    var totalRoots = "";
+    var totalTransferRoots = ""; 
+    var totalTransferTimes = "";
+    var totalTransferCount = tempTransfer[1];
+
+    console.log(tempTransfer)
+    transferEachRoots = temptransferRoots.split(' ');
+    transferEachRoots = transferEachRoots.filter(item => {if(item != "") return item});
+    console.log(transferEachRoots);
+
+    for(var i = 1; i<transferEachRoots.length; i++){
+      resultPaths.push([transferEachRoots[i-1], transferEachRoots[i]]);
     }
+
+    for(var i = 0; i<resultPaths.length; i++){
+      console.log(resultPaths[i][0] + " " + resultPaths[i][1]);
+      resultInfo = this.search(resultPaths[i][0], resultPaths[i][1], 'transfer');
+      totalTime += resultInfo[0];
+      totalDistance +=resultInfo[1];
+      totalFee += resultInfo[2];
+      totalRoots += resultInfo[3];
+      totalTransferRoots += resultPaths[i][0] + " ";
+      if(i <resultPaths.length-1){totalTransferTimes += resultInfo[0]};
+    }
+    totalTransferRoots = totalTransferRoots.replace(startKey, '').replace(endKey, '');
+    totalRoots += endKey;
+
+    console.log('%s까지의 환승횟수는 %d입니다', endKey, totalTransferCount);
+    console.log('%s까지의 시간은 %d입니다', endKey, totalTime);
+    console.log('%s까지의 거리는 %d입니다', endKey, totalDistance);
+    console.log('%s까지의 비용은 %d입니다', endKey, totalFee);
+    console.log('%s까지의 환승루트는 %s입니다', endKey, totalTransferRoots);
+    console.log('%s까지의 환승시 시간은 %s입니다', endKey, totalTransferTimes);
+    console.log('%s까지의 루트는 %s입니다', endKey, totalRoots);
+    return totalRoots;
   };

@@ -363,7 +363,7 @@ function Submit(source, target){
         console.log(inputData);
     }
     else if(target === 'transfer'){
-        inputData = graph.lessTransfer(document.getElementById('start').value, document.getElementById('end').value);
+        inputData = graph.leastTransferSearch(document.getElementById('start').value, document.getElementById('end').value);
         console.log(inputData);
     }
     showResultPath(source,inputData);
