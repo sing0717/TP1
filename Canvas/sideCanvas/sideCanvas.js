@@ -99,8 +99,13 @@ function sideStation(i){
 }
 function sideTransferTime(i){
 	var transferTimeValue = s_transferTime[i].replace(/  /gi," ");
-	s_t_time = transferTimeValue.split(" "); 
-	transferTimeValue = s_t_time.length-2;
+	s_t_time = transferTimeValue.split(" ");
+	if(i==3){
+		transferTimeValue = s_t_time.length-1;
+	}
+	else{ 
+		transferTimeValue = s_t_time.length-2;
+	}
 	return transferTimeValue;
 }
 function sidePrint(spNum){
@@ -287,7 +292,12 @@ function sidePrint(spNum){
 						s_j++;}}						
 			}
 		}
-		ssc_trans[s_j] = ssc[ssc.length-2];
+		if(spNum==3){
+			ssc_trans[s_j] = ssc[ssc.length-1];
+		}
+		else{
+			ssc_trans[s_j] = ssc[ssc.length-2];
+		}
 		sideMainText1 = new fabric.Text(s_text1, {
 			top: 32.5,
 			left: 40,
@@ -423,8 +433,14 @@ function sidePrint(spNum){
 				sMidHour[0] = sHour;
 				sMidMinute[0] = sMinute;
 				for(i=1; i<=sideTransferTime(spNum) ;i++){
-					sMidHour[i] = sMidHour[0];
-					sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
+					if(spNum == 3){
+						sMidHour[i] = sMidHour[i-1];
+						sMidMinute[i] = String(Math.round(sMidMinute[i-1]) + Math.round(s_t_time[i-1]));
+					}
+					else{
+						sMidHour[i] = sMidHour[0];
+						sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
+					}
 					if(sMidMinute[i]>=60){
 						if(sMidHour[i]==23){
 							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
@@ -456,10 +472,16 @@ function sidePrint(spNum){
 				sMidHour[0] = sHour;
 				sMidMinute[0] = sMinute;
 				for(i=1; i<=sideTransferTime(spNum) ;i++){
-					sMidHour[i] = sMidHour[0];
-					sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
-					if(sMidMinute[i]<0){
-						if(sMidHour[i]==0){
+					if(spNum == 3){
+						sMidHour[i] = sMidHour[i-1];
+						sMidMinute[i] = String(Math.round(sMidMinute[i-1]) + Math.round(s_t_time[i-1]));
+					}
+					else{
+						sMidHour[i] = sMidHour[0];
+						sMidMinute[i] = String(Math.round(sMidMinute[0]) + Math.round(s_t_time[i]));
+					}
+					if(sMidMinute[i]>=60){
+						if(sMidHour[i]==23){
 							sMidHour[i] = String(Math.round(sMidHour[i]) - 23);
 							sMidMinute[i] = String(Math.round(sMidMinute[i]) - 60);
 						}
