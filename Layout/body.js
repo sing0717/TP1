@@ -81,6 +81,10 @@ window.addEventListener('DOMContentLoaded', function(){
     swapButton.addEventListener('click', function(){
         swapInput();
         if(canvas.startSelected != null && canvas.endSelected != null){
+            if(favNhisButton.getAttribute('clicked') != 'false'){
+                change();
+                favNhisButton.setAttribute('clicked', false);
+            }
             Submit(Rails, 'time');
             addHistory(document.querySelector('#start').value, document.querySelector('#end').value);
             sidePrint(1);
@@ -91,8 +95,11 @@ window.addEventListener('DOMContentLoaded', function(){
         if(this.getAttribute('clicked') != 'true'){
             change();
             this.setAttribute('clicked', true);
+        }else{
+            change();
+            favNhisButton.setAttribute('clicked', false);
         }
-    })
+    });
 
     Init();
     makeSideCanvas();
@@ -379,7 +386,7 @@ function addHistory(start, end){
         }
     });
 
-    if(HisCount>6){
+    if(HisCount>4){
         divHistory.removeChild(divHistory.children[divHistory.childElementCount-1]);
     }
     divHistory.insertBefore(element, divHistory.children[3]);
@@ -395,4 +402,12 @@ function toggleModal(){
     modal = document.querySelector('.modal');
     console.log('toggleModal()');
     modal.classList.toggle('show-modal');
+}
+
+
+// true when Empty
+function isEmpty(element){
+    if(typeof element == 'string')
+        return element.trim().length == 0;
+    return element == null || element == undefined || element.value.trim().length == 0;
 }

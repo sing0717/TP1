@@ -59,18 +59,21 @@
                         <h2>login / register</h2>
                         <span class="close-button" onclick="toggleModal();">&times;</span>
                         <form id="login" action="" method="POST">
-                            <p>
-                                <span>
-                                    <span class="font">ID</span>
-                                    <input type="text" name="UID" value="" id="UID" style="border: 1px solid black"><br>
-                                </span>
-                                <span>
-                                    <span class="font">PASS</span>
-                                    <input type="text" name="UPS" value="" id="UPS" style="border: 1px solid black"><br>
-                                </span>
-                                <button type = "button" class="btn-1" onclick="document.getElementById('login').submit();toggleModal();">test</button>
-                                <button type = "button" class="btn-1" onclick="toggleModal();"></button>
-                            </p>
+                            <table style="display: block;">
+                                <tr>
+                                    <td><span style="display: block;" class="font">ID</span></td>
+                                    <td><input class="text" type="text" name="id" value="" id="id" style="border: 1px solid black; display: block;"></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="display: block;" class="font">PASS</span></td>
+                                    <td><input class="text" type="text" name="password" value="" id="password" style="border: 1px solid black; display: block;"></td>
+                                </tr>
+                            </table>
+                            <br>
+                            <br>
+                            <br>
+                            <button style="bottom: 10px; right: 10px; position: relative;" type = "button" class="btn-1" onclick="toggleModal();">Sign Up</button>
+                            <button  style="bottom: 10px; right: 10px;" type = "button" class="btn-1" onclick="document.getElementById('login').submit();toggleModal();">Sign In</button>
                         </form>
                     </div>
                 </div>
