@@ -7,6 +7,89 @@ function makeCanvas(name){
     return canvas;
 }
 
+canvasScale = 1;
+SCALE_FACTOR = 1.1;
+
+function zoomIn() {
+    canvasScale = canvasScale * SCALE_FACTOR;
+    canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
+    canvas.setWidth(canvas.getWidth() * SCALE_FACTOR);
+
+    var objects = canvas.getObjects();
+    
+	for (i=0; i<objects.length; i++) {
+        
+        objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
+        objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
+        objects[i].left = objects[i].left * SCALE_FACTOR;
+        objects[i].top = objects[i].top * SCALE_FACTOR;
+        
+        for(j=i+1; j<objects.length; j++){
+            if(objects[i].left == objects[j].left){
+                if(objects[i].top == objects[j].top){
+                    for(k=j+1; k<objects.length; k++){
+                        if(objects[j].left == objects[k].left){
+                            if(objects[j].top == objects[k].top){
+
+                                objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
+                                objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
+                                objects[i].left = objects[i].left * SCALE_FACTOR;
+                                objects[i].top = objects[i].top * SCALE_FACTOR;
+                            }
+                        }
+                    }
+                    objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
+                    objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
+                    objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
+                    objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
+                }
+            }
+        }
+        objects[i].setCoords();
+    }
+	canvas.renderAll();
+}
+
+function zoomOut (){
+  
+    canvasScale = canvasScale / SCALE_FACTOR;
+    canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
+    canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
+
+    var objects = canvas.getObjects();
+    for (i=0; i<objects.length; i++) {
+
+        objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
+        objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
+        objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
+        objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
+
+        for(j=i+1; j<objects.length; j++){
+            if(objects[i].left == objects[j].left){
+                if(objects[i].top == objects[j].top){
+                    for(k=j+1; k<objects.length; k++){
+                        if(objects[j].left == objects[k].left){
+                            if(objects[j].top == objects[k].top){
+
+                                objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
+                                objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
+                                objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
+                                objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
+                            }
+                        }
+                    }
+                    objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
+                    objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
+                    objects[i].left = objects[i].left * SCALE_FACTOR;
+                    objects[i].top = objects[i].top * SCALE_FACTOR;
+                }
+            }
+        }
+        objects[i].setCoords();        
+    }            
+    canvas.renderAll();
+}
+
 //Rail Creator
 function makeRail(LineColor){
     var nodes = [];

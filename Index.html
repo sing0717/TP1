@@ -47,8 +47,12 @@
                     <img src = "images/Transfers.png" id="transfers-image">
                 </div>
                 <section class="msg">
-                    <canvas id="c" width="1300" height="807"></canvas>
-                    <script src="Canvas/mainCanvas/canvasMain.js"></script>
+                    <div><p></p>
+                        <button id="zoomIn" onclick="javascript:zoomIn()">zoom in</button>
+                        <button id="zoomOut" onclick="javascript:zoomOut()">zoom out</button>
+                    </div>
+                    <canvas id="c" width="1300" height="807"></canvas>                    
+                    <script src="Canvas/mainCanvas/canvasMain.js"></script>                
                 </section>            
                 <div class="modal">
                     <div class="modal-content">
@@ -111,7 +115,7 @@
                                 </div>
                             </div>
                         </form>
-                </section>
+                </section>                                    
             </content>
         </div>
     </body>
