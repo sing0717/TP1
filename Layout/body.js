@@ -396,3 +396,11 @@ function toggleModal(){
     console.log('toggleModal()');
     modal.classList.toggle('show-modal');
 }
+
+
+// true when Empty
+function isEmpty(element){
+    if(typeof element == 'string')
+        return element.trim().length == 0;
+    return element == null || element == undefined || element.value.trim().length == 0;
+}
