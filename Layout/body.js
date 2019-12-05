@@ -244,12 +244,12 @@ function Init(){
     if(sideCanvas == null || divButtons == undefined){
         sideCanvas = document.createElement('div');
         sideCanvas.setAttribute('id', 'sideCanvas');
-        sideCanvas.setAttribute('style', 'width: 90%; height: 55%; overflow: hidden');
+        sideCanvas.setAttribute('style', 'width: 90%; height: auto; overflow: hidden');
         sideCanvas.style.display = 'block';
         sideCanvas.style.visibility = 'visible';
         sideCanvas.innerHTML = `
         <section class="side">
-            <canvas id="s" width="500" height="1000"></canvas>
+            <canvas id="s" width="350" height="400"></canvas>
         </section>`;
         form.appendChild(sideCanvas);
     }
