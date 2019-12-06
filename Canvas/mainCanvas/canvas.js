@@ -7,89 +7,6 @@ function makeCanvas(name){
     return canvas;
 }
 
-canvasScale = 1;
-SCALE_FACTOR = 1.1;
-
-function zoomIn() {
-    canvasScale = canvasScale * SCALE_FACTOR;
-    canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
-    canvas.setWidth(canvas.getWidth() * SCALE_FACTOR);
-
-    var objects = canvas.getObjects();
-    
-	for (i=0; i<objects.length; i++) {
-        
-        objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
-        objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
-        objects[i].left = objects[i].left * SCALE_FACTOR;
-        objects[i].top = objects[i].top * SCALE_FACTOR;
-        
-        for(j=i+1; j<objects.length; j++){
-            if(objects[i].left == objects[j].left){
-                if(objects[i].top == objects[j].top){
-                    for(k=j+1; k<objects.length; k++){
-                        if(objects[j].left == objects[k].left){
-                            if(objects[j].top == objects[k].top){
-
-                                objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
-                                objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
-                                objects[i].left = objects[i].left * SCALE_FACTOR;
-                                objects[i].top = objects[i].top * SCALE_FACTOR;
-                            }
-                        }
-                    }
-                    objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
-                    objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
-                    objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
-                    objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
-                }
-            }
-        }
-        objects[i].setCoords();
-    }
-	canvas.renderAll();
-}
-
-function zoomOut (){
-  
-    canvasScale = canvasScale / SCALE_FACTOR;
-    canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
-    canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
-
-    var objects = canvas.getObjects();
-    for (i=0; i<objects.length; i++) {
-
-        objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
-        objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
-        objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
-        objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
-
-        for(j=i+1; j<objects.length; j++){
-            if(objects[i].left == objects[j].left){
-                if(objects[i].top == objects[j].top){
-                    for(k=j+1; k<objects.length; k++){
-                        if(objects[j].left == objects[k].left){
-                            if(objects[j].top == objects[k].top){
-
-                                objects[i].scaleX = objects[i].scaleX * (1 / SCALE_FACTOR);
-                                objects[i].scaleY = objects[i].scaleY * (1 / SCALE_FACTOR);
-                                objects[i].left = objects[i].left * (1 / SCALE_FACTOR);
-                                objects[i].top = objects[i].top * (1 / SCALE_FACTOR);
-                            }
-                        }
-                    }
-                    objects[i].scaleX = objects[i].scaleX * SCALE_FACTOR;
-                    objects[i].scaleY = objects[i].scaleY * SCALE_FACTOR;
-                    objects[i].left = objects[i].left * SCALE_FACTOR;
-                    objects[i].top = objects[i].top * SCALE_FACTOR;
-                }
-            }
-        }
-        objects[i].setCoords();        
-    }            
-    canvas.renderAll();
-}
-
 //Rail Creator
 function makeRail(LineColor){
     var nodes = [];
@@ -150,12 +67,27 @@ function makeText(x, y, nameT) {
 	  top: y,
 	  width: 300,
 	  fontSize: 20
-	});
+    });
 	canvas.add(textbox).renderAll();
     canvas.add(textbox).setActiveObject(textbox);
     
     return textbox;
 }
+
+function makeText_02(x, y, nameT) {
+	var textbox_02 = new fabric.Textbox(nameT, {
+	  id: 'textbox_02',
+	  left: x,
+	  top: y,
+	  width: 300,
+	  fontSize: 20
+    });
+	canvas.add(textbox_02).renderAll();
+    canvas.add(textbox_02).setActiveObject(textbox_02);
+    
+    return textbox_02;
+}
+
 
 //Easier Circle
 function makeCircle(x, y, name) {
@@ -182,15 +114,19 @@ function makeCircle(x, y, name) {
     c.on('mousedown', function(){
         if (canvas.startSelected == null && canvas.endSelected != c) {
             document.getElementById('start').value = c.name;			
-			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+            var txtBox = canvas.getItem('textbox');
+            var txtBox_02 = canvas.getItem('textbox_02');
+            txtBox.set({ text : document.getElementById('start').value  });
+            txtBox_02.set({ text :  document.getElementById('end').value });
             canvas.startSelected = c; c.selected = true;
             c.set('stroke', 'green');
             startImg.set('left', c.get('left')); startImg.set('top', c.get('top')- 30); startImg.set('visible',true); 
         }else if(canvas.startSelected == c){
             document.getElementById('start').value = '';
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+            var txtBox_02 = canvas.getItem('textbox_02');
+            txtBox.set({ text : document.getElementById('start').value  });
+            txtBox_02.set({ text : document.getElementById('end').value });
             canvas.startSelected.set('stroke', 'gray');
             canvas.startSelected = null; c.selected = false;
             c.set('stroke', 'gray');
@@ -198,21 +134,27 @@ function makeCircle(x, y, name) {
         }else if(canvas.endSelected == c){
             document.getElementById('end').value = '';
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+            var txtBox_02 = canvas.getItem('textbox_02');
+            txtBox.set({ text : document.getElementById('start').value  });
+            txtBox_02.set({ text : document.getElementById('end').value });
             canvas.endSelected = null;
             c.set('stroke', 'gray'); c.selected = false;
             endImg.set('left', c.get('left')); endImg.set('visible', false);endImg.set('top', c.get('top')- 30);
         }else if (canvas.endSelected == null) {
             document.getElementById('end').value = c.name;
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+            var txtBox_02 = canvas.getItem('textbox_02');
+            txtBox.set({ text : document.getElementById('start').value  });
+            txtBox_02.set({ text :document.getElementById('end').value });
             canvas.endSelected = c; c.selected = true;
             c.set('stroke', 'green');
             endImg.set('left', c.get('left')); endImg.set('visible', true);endImg.set('top', c.get('top')- 30);
         }else{
             document.getElementById('end').value = c.name;
 			var txtBox = canvas.getItem('textbox');
-			txtBox.set({ text : "출발 : " + document.getElementById('start').value + "  => 도착 : " + document.getElementById('end').value });
+            var txtBox_02 = canvas.getItem('textbox_02');
+            txtBox.set({ text : document.getElementById('start').value  });
+            txtBox_02.set({ text :document.getElementById('end').value });
             canvas.endSelected.set('stroke', 'gray'); c.selected = true;
             canvas.endSelected = c;
             c.set('stroke', 'green');
@@ -363,7 +305,7 @@ function Submit(source, target){
         console.log(inputData);
     }
     else if(target === 'transfer'){
-        inputData = graph.leastTransferSearch(document.getElementById('start').value, document.getElementById('end').value);
+        inputData = graph.lessTransfer(document.getElementById('start').value, document.getElementById('end').value);
         console.log(inputData);
     }
     showResultPath(source,inputData);

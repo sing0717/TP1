@@ -5,12 +5,12 @@ var startImgElement = document.getElementById("start-image");
 var endImgElement = document.getElementById("end-image");
 var startTag = document.getElementById('start-image'),
     endTag = document.getElementById('end-image');
-var imgElement = document.getElementById('transfers-image');
+var imgElement = document.getElementById('design-image');
 var sideTransfersImg = new fabric.Image(imgElement,{
     top: 100,
-    left: 150,
-    scaleX: 0.3,
-    scaleY: 0.4,
+    left: 200,
+    scaleX: 0.5,
+    scaleY: 0.5,
     opacity: 0.8,
     selectable : false
 });
@@ -188,4 +188,5 @@ grayRail.draw();
 
 canvas.add(startImg, endImg);
 canvas.add(sideTransfersImg);
-makeText(200,100,'출발 :  =>  도착 : ');
+makeText(275,100,'');
+makeText_02(440,100,'');
