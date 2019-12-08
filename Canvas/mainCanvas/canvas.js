@@ -66,7 +66,13 @@ function makeText(x, y, nameT) {
 	  left: x,
 	  top: y,
 	  width: 300,
-	  fontSize: 20
+      fontSize: 20,
+      lockMovementX: true,
+      lockMovementY: true,
+      hasControls: false,
+      evented: false,
+      selectable: false
+
     });
 	canvas.add(textbox).renderAll();
     canvas.add(textbox).setActiveObject(textbox);
@@ -80,7 +86,12 @@ function makeText_02(x, y, nameT) {
 	  left: x,
 	  top: y,
 	  width: 300,
-	  fontSize: 20
+      fontSize: 20,
+      lockMovementX: true,
+      lockMovementY: true,
+      hasControls: false,
+      evented: false,
+      selectable: false
     });
 	canvas.add(textbox_02).renderAll();
     canvas.add(textbox_02).setActiveObject(textbox_02);

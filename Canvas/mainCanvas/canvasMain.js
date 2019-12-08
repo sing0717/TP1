@@ -15,9 +15,9 @@ var sideTransfersImg = new fabric.Image(imgElement,{
     selectable : false
 });
 var startImg = new fabric.Image(startTag,{
-    left: 100, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false}),
+    left: 100, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false, evented: false}),
     endImg = new fabric.Image(endTag,{
-    left: 150, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false});
+    left: 150, top: 100, scaleX: 0.2, scaleY: 0.2, opacity: 0.5, visible: false, evented: false});
 var transfers = [];
 var branchLines = [];
 
