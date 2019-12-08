@@ -94,7 +94,7 @@ function sideFee(i){
 function sideStation(i){
 	var stationValue = s_stationCount[i].replace(/  /gi," ");
 	ssc = stationValue.split(" "); 
-	stationValue = ssc.length-2;
+	stationValue = ssc.length;
 	return stationValue;
 }
 function sideTransferTime(i){
